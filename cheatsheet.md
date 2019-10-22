@@ -12,7 +12,15 @@ Bar Theme: ```Theme 5```; https://github.com/adi1090x/polybar-themes
 
 Terminal: ```mate-termina```
 
-Terminal Editor: ```vim-gtk3```
+Terminal Editor: ```neovim```
+
+## Vim
+
+Version: ```neovim```
+
+Plugin Manager: ```Dein```
+
+Plugins: ```vim-airline```
 
 ## Shells
 __Fish__
