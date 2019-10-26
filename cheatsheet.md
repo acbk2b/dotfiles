@@ -6,6 +6,8 @@ Window Manger: ```i3```
 
 Bar: ```polybar```
 
+Bar Front (for cool icons): Font Awesome
+
 Bar Theme: ```Theme 5```; https://github.com/adi1090x/polybar-themes
 
 ## Terminal
