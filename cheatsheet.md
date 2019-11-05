@@ -12,7 +12,7 @@ Bar Theme: ```Theme 5```; https://github.com/adi1090x/polybar-themes
 
 ## Terminal
 
-Terminal: ```mate-termina```
+Terminal: `mate-terminal`
 
 Terminal Editor: ```neovim```
 
@@ -20,7 +20,7 @@ Terminal Editor: ```neovim```
 
 Version: ```neovim```
 
-Plugin Manager: ```Dein```
+Plugin Manager: `vim-plug`
 
 Plugins: ```vim-airline```
 
