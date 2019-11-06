@@ -11,7 +11,7 @@ font pango:System San Francisco Display 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec mate-terminal
+bindsym $mod+Return exec konsole
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -73,16 +73,16 @@ bindsym $mod+a focus parent
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 
-set $ws1 "1. Firefox "
-set $ws2 "2. Random "
-set $ws3 "3. Random "
-set $ws4 "4. Random "
+set $ws1 "1."
+set $ws2 "2."
+set $ws3 "3."
+set $ws4 "4."
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8. Terminal "
-set $ws9 "9. Terminal "
-set $ws10 "10. Music "
+set $ws8 "8."
+set $ws9 "9."
+set $ws10 "10."
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -176,11 +176,14 @@ focus_follows_mouse yes
 bindsym $mod+Shift+x exec i3lock --color=#454545
 
 #background
-exec_always feh --bg-fill ~/Pictures/rwby_wallpaper_2.jpg
+# exec_always feh --bg-fill ~/Pictures/rwby_wallpaper_2.jpg
 
 #transparency things
 exec compton
 
 #bindsym $mod+d  rofi -show run -lines 3 -eh 2 -width 100 -padding 400 -opacity "85" -bw 0 -color-window "#2f343f, #2f343f, #2f343f" -color-normal "#2f343f, #f3f4f5, #2f343f, #2f343f, #9575cd" -font "System San Francisco Display 16"
 
-exec_always bash ~/.config/i3/launch.sh
+exec_always zsh ~/.config/i3/launch.sh
+
+# Set tap touchpad to click
+exec_always xinput set-prop 12 315 1
