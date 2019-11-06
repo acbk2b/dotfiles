@@ -52,7 +52,7 @@ Displays: ```arandr``` (gui version of ```xrandr```)
 
 Bluetooth: ```blueman-manager```
 
-Brightness Controls: xbacklight
+Brightness Controls: `xbacklight`
 
-Device Config xinput (used for things like touchpad config; tap to click in i3, etc)
+Device Config `xinput` (used for things like touchpad config; tap to click in i3, etc)
 
