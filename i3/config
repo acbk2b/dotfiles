@@ -176,7 +176,7 @@ focus_follows_mouse yes
 bindsym $mod+Shift+x exec i3lock --color=#454545
 
 #background
-# exec_always feh --bg-fill ~/Pictures/rwby_wallpaper_2.jpg
+exec_always feh --bg-fill ~/Pictures/the_witcher.png
 
 #transparency things
 exec compton
