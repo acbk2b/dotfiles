@@ -6,7 +6,7 @@ Home for all of my various customization things
 
 Display Manager: ```lightdm```
 
-Window Manger: ```i3```
+Window Manger: `i3-gaps`
 
 Bar: ```polybar```
 
@@ -55,4 +55,6 @@ Bluetooth: ```blueman-manager```
 Brightness Controls: `xbacklight`
 
 Device Config `xinput` (used for things like touchpad config; tap to click in i3, etc)
+
+Pulseaudio Controller thing- `pavucontrol`
 
