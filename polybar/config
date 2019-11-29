@@ -59,6 +59,9 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
+font-3 = Font Awesome 5 Free Regular:size=8
+font-4 = Font Awesome 5 Free Brands:size=10
+font-5 = Font Awesome 5 Free Solid:size=10
 
 modules-left = bspwm i3
 modules-center = mpd
@@ -115,6 +118,9 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
+font-3 = Font Awesome 5 Free Regular:size=10
+font-4 = Font Awesome 5 Free Brands:size=10
+font-5 = Font Awesome 5 Free Solid:size=10
 
 modules-left = bspwm i3
 modules-center = mpd
@@ -270,7 +276,8 @@ format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 ;format-background = #f90000
-label = CPU: %percentage:2%%
+; label = CPU: %percentage:2%%
+label = CPU %percentage:2%%
 
 [module/memory]
 type = internal/memory
@@ -428,9 +435,9 @@ type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 
-format =   <ramp> <label>
+format = <ramp> <label>
 format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
+format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
