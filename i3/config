@@ -17,8 +17,7 @@ bindsym $mod+Return exec konsole
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec rofi -show run -theme Adapta-Nokto
 
 # change focus
 bindsym $mod+j focus left
@@ -144,8 +143,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Gaps
-# gaps inner 10
-# smart_gaps on
+gaps inner 10
+smart_gaps on
 
 set $bg-color            #000000
 set $inactive-bg-color   #000000
@@ -175,8 +174,10 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
 # Screenshots using Spectacle
-
 bindsym Print exec spectacle
+
+# Calculator using Kcalc
+bindsym F10 exec kcalc
 
 #focus follows mouse
 focus_follows_mouse yes
@@ -190,9 +191,15 @@ exec_always feh --bg-fill ~/Pictures/the_witcher.png
 #transparency things
 exec compton
 
-# bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 400 -opacity "85" -bw 0 -color-window "#2f343f, #2f343f, #2f343f" -color-normal "#2f343f, #f3f4f5, #2f343f, #2f343f, #9575cd" -font "Hack 16"
-
+# Polybar launch script
 exec_always zsh ~/.config/i3/launch.sh
+
+# Run autorandr on restarts 
+# Allows for sorta hotplugging monitors
+exec_always autorandr -c
 
 # Set tap touchpad to click
 exec_always xinput set-prop 12 315 1
+
+# Enable numlock
+exec numlockx
