@@ -174,7 +174,11 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
 # Screenshots using Spectacle
-bindsym Print exec spectacle -r
+# Rectangular mode screenshot
+bindsym $mod+Shift+s exec spectacle -r
+
+# Full screen screenshot
+bindsym Print exec spectacle
 
 # Calculator using Kcalc
 bindsym F10 exec kcalc
