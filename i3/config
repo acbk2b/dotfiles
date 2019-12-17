@@ -173,6 +173,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
+# Desktop Swipe Gesture
+bindsym --whole-window mouse19 workspace prev
+bindsym --whole-window mouse17 workspace next
+
 # Screenshots using Spectacle
 # Rectangular mode screenshot
 bindsym $mod+Shift+s exec spectacle -r
@@ -190,10 +194,10 @@ focus_follows_mouse yes
 bindsym $mod+Shift+x exec i3lock --color=#454545
 
 #background
-exec_always feh --bg-fill ~/Pictures/the_witcher.png
+exec_always feh --bg-fill ~/Pictures/life-is-strange-wallpaper.jpg
 
 #transparency things
-exec compton
+exec picom
 
 # Polybar launch script
 exec_always zsh ~/.config/i3/launch.sh
