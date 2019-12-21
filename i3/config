@@ -11,7 +11,7 @@ font pango:System San Francisco Display 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec mate-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -169,9 +169,12 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #i
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+# Increase Brightness
+bindsym XF86MonBrightnessUp exec light -A 10
+
+# Decrease Brightness
+bindsym XF86MonBrightnessDown exec light -U 10
+
 
 # Desktop Swipe Gesture
 bindsym --whole-window mouse19 workspace prev
@@ -204,10 +207,10 @@ exec_always zsh ~/.config/i3/launch.sh
 
 # Run autorandr on restarts 
 # Allows for sorta hotplugging monitors
-exec_always autorandr -c
+# exec_always autorandr -c
 
 # Set tap touchpad to click
-exec_always xinput set-prop 12 315 1
+# exec_always xinput set-prop 12 315 1
 
 # Enable numlock
 exec numlockx
