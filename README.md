@@ -4,57 +4,57 @@ Home for all of my various customization things
 
 # Stock Programs
 
-Display Manager: ```lightdm```
+Display Manager: `lightdm`
 
 Window Manger: `i3-gaps`
 
-Bar: ```polybar```
+Bar: `polybar`
 
 Bar Front (for cool icons): Font Awesome
 
-Bar Theme: ```Theme 5```; https://github.com/adi1090x/polybar-themes
+Bar Theme: `Theme 5`, or custom theme based on sample bar; https://github.com/adi1090x/polybar-themes
 
 ## Terminal
 
 Terminal: `mate-terminal`
 
-Terminal Editor: ```neovim```
+Terminal Editor: `neovim`
 
 ## Vim
 
-Version: ```neovim```
+Version: `neovim`
 
 Plugin Manager: `vim-plug`
 
-Plugins: ```vim-airline```
+Plugins: `vim-airline`
 
 ## Shells
 __Fish__
 
-Manager: ```OhMyFish```
+Manager: `OhMyFish`
 
-Shell Theme: ```bobthefish```
+Shell Theme: `bobthefish`
 
-Terminal Font: ```Hack 9```
+Terminal Font: `Hack 9`
 
 __Zsh__
 
-Manager: ```OhMyZsh```
+Manager: `OhMyZsh`
 
-Theme: ```Agnoster```
+Theme: `Agnoster`
 
-Plugins: ```git, vi-mode, zsh-autosuggestions, zsh-syntax-highlighting```
+Plugins: `git, vi-mode, zsh-autosuggestions, zsh-syntax-highlighting`
 
 ## Utilities
-Wifi connect: ```nmtui```
+Wifi connect: `nmtui`
 
-Displays: ```arandr``` (gui version of ```xrandr```)
+Displays: `arandr` (gui version of ```xrandr```)
 
-Bluetooth: ```blueman-manager```
+Bluetooth: `blueman-manager`
 
-Brightness Controls: `xbacklight`
+Brightness Controls: `light`
 
-Device Config `xinput` (used for things like touchpad config; tap to click in i3, etc)
+Device Config `xinput` (used for things touchpad config; tap to click in i3, etc)
 
 Pulseaudio Controller thing- `pavucontrol`
 
