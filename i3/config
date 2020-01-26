@@ -11,7 +11,7 @@ font pango:System San Francisco Display 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec mate-terminal
+bindsym $mod+Return exec konsole 
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -146,23 +146,19 @@ bindsym $mod+r mode "resize"
 gaps inner 10
 smart_gaps on
 
+hide_edge_borders both
+
+# window colors
 set $bg-color            #000000
 set $inactive-bg-color   #000000
 set $text-color          #ffffff
 set $inactive-text-color #000000
 set $urgent-bg-color #E53935
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-
-hide_edge_borders both
-
-# window colors
-#                       border              background         text
+# #                       border              background         text
 client.focused          $bg-color           $bg-color          $text-color
 client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color
-client.urgent $urgent-bg-color $urgent-bg-color $text-color
+# client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color
+# client.urgent $urgent-bg-color $urgent-bg-color $text-color
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -197,7 +193,7 @@ focus_follows_mouse yes
 bindsym $mod+Shift+x exec i3lock --color=#454545
 
 #background
-exec_always feh --bg-fill ~/Pictures/life-is-strange-wallpaper.jpg
+exec_always feh --bg-fill ~/Pictures/whiterun.jpg
 
 #transparency things
 exec picom
@@ -210,7 +206,13 @@ exec_always zsh ~/.config/i3/launch.sh
 # exec_always autorandr -c
 
 # Set tap touchpad to click
-# exec_always xinput set-prop 12 315 1
+# exec_always xinput set-prop 12 316 1
 
 # Enable numlock
 exec numlockx
+
+# Enable yakuake
+exec yakuake
+
+# Set yakuake to floating
+for_window [class="yakuake"] floating enable
