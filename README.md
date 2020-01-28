@@ -2,6 +2,10 @@
 
 Home for all of my various customization things
 
+# Fully Loaded Arch Set Up Dependencies (See script)
+
+i3-gaps polybar light networkmanager blueman konsole yakuake neovim lightdm lightdm-gtk-greeter xorg-server xorg-xinput git pavucontrol arandr zsh
+
 # Stock Programs
 
 Display Manager: `lightdm`
