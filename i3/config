@@ -166,10 +166,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Increase Brightness
-bindsym XF86MonBrightnessUp exec light -A 10
+bindsym XF86MonBrightnessUp exec light -A 5
 
 # Decrease Brightness
-bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessDown exec light -U 5
 
 
 # Desktop Swipe Gesture
@@ -206,7 +206,7 @@ exec_always zsh ~/.config/i3/launch.sh
 # exec_always autorandr -c
 
 # Set tap touchpad to click
-# exec_always xinput set-prop 12 316 1
+exec_always xinput set-prop 12 316 1
 
 # Enable numlock
 exec numlockx
