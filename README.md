@@ -16,7 +16,7 @@ Bar Theme: `Theme 5`, or custom theme based on sample bar; https://github.com/ad
 
 ## Terminal
 
-Terminal: `mate-terminal`
+Terminal: `konsole`, 'yakuake'
 
 Terminal Editor: `neovim`
 
@@ -29,28 +29,21 @@ Plugin Manager: `vim-plug`
 Plugins: `vim-airline`
 
 ## Shells
-__Fish__
-
-Manager: `OhMyFish`
-
-Shell Theme: `bobthefish`
-
-Terminal Font: `Hack 9`
 
 __Zsh__
 
 Manager: `OhMyZsh`
 
-Theme: `Agnoster`
+Theme: `robbyrussell`
 
 Plugins: `git, vi-mode, zsh-autosuggestions, zsh-syntax-highlighting`
 
 ## Utilities
-Wifi connect: `nmtui`
+Wifi Manager: `networkmanager`
 
-Displays: `arandr` (gui version of ```xrandr```)
+Displays: `arandr` (gui version of `xrandr`, see also autorandr for slightly better hotplugging) 
 
-Bluetooth: `blueman-manager`
+Bluetooth: `blueman`
 
 Brightness Controls: `light`
 
