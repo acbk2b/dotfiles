@@ -96,6 +96,19 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
+# Switch to workspace (numpad w/ numlock enabled)
+bindsym $mod+Mod2+KP_1 workspace $ws1
+bindsym $mod+Mod2+KP_2 workspace $ws2
+bindsym $mod+Mod2+KP_3 workspace $ws3
+bindsym $mod+Mod2+KP_4 workspace $ws4
+bindsym $mod+Mod2+KP_5 workspace $ws5
+bindsym $mod+Mod2+KP_6 workspace $ws6
+bindsym $mod+Mod2+KP_7 workspace $ws7
+bindsym $mod+Mod2+KP_8 workspace $ws8
+bindsym $mod+Mod2+KP_9 workspace $ws9
+bindsym $mod+Mod2+KP_0 workspace $ws10
+
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -107,6 +120,19 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
+
+# move focused container to workspace (numpad w/ numlock enabled)
+bindsym $mod+Shift+Mod2+KP_End move container to workspace $ws1
+bindsym $mod+Shift+Mod2+KP_Down move container to workspace $ws2
+bindsym $mod+Shift+Mod2+KP_Next move container to workspace $ws3
+bindsym $mod+Shift+Mod2+KP_Left move container to workspace $ws4
+bindsym $mod+Shift+Mod2+KP_Begin move container to workspace $ws5
+bindsym $mod+Shift+Mod2+KP_Right move container to workspace $ws6
+bindsym $mod+Shift+Mod2+KP_Home move container to workspace $ws7
+bindsym $mod+Shift+Mod2+KP_Up move container to workspace $ws8
+bindsym $mod+Shift+Mod2+KP_Prior move container to workspace $ws9
+bindsym $mod+Shift+Mod2+KP_Insert move container to workspace $ws10
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -146,7 +172,11 @@ bindsym $mod+r mode "resize"
 gaps inner 10
 smart_gaps on
 
+# Hide borders between windows
 hide_edge_borders both
+
+# Hide window title bars
+new_window none
 
 # window colors
 set $bg-color            #000000
@@ -165,17 +195,6 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #i
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# Increase Brightness
-bindsym XF86MonBrightnessUp exec light -A 5
-
-# Decrease Brightness
-bindsym XF86MonBrightnessDown exec light -U 5
-
-
-# Desktop Swipe Gesture
-bindsym --whole-window mouse19 workspace prev
-bindsym --whole-window mouse17 workspace next
-
 # Screenshots using Spectacle
 # Rectangular mode screenshot
 bindsym $mod+Shift+s exec spectacle -r
@@ -193,7 +212,7 @@ focus_follows_mouse yes
 bindsym $mod+Shift+x exec i3lock --color=#454545
 
 #background
-exec_always feh --bg-fill ~/Pictures/whiterun.jpg
+exec_always feh --bg-fill ~/E/AlexBecker/Pictures/Wallpapers/twisted-tree.png
 
 #transparency things
 exec picom
@@ -204,12 +223,6 @@ exec_always zsh ~/.config/i3/launch.sh
 # Run autorandr on restarts 
 # Allows for sorta hotplugging monitors
 # exec_always autorandr -c
-
-# Set tap touchpad to click
-exec_always xinput set-prop 12 316 1
-
-# Enable numlock
-exec numlockx
 
 # Enable yakuake
 exec yakuake
