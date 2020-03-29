@@ -7,7 +7,7 @@ $( bw unlock | grep -E "export BW_SESSION=.+" -o )
 spotifyd -P 'bw get password spotify'
 
 # start spotifyd dameon as system service
-systemctl start spotifyd
+systemctl --user start spotifyd
 
 # Lock Bitwarden Vault
 bw lock
