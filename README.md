@@ -2,11 +2,11 @@
 
 Home for all of my various customization things
 
-# Fully Loaded Arch Set Up Dependencies (See script)
+#3 Fully Loaded Arch Set Up Dependencies (See script)
 
 i3-gaps polybar light networkmanager blueman konsole yakuake neovim lightdm lightdm-gtk-greeter xorg-server xorg-xinput git pavucontrol arandr zsh
 
-# Stock Programs
+## Stock Programs
 
 Display Manager: `lightdm`
 
@@ -16,13 +16,19 @@ Bar: `polybar`
 
 Bar Front (for cool icons): Font Awesome
 
-Bar Theme: `Theme 5`, or custom theme based on sample bar; https://github.com/adi1090x/polybar-themes
+Bar Theme: Modified version of theme from this guy on [reddit](https://www.reddit.com/r/unixporn/comments/fp6dky/i3gaps_gruvbox_master_race/)
 
 ## Terminal
 
 Terminal: `konsole`, 'yakuake'
 
+* Notable mention to `mate-terminal`, only really use `Konsole` for `Yakuake`
+
 Terminal Editor: `neovim`
+
+Music Player: `cmus`
+
+* Also use `spotify-tui` with `spotifyd` for spotify terminal player
 
 ## Vim
 
@@ -55,3 +61,4 @@ Device Config `xinput` (used for things touchpad config; tap to click in i3, etc
 
 Pulseaudio Controller thing- `pavucontrol`
 
+GTK Theme Utility: `lxappearance`
