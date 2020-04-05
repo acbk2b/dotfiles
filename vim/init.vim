@@ -2,22 +2,18 @@
 " General Stuff
 syntax enable
 colorscheme desert
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
-filetype on
-set nu
-set ruler
+" filetype on
+" set nu
+" set ruler
 set mouse=a
-set list
+" set list
 
 " vim-plug
 call plug#begin('~/.config/nvim/data/plugged')
-
-" Semshi
-" Python syntax highlighting
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " Vim-Airline
 " Purty status bar
@@ -25,15 +21,8 @@ Plug 'vim-airline/vim-airline'
 
 " Deoplete
 " Completion engine thingy
-Plug 'Shougo/deoplete.nvim', {'do':':UpdateRemotePlugins'}
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-"
+Plug 'Shougo/deoplete.nvim'
+
 call plug#end()
 
 " Deoplete
