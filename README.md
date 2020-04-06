@@ -36,7 +36,12 @@ Version: `neovim`
 
 Plugin Manager: `vim-plug`
 
-Plugins: `vim-airline`
+Plugins 
+* `vim-airline`
+    * Powerline status bar
+
+* `deoplete`
+    * Tab completion
 
 ## Shells
 
