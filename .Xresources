@@ -1,0 +1,4 @@
+URxvt.background: #000000
+URxvt.foreground: #00ee00
+URxvt.font: xft:DejaVu Sans Mono for Powerline:size=9
+URxvt.scrollBar: 0
