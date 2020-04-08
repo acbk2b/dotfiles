@@ -5,7 +5,10 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+
+// #include "gruvbox-dark.h"
+
+static char *font = "Liberation Mono for Powerline:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -82,6 +85,8 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
+/* Gruvbox theme used, remove #include and comments from this block to use defaults*/
+
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
@@ -116,7 +121,7 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 2;
+unsigned int defaultfg = 10;
 unsigned int defaultbg = 0;
 static unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
@@ -185,6 +190,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+    { TERMMOD,              XK_U,           kscrollup,      {.i = -1} },
+    { TERMMOD,              XK_D,           kscrolldown,    {.i = -1} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 };
 

@@ -20,15 +20,19 @@ Bar Theme: Modified version of theme from this guy on [reddit](https://www.reddi
 
 ## Terminal
 
-Terminal: `konsole`, 'yakuake'
-
-* Notable mention to `mate-terminal`, only really use `Konsole` for `Yakuake`
+Terminal: `st`
 
 Terminal Editor: `neovim`
 
 Music Player: `cmus`
 
 * Also use `spotify-tui` with `spotifyd` for spotify terminal player
+
+### st
+
+Patches: `scrollback`
+
+* Remapped page up and down bindings to `Ctrl+Shift+U` and `Ctrl+Shift+D`
 
 ## Vim
 
