@@ -23,6 +23,9 @@ Plug 'vim-airline/vim-airline'
 " Completion engine thingy
 Plug 'Shougo/deoplete.nvim'
 
+" A Vim Plugin for Lively Previewing LaTeX PDF Output
+" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
 call plug#end()
 
 " Deoplete
