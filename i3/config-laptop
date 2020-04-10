@@ -12,7 +12,7 @@ font pange:Comic Sans 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec st -e tmux
 
 # Start a terminal with enter on numpad
 # bindsym $mod+Mod2+K_Enter exec konsole
@@ -186,20 +186,20 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Increase Brightness
-bindsym XF86MonBrightnessUp exec light -A 5
+bindsym XF86MonBrightnessUp exec light -A 2
 
 # Decrease Brightness
-bindsym XF86MonBrightnessDown exec light -U 5
+bindsym XF86MonBrightnessDown exec light -U 2
 
 # Screenshots using Spectacle
 # Rectangular mode screenshot
-bindsym $mod+Shift+s exec spectacle -r
+bindsym $mod+Shift+s exec flameshot gui
 
 # Full screen screenshot
-bindsym Print exec spectacle
+bindsym Print exec flameshot full -p ~/Pictures
 
-# Calculator using Kcalc
-bindsym F10 exec kcalc
+# Pavucontrol shortcut
+bindsym $mod+p exec pavucontrol
 
 #focus follows mouse
 focus_follows_mouse yes
@@ -221,16 +221,18 @@ exec_always zsh ~/.config/i3/launch.sh
 # exec_always autorandr -c
 
 # Set tap touchpad to click
-exec_always xinput set-prop 11 301 1
+exec_always xinput set-prop 12 319 1
 
 # Enable numlock
 exec numlockx
 
-# st Floating Terminal
+# st Floating Terminal w/ Tmux
 # Launch terminal at start up
-exec --no-startup-id st -n "st-dropdown"
+exec --no-startup-id st -n "st-dropdown" -e tmux
+
 # Set window rules
 for_window [instance="st-dropdown"] floating enable;
 for_window [instance="st-dropdown"] move scratchpad; [instace="st-dropdown"] scratchpad show; move position 0px 22px; resize shink height 300px; resize grow width 683; move stratchpad
+
 # Keyboard shortcut for showing terminal
 bindsym $mod+o [instance="st-dropdown"] scratchpad show
