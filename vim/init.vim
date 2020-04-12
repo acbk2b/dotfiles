@@ -9,25 +9,18 @@ set expandtab
 " filetype on
 " set nu
 " set ruler
+" Use mouse
 set mouse=a
 " set list
 
-" vim-plug
-call plug#begin('~/.config/nvim/data/plugged')
+set number
 
-" Vim-Airline
-" Purty status bar
-Plug 'vim-airline/vim-airline'
+" Custom Mappings
+map LLPStartPreview :LLP
 
-" Deoplete
-" Completion engine thingy
-Plug 'Shougo/deoplete.nvim'
-
-" A Vim Plugin for Lively Previewing LaTeX PDF Output
-" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-
-call plug#end()
-
+"
+" Vim Plug plugin configuration
+"
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 " <Tab>: Completion
@@ -40,6 +33,23 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+"
+" vim-plug
+" 
+call plug#begin('~/.config/nvim/data/plugged')
+
+" Vim-Airline
+Plug 'vim-airline/vim-airline'
+
+" Deoplete
+" Completion engine thingy
+Plug 'Shougo/deoplete.nvim'
+
+" LaTeX Live Preview plugin
+Plug 'xuhdev/vim-latex-live-preview'
+
+call plug#end()
 
 " unicode symbols
 let g:airline_left_sep = '»'
