@@ -14,6 +14,8 @@ bspc config window_gap          12
 bspc config split_ratio          0.5
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
+bspc config focus_follows_pointer true
+bspc config pointer_follows_focus true
 
 # Rule "dropdown" st terminal 
 bspc rule -a st-dropdown state=floating
@@ -26,7 +28,7 @@ bspc rule -a Pavucontrol state=floating
 # bspc rule -a Screenkey manage=off
 
 # Set background with feh
-feh --bg-fill ~/E/AlexBecker/Pictures/Wallpapers/whiterun.jpg &
+feh --bg-fill ~/Pictures/whiterun.jpg &
 
 # Start picom for transparency
 picom &
