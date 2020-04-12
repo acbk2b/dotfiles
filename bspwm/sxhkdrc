@@ -9,7 +9,7 @@ super + Return
 # program launcher
 # super + @space
 super + d
-	rofi -show run -theme Adapta-Nokto
+	rofi -show run -theme flat-orange
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -76,10 +76,10 @@ super + {grave,Tab}
 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+# super + {o,i}
+# 	bspc wm -h off; \
+# 	bspc node {older,newer} -f; \
+# 	bspc wm -h on
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
@@ -159,3 +159,7 @@ XF86AudioMute pactl
 # i3 lock
 super + shift + x 
     i3lock --color=#454545
+
+# Dropdown terminal
+super + o 
+    st -c "st-dropdown" -e tmux

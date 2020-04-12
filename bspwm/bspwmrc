@@ -17,6 +17,7 @@ bspc config gapless_monocle      true
 
 # Rule "dropdown" st terminal 
 bspc rule -a st-dropdown state=floating
+bspc rule -a Pavucontrol state=floating
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a Chromium desktop='^2'
@@ -25,7 +26,7 @@ bspc rule -a st-dropdown state=floating
 # bspc rule -a Screenkey manage=off
 
 # Set background with feh
-feh --bg-fill ~/Pictures/whiterun.jpg &
+feh --bg-fill ~/E/AlexBecker/Pictures/Wallpapers/whiterun.jpg &
 
 # Start picom for transparency
 picom &
@@ -34,4 +35,4 @@ picom &
 xinput set-prop 12 319 1
 
 # polybar launch script; kills all open polybars and starts main bar
-zsh ~/.config/i3/launch.sh
+zsh ~/.config/polybar/launch.sh
