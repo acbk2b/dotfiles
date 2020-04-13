@@ -21,20 +21,16 @@ bspc config pointer_follows_focus true
 bspc rule -a st-dropdown state=floating
 bspc rule -a Pavucontrol state=floating
 
-# bspc rule -a Gimp desktop='^8' state=floating follow=on
-# bspc rule -a Chromium desktop='^2'
-# bspc rule -a mplayer2 state=floating
-# bspc rule -a Kupfer.py focus=on
-# bspc rule -a Screenkey manage=off
-
 # Set background with feh
 feh --bg-fill ~/Pictures/whiterun.jpg &
 
 # Start picom for transparency
 picom &
 
+# polybar launch script; kills all open polybars and starts main bar
+zsh ~/.config/polybar/launch.sh
+
 # Enable tapping on trackpad
 xinput set-prop 12 319 1
 
-# polybar launch script; kills all open polybars and starts main bar
-zsh ~/.config/polybar/launch.sh
+numlockx &
