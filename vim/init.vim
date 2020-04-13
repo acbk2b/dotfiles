@@ -16,7 +16,7 @@ set mouse=a
 set number
 
 " Custom Mappings
-map LLPStartPreview :LLP
+map LLPStartPreview :llp
 
 "
 " Vim Plug plugin configuration
