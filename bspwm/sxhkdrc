@@ -134,8 +134,8 @@ super + {Left,Down,Up,Right}
 #
 
 # Launch pavucontrol
-# super + 
-#     pavucontrol
+super + i
+    pavucontrol
 
 # Increase brightness 2%
 XF86MonBrightnessUp 
