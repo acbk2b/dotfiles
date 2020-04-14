@@ -10,15 +10,13 @@ i3-gaps polybar light networkmanager blueman konsole yakuake neovim lightdm ligh
 
 Display Manager: `lightdm`
 
-Window Manger: `i3-gaps`
+Window Manger: `bspwm`
 
 Bar: `polybar`
 
-Bar Front (for cool icons): Font Awesome
+Bar Theme: Modified version of default polybar theme 
 
-Bar Theme: Modified version of theme from this guy on [reddit](https://www.reddit.com/r/unixporn/comments/fp6dky/i3gaps_gruvbox_master_race/)
-
-## Terminal
+## Terminal Stuff
 
 Terminal: `st`
 
@@ -28,11 +26,18 @@ Music Player: `cmus`
 
 * Also use `spotify-tui` with `spotifyd` for spotify terminal player
 
+__Zsh__
+
+Manager: `OhMyZsh`
+
+Theme: `robbyrussell`
+
+Plugins: `git, vi-mode, zsh-autosuggestions, zsh-syntax-highlighting`
+
+
 ### st
 
-Patches: `scrollback`
-
-* Remapped page up and down bindings to `Ctrl+Shift+U` and `Ctrl+Shift+D`
+* Use `tmux` for scrolling in terminal
 
 ## Vim
 
@@ -47,15 +52,9 @@ Plugins
 * `deoplete`
     * Tab completion
 
-## Shells
-
-__Zsh__
-
-Manager: `OhMyZsh`
-
-Theme: `robbyrussell`
-
-Plugins: `git, vi-mode, zsh-autosuggestions, zsh-syntax-highlighting`
+* vim-latex-live-preview
+    * LaTeX live previewer
+    * use `evince` as pdf viewer for no particular reason
 
 ## Utilities
 Wifi Manager: `networkmanager`
@@ -66,8 +65,8 @@ Bluetooth: `blueman`
 
 Brightness Controls: `light`
 
-Device Config `xinput` (used for things touchpad config; tap to click in i3, etc)
+Device Config: `xinput` (used for things touchpad config; tap to click in i3, etc)
 
-Pulseaudio Controller thing- `pavucontrol`
+Pulseaudio Controller thing: `pavucontrol`
 
 GTK Theme Utility: `lxappearance`
