@@ -1,5 +1,10 @@
 # !/bin/bash
 
+if [[ $1 == "-r" ]] 
+then
+    systemctl --user stop spotifyd.service
+fi
+
 # export bitwarden session key
 $( bw unlock | grep -E "export BW_SESSION=.+" -o )
 
