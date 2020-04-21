@@ -2,7 +2,8 @@
 
 sxhkd &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor HDMI-1 -d I II III IV V VI VII VIII IX X
+bspc monitor DP-1-5 -d I II III IV V VI VII VIII IX X
 
 # Border around windows
 bspc config border_width         0
@@ -22,7 +23,7 @@ bspc rule -a st-dropdown state=floating
 bspc rule -a Pavucontrol state=floating
 
 # Set background with feh
-feh --bg-fill ~/Pictures/whiterun.jpg &
+feh --bg-fill ~/E/AlexBecker/Pictures/Wallpapers/whiterun.jpg &
 
 # Start picom for transparency
 picom &
