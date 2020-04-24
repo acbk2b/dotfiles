@@ -2,14 +2,20 @@
 
 sxhkd &
 
-bspc monitor HDMI-1 -d I II III IV V VI VII VIII IX X
-bspc monitor DP-1-5 -d I II III IV V VI VII VIII IX X
+if type "xrandr"; then
+    for m in $(xrandr --query | grep -w "connected" | cut -d " " -f1); do
+        bspc monitor $m -d I II III IV V VI VII VIII IX X
+    done
+else 
+    bspc monitor -d I II III IV V VI VII VIII IX X
+fi
 
 # Border around windows
-bspc config border_width         0
+bspc config border_width         2
+bspc config focused_border_color  "#0A9504"
 
 # Gaps between windows
-bspc config window_gap          12
+bspc config window_gap           8
 
 # Ratio for slitting windows
 bspc config split_ratio          0.5
@@ -20,10 +26,10 @@ bspc config pointer_follows_focus true
 
 # Rule "dropdown" st terminal 
 bspc rule -a st-dropdown state=floating
-bspc rule -a Pavucontrol state=floating
+bspc rule -a Pavucontrol state=floating center=true rectangle=520x300+0+0
 
 # Set background with feh
-feh --bg-fill ~/E/AlexBecker/Pictures/Wallpapers/whiterun.jpg &
+feh --bg-fill ~/Pictures/whiterun.jpg &
 
 # Start picom for transparency
 picom &
