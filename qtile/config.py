@@ -28,13 +28,22 @@ import os
 import subprocess
 
 from typing import List  # noqa: F401
-from libqtile import bar, layout, widget, hook
+
+from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = 'st -e tmux'
+
+# cursor_warp = False
+# 
+# def toggleCursorWarp():
+#     os.system("notify-send 'hello'")    
+#     global cursor_warp 
+#     cursor_warp = not cursor_warp
+
 
 keys = [
     # Switch between windows in current stack pane
@@ -88,17 +97,23 @@ keys = [
 
     # Scratchpads
 
-    # Various Window Functions
-
     # Fullscreen
-    Key([mod], "f", lazy.window.toggle_fullscreen(),
-        desc='Toggle fullscreen for selected window'
-        ),
+    Key([mod], "f", lazy.window.toggle_fullscreen(), lazy.hide_show_bar(),
+        desc='Toggle fullscreen for selected window'),
     # Floating
     Key([mod, "shift"], "space", lazy.window.toggle_floating(),
-        desc='Toggle floating for selected window'
-        ),
+        desc='Toggle floating for selected window'),
+
+    # Previous Monitor
+    Key([mod], "h", lazy.prev_screen(),
+        desc='Switch focus to previous monitor'),
+    # Next Monitor
+    Key([mod], "l", lazy.next_screen(),
+        desc='Switch focus to next monitor'),
     
+    # Toggle Cursor Warp
+    Key([mod], "y", lazy.restart(),
+        desc="Toggle Cursor Warp and restart Qtile"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -163,72 +178,67 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='sans',
+    font='Ubunto Mono',
     fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
-                widget.CurrentLayout(background=default_background, foreground=default_foreground),
-                widget.GroupBox(active=default_foreground,
-                                background=default_background, 
-                                foreground=default_foreground,
-                                this_current_screen_border=default_foreground),
-                widget.Prompt(background=default_background, foreground=default_foreground),
-                widget.WindowName(background=default_background, foreground=default_foreground),
-                widget.Chord(
-                    chords_colors={
-                        'launch': ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.TextBox(
-                               text = '',
-                               background = default_background,
-                               foreground = default_foreground,
-                               padding = 0,
-                               fontsize = 45
-                ),
-                widget.Volume(
-                              background=default_foreground,
-                              foreground=default_background
-                ),
-                widget.TextBox(
-                               text = '',
-                               background = default_foreground,
-                               foreground = default_background,
-                               padding = 0,
-                               fontsize = 45
-                ),
-                widget.Battery(background=default_background, foreground=default_foreground),
-                widget.TextBox(
-                               text = '',
-                               background = default_background,
-                               foreground = default_foreground,
-                               padding = 0,
-                               fontsize = 45
-                ),
-                widget.Memory(background=default_foreground, foreground=default_background),
-                widget.TextBox(
-                               text = '',
-                               background = default_foreground,
-                               foreground = default_background,
-                               padding = 0,
-                               fontsize = 45
-                ),
-                widget.Clock(background=default_background, 
-                             foreground=default_foreground, 
-                             format='%Y-%m-%d %a %I:%M %p'),
-                widget.Systray(background=default_background, foreground=default_foreground)
-            ],
-            22,
-        ),
-    ),
-]
+# Need a separate function, doesn't work using the same list
+def getWidets():
+           
+    widget_list = [
+                    widget.CurrentLayout(background=default_background, foreground=default_foreground),
+                    widget.GroupBox(active=default_foreground,
+                                    background=default_background, 
+                                    foreground=default_foreground,
+                                    this_current_screen_border=default_foreground),
+                    widget.Prompt(background=default_background, foreground=default_foreground),
+                    widget.WindowName(background=default_background, foreground=default_foreground),
+                    widget.Chord(
+                        chords_colors={'launch': ("#ff0000", "#ffffff"),},
+                        name_transform=lambda name: name.upper(),),
+                    widget.TextBox(
+                                   text = '',
+                                   background = default_background,
+                                   foreground = default_foreground,
+                                   padding = 0,
+                                   fontsize = 45),
+                    widget.Volume(
+                                  background=default_foreground,
+                                  foreground=default_background),
+                    widget.TextBox(
+                                   text = '',
+                                   background = default_foreground,
+                                   foreground = default_background,
+                                   padding = 0,
+                                   fontsize = 45),
+                    widget.CPU(background=default_background, foreground=default_foreground),
+                    widget.TextBox(
+                                   text = '',
+                                   background = default_background,
+                                   foreground = default_foreground,
+                                   padding = 0,
+                                   fontsize = 45),
+                    widget.Memory(background=default_foreground, foreground=default_background),
+                    widget.TextBox(
+                                   text = '',
+                                   background = default_foreground,
+                                   foreground = default_background,
+                                   padding = 0,
+                                   fontsize = 45),
+                    widget.Clock(background=default_background, 
+                                 foreground=default_foreground, 
+                                 format='%Y-%m-%d %a %I:%M %p'),
+                    widget.Systray(background=default_background, foreground=default_foreground)
+                ]
+    return widget_list
+
+# screens = [ Screen(top=bar.Bar(widgets=widget_list, size=24)),
+#             Screen(top=bar.Bar(widgets=widget_list, size=24))]
+
+screens = [Screen(top=bar.Bar(widgets=getWidets(), size=24)),
+           Screen(top=bar.Bar(widgets=getWidets(), size=24))]
 
 # Drag floating layouts.
 mouse = [
@@ -244,7 +254,7 @@ dgroups_app_rules = []  # type: List
 # main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = True
+cursor_warp = False
 
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -277,7 +287,6 @@ focus_on_window_activation = "smart"
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
-@hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~')
-    subprocess.Popen([home + '/.config/qtile/autostart.sh'])
+    home= os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
