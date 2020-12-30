@@ -29,7 +29,7 @@ import subprocess
 
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -287,6 +287,7 @@ focus_on_window_activation = "smart"
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
+@hook.subscribe.startup_once
 def autostart():
     home= os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
