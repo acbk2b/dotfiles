@@ -37,12 +37,12 @@ from libqtile.utils import guess_terminal
 mod = "mod4"
 terminal = 'st -e tmux'
 
-# cursor_warp = False
-# 
-# def toggleCursorWarp():
-#     os.system("notify-send 'hello'")    
-#     global cursor_warp 
-#     cursor_warp = not cursor_warp
+cursor_warp = False
+
+def toggle():
+    os.system("notify-send 'hello'")    
+    # global cursor_warp 
+    # cursor_warp = not cursor_warp
 
 
 keys = [
@@ -112,7 +112,7 @@ keys = [
         desc='Switch focus to next monitor'),
     
     # Toggle Cursor Warp
-    Key([mod], "y", lazy.restart(),
+    Key([mod], "y", lazy.function(toggle),
         desc="Toggle Cursor Warp and restart Qtile"),
 ]
 
@@ -213,7 +213,7 @@ def getWidets():
                                    foreground = default_background,
                                    padding = 0,
                                    fontsize = 45),
-                    widget.CPU(background=default_background, foreground=default_foreground),
+                    widget.Battery(background=default_background, foreground=default_foreground),
                     widget.TextBox(
                                    text = '',
                                    background = default_background,
@@ -234,11 +234,8 @@ def getWidets():
                 ]
     return widget_list
 
-# screens = [ Screen(top=bar.Bar(widgets=widget_list, size=24)),
-#             Screen(top=bar.Bar(widgets=widget_list, size=24))]
-
-screens = [Screen(top=bar.Bar(widgets=getWidets(), size=24)),
-           Screen(top=bar.Bar(widgets=getWidets(), size=24))]
+screens = [Screen(top=bar.Bar(widgets=getWidets(), size=17)),
+           Screen(top=bar.Bar(widgets=getWidets(), size=17))]
 
 # Drag floating layouts.
 mouse = [
@@ -254,7 +251,7 @@ dgroups_app_rules = []  # type: List
 # main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+# cursor_warp = False
 
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
