@@ -271,6 +271,8 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'pinentry-gtk-2'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
+    {'wmclass': 'Steam'},  # Steam
+    {'wmclass': 'pavucontrol'},  # Pavucontrol
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
