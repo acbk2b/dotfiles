@@ -39,11 +39,11 @@ terminal = 'st -e tmux'
 
 cursor_warp = False
 
-def toggle():
-    os.system("notify-send 'hello'")    
-    # global cursor_warp 
-    # cursor_warp = not cursor_warp
-
+# Hacky sed thing to get the cursor warp to work
+# lazy.function will flip the variable, but because the config file
+# is evaluated on (re)start, it doesn't actually register the change
+def toggle(self):
+    os.system("bash ~/.config/qtile/external.sh " + str(cursor_warp) + " " + str(not cursor_warp))
 
 keys = [
     # Switch between windows in current stack pane
@@ -112,7 +112,8 @@ keys = [
         desc='Switch focus to next monitor'),
     
     # Toggle Cursor Warp
-    Key([mod], "y", lazy.function(toggle),
+    # Hacky sed script thing
+    Key([mod], "y", lazy.function(toggle), lazy.restart(),
         desc="Toggle Cursor Warp and restart Qtile"),
 ]
 
