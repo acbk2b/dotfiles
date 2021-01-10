@@ -100,6 +100,10 @@ keys = [
     # Fullscreen
     Key([mod], "f", lazy.window.toggle_fullscreen(), lazy.hide_show_bar(),
         desc='Toggle fullscreen for selected window'),
+    # Toggle Bar
+    Key([mod], "b", lazy.hide_show_bar(),
+        desc='Toggle bar for selected monitor'),
+
     # Floating
     Key([mod, "shift"], "space", lazy.window.toggle_floating(),
         desc='Toggle floating for selected window'),
@@ -186,7 +190,7 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 # Need a separate function, doesn't work using the same list
-def getWidets():
+def getWidgets():
            
     widget_list = [
                     widget.CurrentLayout(background=default_background, foreground=default_foreground),
@@ -214,7 +218,7 @@ def getWidets():
                                    foreground = default_background,
                                    padding = 0,
                                    fontsize = 45),
-                    widget.Battery(background=default_background, foreground=default_foreground),
+                    widget.CPU(background=default_background, foreground=default_foreground),
                     widget.TextBox(
                                    text = '',
                                    background = default_background,
@@ -235,8 +239,11 @@ def getWidets():
                 ]
     return widget_list
 
-screens = [Screen(top=bar.Bar(widgets=getWidets(), size=17)),
-           Screen(top=bar.Bar(widgets=getWidets(), size=17))]
+widgets = getWidgets()
+alt_mon_widgets = widgets[:5] 
+
+screens = [Screen(top=bar.Bar(widgets=widgets, size=17)),
+           Screen(top=bar.Bar(widgets=alt_mon_widgets, size=17))]
 
 # Drag floating layouts.
 mouse = [
@@ -271,7 +278,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'pinentry-gtk-2'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
-    {'wmclass': 'Steam'},  # Steam
+    # {'wmclass': 'Steam'},  # Steam
     {'wmclass': 'pavucontrol'},  # Pavucontrol
 ])
 auto_fullscreen = True
@@ -290,4 +297,4 @@ wmname = "LG3D"
 @hook.subscribe.startup_once
 def autostart():
     home= os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+    os.system(home + '/.config/qtile/autostart.sh')
