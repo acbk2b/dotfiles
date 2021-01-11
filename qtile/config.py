@@ -37,7 +37,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = 'st -e tmux'
+terminal = 'alacritty'
 
 cursor_warp = False
 
@@ -82,8 +82,14 @@ keys = [
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
     Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
-    Key([mod], "d", lazy.spawn('dmenu_run'),
-        desc="Spawn a command using a prompt widget"),
+
+    # Launch Dmenu
+    Key([mod], "r", lazy.spawn('dmenu_run'),
+        desc="Spawn a command using dmenu"),
+    # Launch Rofi
+    Key([mod], "d", lazy.spawn('rofi -show drun -show-icons'),
+        desc="Spawn an app using a rofi"),
+
 
     # Media keys
     Key([], "XF86AudioMute", lazy.spawn('pactl set-sink-mute 0 toggle'),
