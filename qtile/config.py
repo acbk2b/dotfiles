@@ -24,8 +24,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# Used for os commands
 import os
-import subprocess
+# Used to get hostname for widget things
+import socket
 
 from typing import List  # noqa: F401
 
@@ -199,7 +201,9 @@ def getWidgets():
                                     foreground=default_foreground,
                                     this_current_screen_border=default_foreground),
                     widget.Prompt(background=default_background, foreground=default_foreground),
-                    widget.WindowName(background=default_background, foreground=default_foreground),
+                    # Set the text color the background to hide the text
+                    # TODO: Remove widget, smashes all the remaining widgets together if removed
+                    widget.WindowName(background=default_background, foreground=default_background),
                     widget.Chord(
                         chords_colors={'launch': ("#ff0000", "#ffffff"),},
                         name_transform=lambda name: name.upper(),),
@@ -237,6 +241,11 @@ def getWidgets():
                                  format='%Y-%m-%d %a %I:%M %p'),
                     widget.Systray(background=default_background, foreground=default_foreground)
                 ]
+
+    # Replace CPU widget with Battery widget on laptop (index 8)
+    if socket.gethostname() == "potato":
+        widget_list[8] = widget.Battery(background=default_background, foreground=default_foreground)
+
     return widget_list
 
 widgets = getWidgets()
