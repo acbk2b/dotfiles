@@ -37,7 +37,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = 'alacritty'
+terminal = 'st -e tmux'
 
 cursor_warp = False
 
@@ -103,7 +103,9 @@ keys = [
     Key([], "XF86MonBrightnessDown", lazy.spawn('light -U 5%'),
         desc='Lower Volume with media key'),
 
-    # Scratchpads
+    # Scratchpads and friends
+    Key([mod], "i", lazy.spawn("st -c 'st-dropdown' -e pulsemixer"),
+        desc="Spawn floating terminal with pulsemixer"),
 
     # Fullscreen
     Key([mod], "f", lazy.window.toggle_fullscreen(), lazy.hide_show_bar(),
@@ -218,7 +220,7 @@ def getWidgets():
                                    background = default_background,
                                    foreground = default_foreground,
                                    padding = 0,
-                                   fontsize = 45),
+                                   fontsize = 35),
                     widget.Volume(
                                   background=default_foreground,
                                   foreground=default_background),
@@ -227,21 +229,21 @@ def getWidgets():
                                    background = default_foreground,
                                    foreground = default_background,
                                    padding = 0,
-                                   fontsize = 45),
+                                   fontsize = 35),
                     widget.CPU(background=default_background, foreground=default_foreground),
                     widget.TextBox(
                                    text = '',
                                    background = default_background,
                                    foreground = default_foreground,
                                    padding = 0,
-                                   fontsize = 45),
+                                   fontsize = 35),
                     widget.Memory(background=default_foreground, foreground=default_background),
                     widget.TextBox(
                                    text = '',
                                    background = default_foreground,
                                    foreground = default_background,
                                    padding = 0,
-                                   fontsize = 45),
+                                   fontsize = 35),
                     widget.Clock(background=default_background, 
                                  foreground=default_foreground, 
                                  format='%Y-%m-%d %a %I:%M %p'),
@@ -257,8 +259,8 @@ def getWidgets():
 widgets = getWidgets()
 alt_mon_widgets = widgets[:5] 
 
-screens = [Screen(top=bar.Bar(widgets=widgets, size=17)),
-           Screen(top=bar.Bar(widgets=alt_mon_widgets, size=17))]
+screens = [Screen(top=bar.Bar(widgets=widgets, size=20)),
+        Screen(top=bar.Bar(widgets=alt_mon_widgets, size=20))]
 
 # Drag floating layouts.
 mouse = [
@@ -295,6 +297,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
     # {'wmclass': 'Steam'},  # Steam
     {'wmclass': 'pavucontrol'},  # Pavucontrol
+    {'wmclass': 'st-dropdown'},  # Pavucontrol
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
