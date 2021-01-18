@@ -37,7 +37,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = 'st -e tmux'
+terminal = 'alacritty'
 
 cursor_warp = False
 
@@ -78,7 +78,7 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
     Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
@@ -106,6 +106,15 @@ keys = [
     # Scratchpads and friends
     Key([mod], "i", lazy.spawn("st -c 'st-dropdown' -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
+
+    # TODO: Fix this thing
+    # Select and run scripts in ~/scripts using dmenu
+    # Key([mod], "r", lazy.spawn("~/scripts/run_scripts.sh"),
+    #     desc="Select and run scripts in ~/scripts using dmenu"),
+
+    # Flameshot
+    Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),
+        desc="Launch flameshot"),
 
     # Fullscreen
     Key([mod], "f", lazy.window.toggle_fullscreen(), lazy.hide_show_bar(),
@@ -203,6 +212,7 @@ extension_defaults = widget_defaults.copy()
 def getWidgets():
            
     widget_list = [
+                    widget.Image(filename="~/.config/qtile/python.png"),
                     widget.CurrentLayout(background=default_background, foreground=default_foreground),
                     widget.GroupBox(active=default_foreground,
                                     background=default_background, 
@@ -221,6 +231,7 @@ def getWidgets():
                                    foreground = default_foreground,
                                    padding = 0,
                                    fontsize = 35),
+
                     widget.Volume(
                                   background=default_foreground,
                                   foreground=default_background),
@@ -237,6 +248,12 @@ def getWidgets():
                                    foreground = default_foreground,
                                    padding = 0,
                                    fontsize = 35),
+                    widget.TextBox(
+                                   text = ' 🖬 ',
+                                   background = default_foreground,
+                                   foreground = default_background,
+                                   padding = 0,
+                                   fontsize = 20),
                     widget.Memory(background=default_foreground, foreground=default_background),
                     widget.TextBox(
                                    text = '',
@@ -252,7 +269,7 @@ def getWidgets():
 
     # Replace CPU widget with Battery widget on laptop (index 8)
     if socket.gethostname() == "potato":
-        widget_list[8] = widget.Battery(background=default_background, foreground=default_foreground)
+        widget_list[9] = widget.Battery(background=default_background, foreground=default_foreground)
 
     return widget_list
 
