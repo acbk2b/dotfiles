@@ -36,6 +36,8 @@ from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDow
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+home = os.path.expanduser('~')
+
 mod = "mod4"
 terminal = 'alacritty'
 
@@ -109,8 +111,8 @@ keys = [
 
     # TODO: Fix this thing
     # Select and run scripts in ~/scripts using dmenu
-    # Key([mod], "r", lazy.spawn("~/scripts/run_scripts.sh"),
-    #     desc="Select and run scripts in ~/scripts using dmenu"),
+    Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts.sh'),
+        desc="Select and run scripts in ~/scripts using dmenu"),
 
     # Flameshot
     Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),
@@ -213,7 +215,6 @@ extension_defaults = widget_defaults.copy()
 def getWidgets():
            
     widget_list = [
-                    widget.Image(filename="~/.config/qtile/python.png"),
                     widget.CurrentLayout(background=default_background, foreground=default_foreground),
                     widget.GroupBox(active=default_foreground,
                                     background=default_background, 
@@ -264,12 +265,12 @@ def getWidgets():
 
     # Replace CPU widget with Battery widget on laptop (index 8)
     if socket.gethostname() == "potato":
-        widget_list[9] = widget.Battery(background=default_background, foreground=default_foreground)
+        widget_list[8] = widget.Battery(background=default_background, foreground=default_foreground)
 
     return widget_list
 
 widgets = getWidgets()
-alt_mon_widgets = widgets[:5] 
+alt_mon_widgets = widgets[:4] 
 
 screens = [Screen(top=bar.Bar(widgets=widgets, size=20)),
         Screen(top=bar.Bar(widgets=alt_mon_widgets, size=20))]
@@ -325,5 +326,4 @@ wmname = "LG3D"
 
 @hook.subscribe.startup_once
 def autostart():
-    home= os.path.expanduser('~')
     os.system(home + '/.config/qtile/autostart.sh')
