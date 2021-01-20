@@ -86,7 +86,7 @@ keys = [
     Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
 
     # Launch Dmenu
-    Key([mod], "r", lazy.spawn('dmenu_run'),
+    Key([mod, "shift"], "d", lazy.spawn('dmenu_run'),
         desc="Spawn a command using dmenu"),
     # Launch Rofi
     Key([mod], "d", lazy.spawn('rofi -show drun -show-icons'),
