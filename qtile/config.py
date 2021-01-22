@@ -41,7 +41,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = False
+cursor_warp = True
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -140,6 +140,10 @@ keys = [
     # Hacky sed script thing
     Key([mod], "y", lazy.function(toggle), lazy.restart(),
         desc="Toggle Cursor Warp and restart Qtile"),
+
+    # Lock screen with display manager tool thing
+    Key([mod, "shift"], "x", lazy.spawn("dm-tool lock"),
+        desc='Lock Screen with dm-tool'),
 ]
 
 groups = [Group(i) for i in "123456789"]
