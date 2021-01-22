@@ -119,7 +119,7 @@ keys = [
         desc="Launch flameshot"),
 
     # Fullscreen
-    Key([mod], "f", lazy.window.toggle_fullscreen(), lazy.hide_show_bar(),
+    Key([mod], "f", lazy.window.toggle_fullscreen(), 
         desc='Toggle fullscreen for selected window'),
     # Toggle Bar
     Key([mod], "b", lazy.hide_show_bar(),
