@@ -2,21 +2,12 @@
 
 ACCOUNT=$1
 USER="$(whoami)"
-MBSYNCDIR="/home/$USER/.cache/mbsync/$ACCOUNT/INBOX/new"
+MBSYNCDIR="/home/$USER/.cache/mbsync/"
 
 mbsync -a
-NEWMESSAGES=$(ls "$MBSYNCDIR" | wc -l)
-if (( NEWMESSAGES > 0 )); then
-  dunstify --icon="/home/$USER/.config/mutt/mutt-logo.png" "New Messages: $NEWMESSAGES"
-fi
-
-# Loop for continual syncing
-# while true; do
-# 
-#   mbsync "$ACCOUNT"
-#   NEWMESSAGES=$(ls "$MBSYNCDIR" | wc -l)
-#   if (( NEWMESSAGES > 0 )); then
-#     dunstify --icon="/home/$USER/.config/mutt/mutt-logo.png" "New Messages: $NEWMESSAGES"
-#   fi
-#   sleep 1m
-# done
+for ACC in $(ls $MBSYNCDIR); do
+  NEWMESSAGES=$(ls "$MBSYNCDIR/$ACC/INBOX/new" | wc -l)
+  if (( NEWMESSAGES > 0 )); then
+    dunstify --icon="/home/$USER/.config/mutt/mutt-logo.png" "New Messages for $ACC: $NEWMESSAGES"
+  fi
+done
