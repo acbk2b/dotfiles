@@ -58,6 +58,14 @@ keys = [
         desc="Move focus down in stack pane"),
     Key([mod], "k", lazy.layout.up(),
         desc="Move focus up in stack pane"),
+    # Increase master pane 
+    Key([mod, "shift"], "l", lazy.layout.grow_main(),
+        desc="Decrease size of master pane"),
+    # Decrease master pane 
+    Key([mod, "shift"], "h", lazy.layout.shrink(),
+        desc="Decrease size of master pane"),
+
+
 
     # Move windows up or down in current stack
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
@@ -271,8 +279,9 @@ def getWidgets():
                 ]
 
     # Replace CPU widget with Battery widget on laptop (index 8)
-    if socket.gethostname() == "potato":
-        widget_list[8] = widget.Battery(background=default_background, foreground=default_foreground)
+    has_bat = subprocess.check_output("ls /sys/class/power_supply | grep -c 'BAT'", shell=True)
+    if int(has_bat) > 0:
+        widget_list[8] = widget.Battery(background=default_background, foreground=default_foreground, format='{char} {percent:2.0%}')
 
     return widget_list
 
