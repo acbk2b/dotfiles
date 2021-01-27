@@ -26,6 +26,8 @@
 
 # Used for os commands
 import os
+# Used to get the output of os commands
+import subprocess
 # Used to get hostname for widget things
 import socket
 
@@ -35,13 +37,14 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.log_utils import logger # For Writing output to qtile.log
 
 home = os.path.expanduser('~')
 
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = True
+cursor_warp = False
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -276,8 +279,12 @@ def getWidgets():
 widgets = getWidgets()
 alt_mon_widgets = widgets[:4] 
 
-screens = [Screen(top=bar.Bar(widgets=widgets, size=20)),
-        Screen(top=bar.Bar(widgets=alt_mon_widgets, size=20))]
+screens = [Screen(top=bar.Bar(widgets=widgets, size=20))]
+
+num_screens = int(subprocess.check_output("xrandr | grep -w -c 'connected'", shell=True))
+
+for i in range(num_screens):
+    screens.append(Screen(top=bar.Bar(widgets=alt_mon_widgets, size=20)))
 
 # Drag floating layouts.
 mouse = [
