@@ -62,7 +62,7 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.grow_main(),
         desc="Decrease size of master pane"),
     # Decrease master pane 
-    Key([mod, "shift"], "h", lazy.layout.shrink(),
+    Key([mod, "shift"], "h", lazy.layout.shrink_main(),
         desc="Decrease size of master pane"),
 
 
