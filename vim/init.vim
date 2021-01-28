@@ -1,28 +1,57 @@
 " NVIm config file
-" General Stuff
-syntax enable
-colorscheme desert
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-" filetype on
-" set nu
-" set ruler
-" Use mouse
-set mouse=a
-" set list
-
-set number
-
-" Custom Mappings
-map LLPStartPreview :LLP
-
 "
 " Vim Plug plugin configuration
 "
+call plug#begin('~/.config/nvim/data/plugged')
+
+" Vim-Airline
+Plug 'vim-airline/vim-airline'
+
 " Deoplete
-let g:deoplete#enable_at_startup = 1
+" Completion engine thingy
+Plug 'Shougo/deoplete.nvim'
+
+" Dracula Color Scheme
+Plug 'dracula/vim',{'as':'dracula'}
+
+call plug#end()
+
+" General Stuff
+
+" Enable Syntax Highlighting
+syntax enable
+
+" Set all of the tab spacing settings to 2 spaces
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+" Use mouse
+set mouse=a
+
+" Show line numbers
+set number
+
+" turn off swap files
+set noswapfile
+set nobackup
+
+" Color Scheme
+colorscheme dracula
+
+" Custom keymaps
+
+" Move between split panes using the Alt key
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+" Plugin Configuration
+
+" Deoplete
+" let g:deoplete#enable_at_startup = 1
 " <Tab>: Completion
 inoremap <expr><TAB> pumvisible() ? "\<c-n>" :"\<TAB>"
 
@@ -34,22 +63,8 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-"
-" vim-plug
-" 
-call plug#begin('~/.config/nvim/data/plugged')
 
-" Vim-Airline
-Plug 'vim-airline/vim-airline'
-
-" Deoplete
-" Completion engine thingy
-Plug 'Shougo/deoplete.nvim'
-
-" LaTeX Live Preview plugin
-Plug 'xuhdev/vim-latex-live-preview'
-
-call plug#end()
+" Powerline Symbols
 
 " unicode symbols
 let g:airline_left_sep = '»'
