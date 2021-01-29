@@ -122,7 +122,7 @@ keys = [
 
     # TODO: Fix this thing
     # Select and run scripts in ~/scripts using dmenu
-    Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts.sh'),
+    Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
         desc="Select and run scripts in ~/scripts using dmenu"),
 
     # Flameshot
