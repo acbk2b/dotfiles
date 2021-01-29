@@ -278,21 +278,34 @@ def getWidgets():
                     widget.Systray(background=default_background, foreground=default_foreground)
                 ]
 
-    # Replace CPU widget with Battery widget on laptop (index 8)
+    # Replace CPU widget with Battery widget on laptop
+
+    # Check for existence of a battery
     has_bat = subprocess.check_output("ls /sys/class/power_supply | grep -c 'BAT'", shell=True)
+
     if int(has_bat) > 0:
-        widget_list[8] = widget.Battery(background=default_background, foreground=default_foreground, format='{char} {percent:2.0%}')
+        # Find CPU module location
+        index = 0
+        for index in range(len(widget_list)):
+            if isinstance(widget_list[index], widget.cpu.CPU):
+                break 
+        # Replace module
+        widget_list[index] = widget.Battery(background=default_background, foreground=default_foreground, format='{char} {percent:2.0%}')
 
     return widget_list
 
 widgets = getWidgets()
-alt_mon_widgets = widgets[:4] 
 
 screens = [Screen(top=bar.Bar(widgets=widgets, size=20))]
 
 num_screens = int(subprocess.check_output("xrandr | grep -w -c 'connected'", shell=True))
 
-for i in range(num_screens):
+# Just want the groupbox and the layout name
+alt_mon_widgets = widgets[:2] 
+
+# There will be one connected display for them main display,
+# only want to add bars for any additional screens
+for i in range(num_screens-1):
     screens.append(Screen(top=bar.Bar(widgets=alt_mon_widgets, size=20)))
 
 # Drag floating layouts.
