@@ -1,18 +1,18 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# zshrc
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/alex/.oh-my-zsh"
+export PATH=$PATH:/home/alex/.local/bin
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# Zsh prompt theme
 ZSH_THEME="robbyrussell"
 
-# Chagne term env var
+# change term env var
 # allows tmux to use st instead of screen as default term
 export TERM=st-256color
+
+# thefuck
+eval $(thefuck --alias)
 
 # Plugins
 plugins=(
@@ -20,27 +20,32 @@ plugins=(
     vi-mode
     zsh-autosuggestions 
     zsh-syntax-highlighting
+    zsh-completions
 )
+
+autoload -U compinit; compinit
 
 # Ohmyzsh stuff
 source $ZSH/oh-my-zsh.sh
 
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
+export EDITOR='nvim'
 
 # Aliases
 alias gits="git status"
 alias gitc="git commit -m"
-alias suspend="i3lock --color=#454545 | systemctl suspend"
-alias shutdown="systemctl poweroff"
+alias suspend="dm-tool lock | systemctl suspend"
 alias vim="nvim"
 alias pdflatex-s="pdflatex -shell-escape"
-alias docs="cd ~/E/AlexBecker/Documents/"
-alias school="cd ~/E/AlexBecker/Documents/School"
-alias death_to="zsh ~/E/AlexBecker/Documents/dotfiles/scripts/death_to.sh"
-alias start_spotifyd="zsh ~/E/AlexBecker/Documents/dotfiles/scripts/start_spotifyd.sh"
-alias aur="zsh /home/alex/E/AlexBecker/Documents/dotfiles/scripts/aur.sh"
-alias aur-rm="zsh /home/alex/E/AlexBecker/Documents/dotfiles/scripts/aur-rm.sh"
+alias ls="exa"
+alias lsl="ls -l"
+alias lst="ls --tree"
+alias lsa="ls -a"
+alias lsat="ls -a --tree"
+alias e="exit"
+alias r="ranger"
+alias cl="cal -3"
+alias xclipc="xclip -selection \"clipboard\""
+alias zf="zathura --fork"
+
+# Starship prompt
+eval $(starship init zsh)
