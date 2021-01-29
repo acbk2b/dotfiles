@@ -1,4 +1,0 @@
-#!/bin/bash
-
-#termite -e "sudo pacman -Syu"
-sudo apt-get update 
