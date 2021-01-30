@@ -281,7 +281,7 @@ def getWidgets():
     # Replace CPU widget with Battery widget on laptop
 
     # Check for existence of a battery
-    has_bat = subprocess.check_output("ls /sys/class/power_supply | grep -c 'BAT'", shell=True)
+    has_bat = subprocess.check_output("ls /sys/class/power_supply | grep -c 'BAT' || true", shell=True)
 
     if int(has_bat) > 0:
         # Find CPU module location
