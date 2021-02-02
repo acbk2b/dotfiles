@@ -155,6 +155,11 @@ keys = [
     # Lock screen with display manager tool thing
     Key([mod, "shift"], "x", lazy.spawn("dm-tool lock"),
         desc='Lock Screen with dm-tool'),
+
+    # Run Passmenu dmenu script
+    Key([mod], "p", lazy.spawn("passmenu"),
+        desc='Run Passmenu dmenu script'),
+
 ]
 
 groups = [Group(i) for i in "123456789"]
