@@ -10,6 +10,8 @@ Plug 'vim-airline/vim-airline'
 " Deoplete
 " Completion engine thingy
 Plug 'Shougo/deoplete.nvim'
+" Python integration with jedi
+Plug 'zchee/deoplete-jedi'
 
 " Dracula Color Scheme
 Plug 'dracula/vim',{'as':'dracula'}
@@ -51,7 +53,7 @@ nnoremap <A-l> <C-w>l
 " Plugin Configuration
 
 " Deoplete
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 " <Tab>: Completion
 inoremap <expr><TAB> pumvisible() ? "\<c-n>" :"\<TAB>"
 
