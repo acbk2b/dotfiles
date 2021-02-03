@@ -1,0 +1,53 @@
+-- vim: filetype=haskell
+
+-- http://projects.haskell.org/xmobar/
+-- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR --flags="all_extensions"
+-- you can find weather location codes here: http://weather.noaa.gov/index.html
+
+Config { font    = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
+                           , "xft:Mononoki Nerd Font:pixelsize=16:antialias=true:hinting=true"
+                           , "xft:FontAwesome:pixelsize=13"
+                           ]
+       , bgColor = "#2E2837"
+       , fgColor = "#00FF9C"
+       , position = Static { xpos = 0 , ypos = 0, width = 1366, height = 24 }
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , iconRoot = "/home/alex/.xmonad/xpm/"  -- default: "."
+       , commands = [ 
+                      -- Time and date
+                      Run Date "%b %d %Y (%H:%M)" "date" 50
+                      -- Cpu usage in percent
+                    , Run Cpu ["-t", "cpu: (<total>%)","-H","50","--high","red"] 20
+                      -- Ram used number and percent
+                    , Run Memory ["-t", "mem: <used>M (<usedratio>%)"] 20
+                      -- Disk space free
+                      -- Runs a standard shell command 'uname -r' to get kernel version
+                    , Run Com "uname" ["-r"] "" 3600
+                      -- Prints out the left side items such as workspaces, layout, etc.
+                      -- The workspaces are 'clickable' in my configs.
+                    -- battery monitor
+                    , Run Battery [ "--template" , "Batt: <acstatus>"
+                             , "--Low"      , "10"        -- units: %
+                             , "--High"     , "80"        -- units: %
+                             , "--low"      , "darkred"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkgreen"
+
+                             , "--" -- battery specific options
+                                       -- discharging status
+                                       , "-o"	, "<left>% (<timeleft>)"
+                                       -- AC "on" status
+                                       , "-O"	, "<left>% <fc=#dAA520>Charging</fc>"
+                                       -- charged status
+                                       , "-i"	, "<fc=#006000>Charged</fc>"
+                            ] 50
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action> | %UnsafeStdinReader% }{ <fn=2>|</fn> %battery% <fn=2>|</fn>  %cpu% <fn=2>|</fn> %memory% <fn=2>|</fn> %date% "
+       }
