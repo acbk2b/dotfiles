@@ -201,6 +201,7 @@ for i in groups:
 # Colors
 default_foreground = '#00FF9C'
 default_background = '#2E2837'
+alt_foreground = '#82AAFF'
 
 layout_theme = {"border_width":2,
                 "margin":6,
@@ -235,12 +236,13 @@ extension_defaults = widget_defaults.copy()
 def getWidgets():
            
     widget_list = [
-                    widget.CurrentLayout(background=default_background, foreground=default_foreground),
+
+                    widget.Image(filename="~/.config/qtile/archlinux.png", background=default_background, foreground=default_foreground),
                     widget.GroupBox(active=default_foreground,
                                     background=default_background, 
                                     foreground=default_foreground,
                                     this_current_screen_border=default_foreground),
-                    widget.Prompt(background=default_background, foreground=default_foreground),
+                    widget.CurrentLayout(background=default_background, foreground=default_foreground),
                     # Set the text color the background to hide the text
                     # TODO: Remove widget, smashes all the remaining widgets together if removed
                     widget.WindowName(background=default_background, foreground=default_background),
@@ -279,7 +281,7 @@ def getWidgets():
                                    fontsize = 35),
                     widget.Clock(background=default_background, 
                                  foreground=default_foreground, 
-                                 format='%Y-%m-%d %a %I:%M %p'),
+                                 format='%m-%d-%Y %a %I:%M %p'),
                     widget.Systray(background=default_background, foreground=default_foreground)
                 ]
 
