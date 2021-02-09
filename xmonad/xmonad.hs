@@ -12,15 +12,19 @@ import Data.Monoid
 import System.Exit
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
-import XMonad.Hooks.ManageDocks
 
--- Hooks (Xmobar stuff I think)
+-- Hooks
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.EwmhDesktops ( ewmh )
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, xmobarColor, PP(..))
+-- Fullscreen
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+-- Attatch aside thing
+import XMonad.Hooks.InsertPosition
 
 -- Layouts
 import XMonad.Layout.ResizableTile 
--- Attatch aside thing
-import XMonad.Hooks.InsertPosition
+import XMonad.Layout.Fullscreen (fullscreenEventHook, fullscreenManageHook, fullscreenSupport, fullscreenFull )
 --Gaps
 import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
@@ -34,6 +38,11 @@ import qualified Data.Map        as M
 
 -- EZKey config thing
 import XMonad.Util.EZConfig (additionalKeysP)
+
+-- Stuff for toggling fullscreen
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.NoBorders ( smartBorders )
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -84,10 +93,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch rofi
-    , ((modm,               xK_d     ), spawn "rofi -show drun -show-icons")
+    , ((modm.|. shiftMask,               xK_d     ), spawn "rofi -show drun -show-icons")
 
     -- launch dmenu
-    , ((modm .|. shiftMask, xK_d     ), spawn "dmenu_run")
+    , ((modm , xK_d     ), spawn "dmenu_run")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -96,7 +105,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_space ), sendMessage NextLayout)
 
     --  Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+    -- , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
 
     -- Resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
@@ -152,8 +161,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
 
-    -- , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
-    
     -- Shrink the master area
     , ((modm, xK_h), nextScreen)
 
@@ -163,7 +170,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Toggle floating for focused window 
     , ((modm .|. shiftMask, xK_space), withFocused $ windows . W.sink)
 
+    -- Fullscreen keyboard shortcut
+    , ((modm, xK_f), sendMessage $ Toggle FULL)
 
+    -- Spawn picom
+    , ((modm, xK_o), spawn "picom")
+    -- Kill picom 
+    , ((modm .|. shiftMask, xK_o), spawn "pkill picom")
+    
     ]
     ++
 
@@ -228,7 +242,7 @@ mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spaci
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 
-myLayout = avoidStruts $ mySpacing 4 ( tall ||| tiled ||| Mirror tiled ||| Full )
+myLayout = smartBorders $ mkToggle (NOBORDERS ?? FULL ?? EOT) $ avoidStruts $ mySpacing 4 ( tall ||| Full )
   where
      -- Better Tile layout
      tall = ResizableTall 1 (3/100) (1/2) []
@@ -260,11 +274,13 @@ myLayout = avoidStruts $ mySpacing 4 ( tall ||| tiled ||| Mirror tiled ||| Full 
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
+myManageHook = fullscreenManageHook <+> manageDocks <+> composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore
+    , isFullscreen --> doFullFloat
+    ]
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -296,6 +312,7 @@ myLogHook = return ()
 myStartupHook = do
   spawnOnce "variety &"
   spawnOnce "picom"
+  spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -304,8 +321,7 @@ myStartupHook = do
 --
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 /home/alex/.config/xmobar/xmobarrc"
-    xmonad $ docks def
-      { 
+    xmonad $ docks $ ewmh def { 
         -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -322,7 +338,7 @@ main = do
 
       -- hooks, layouts
         layoutHook         = myLayout,
-      -- inserPostition gives attach bottom functionality
+      -- insertPostition gives attach bottom functionality
         manageHook         = insertPosition End Newer <+> myManageHook,
         handleEventHook    = myEventHook <+> docksEventHook,
         logHook            = myLogHook <+> dynamicLogWithPP xmobarPP
