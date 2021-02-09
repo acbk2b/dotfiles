@@ -46,7 +46,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = True
+cursor_warp = False
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -99,10 +99,10 @@ keys = [
     Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
 
     # Launch Dmenu
-    Key([mod, "shift"], "d", lazy.spawn('dmenu_run'),
+    Key([mod], "d", lazy.spawn('dmenu_run'),
         desc="Spawn a command using dmenu"),
     # Launch Rofi
-    Key([mod], "d", lazy.spawn('rofi -show drun -show-icons'),
+    Key([mod, "shift"], "d", lazy.spawn('rofi -show drun -show-icons'),
         desc="Spawn an app using a rofi"),
 
 
