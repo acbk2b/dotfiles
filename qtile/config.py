@@ -46,7 +46,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = False
+cursor_warp = True
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -99,10 +99,10 @@ keys = [
     Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
 
     # Launch Dmenu
-    Key([mod], "d", lazy.spawn('dmenu_run'),
+    Key([mod, "shift"], "d", lazy.spawn('dmenu_run'),
         desc="Spawn a command using dmenu"),
     # Launch Rofi
-    Key([mod, "shift"], "d", lazy.spawn('rofi -show drun -show-icons'),
+    Key([mod], "d", lazy.spawn('rofi -show drun -show-icons'),
         desc="Spawn an app using a rofi"),
 
 
@@ -248,7 +248,10 @@ def getWidgets():
            
     widget_list = [
 
-                    widget.Image(filename="~/.config/qtile/archlinux.png", background=default_background, foreground=default_foreground),
+                    widget.Image(filename="~/.config/qtile/archlinux.png", 
+                                 background=default_background, 
+                                 foreground=default_foreground,
+                                 margin = 2),
                     widget.GroupBox(active=default_foreground,
                                     background=default_background, 
                                     foreground=default_foreground,
