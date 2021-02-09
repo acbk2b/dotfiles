@@ -39,6 +39,8 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger # For Writing output to qtile.log
 
+# from libqtile.core.manager.Qtile import cmd_display_kb
+
 home = os.path.expanduser('~')
 
 mod = "mod4"
@@ -117,10 +119,9 @@ keys = [
         desc='Lower Volume with media key'),
 
     # Scratchpads and friends
-    Key([mod], "i", lazy.spawn("st -c 'st-dropdown' -e pulsemixer"),
+    Key([mod], "i", lazy.spawn("st -c \"st-dropdown\" -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
 
-    # TODO: Fix this thing
     # Select and run scripts in ~/scripts using dmenu
     Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
         desc="Select and run scripts in ~/scripts using dmenu"),
@@ -166,6 +167,9 @@ keys = [
     Key([mod, "shift"], "o", lazy.spawn("pkill picom"),
         desc='Kill Picom'),
 
+    # Work in progress
+    # Key([mod], "s", lazy.function(), 
+    #     desc='Display keybindings'),
 
 ]
 
