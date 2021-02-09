@@ -39,12 +39,14 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger # For Writing output to qtile.log
 
+# from libqtile.core.manager.Qtile import cmd_display_kb
+
 home = os.path.expanduser('~')
 
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = True
+cursor_warp = False
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -97,10 +99,10 @@ keys = [
     Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
 
     # Launch Dmenu
-    Key([mod, "shift"], "d", lazy.spawn('dmenu_run'),
+    Key([mod], "d", lazy.spawn('dmenu_run'),
         desc="Spawn a command using dmenu"),
     # Launch Rofi
-    Key([mod], "d", lazy.spawn('rofi -show drun -show-icons'),
+    Key([mod, "shift"], "d", lazy.spawn('rofi -show drun -show-icons'),
         desc="Spawn an app using a rofi"),
 
 
@@ -117,10 +119,9 @@ keys = [
         desc='Lower Volume with media key'),
 
     # Scratchpads and friends
-    Key([mod], "i", lazy.spawn("st -c 'st-dropdown' -e pulsemixer"),
+    Key([mod], "i", lazy.spawn("st -c \"st-dropdown\" -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
 
-    # TODO: Fix this thing
     # Select and run scripts in ~/scripts using dmenu
     Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
         desc="Select and run scripts in ~/scripts using dmenu"),
@@ -159,6 +160,16 @@ keys = [
     # Run Passmenu dmenu script
     Key([mod], "p", lazy.spawn("passmenu"),
         desc='Run Passmenu dmenu script'),
+
+    # Launch/Kill picom keyboard shortcuts
+    Key([mod], "o", lazy.spawn("picom"),
+        desc='Launch Picom'),
+    Key([mod, "shift"], "o", lazy.spawn("pkill picom"),
+        desc='Kill Picom'),
+
+    # Work in progress
+    # Key([mod], "s", lazy.function(), 
+    #     desc='Display keybindings'),
 
 ]
 
