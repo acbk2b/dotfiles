@@ -119,8 +119,12 @@ keys = [
         desc='Lower Volume with media key'),
 
     # Scratchpads and friends
-    Key([mod], "i", lazy.spawn("st -c \"st-dropdown\" -e pulsemixer"),
+    # Pavucontrol
+    Key([mod], "i", lazy.spawn(terminal + " --class \"dropdown-term\" -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
+    # iPython Terminal
+    Key([mod], "u", lazy.spawn(terminal + " --class \"dropdown-term\" -e ipython"),
+        desc="Spawn floating terminal with ipython"),
 
     # Select and run scripts in ~/scripts using dmenu
     Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
@@ -167,10 +171,9 @@ keys = [
     Key([mod, "shift"], "o", lazy.spawn("pkill picom"),
         desc='Kill Picom'),
 
-    # Work in progress
-    # Key([mod], "s", lazy.function(), 
-    #     desc='Display keybindings'),
-
+    # Launch Firefox
+    Key([mod], "w", lazy.spawn("firefox"),
+        desc='Launch Firefox'),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -224,7 +227,7 @@ layouts = [
     layout.Max(),
     # layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
-    layout.Bsp(**layout_theme),
+    # layout.Bsp(**layout_theme),
     # layout.Columns(),
     # layout.Matrix(),
     # layout.MonadWide(),
@@ -279,14 +282,20 @@ def getWidgets():
                                    foreground = default_background,
                                    padding = 0,
                                    fontsize = 35),
-                    widget.CPU(background=default_background, foreground=default_foreground),
+                    widget.CPU(background=default_background, 
+                               foreground=default_foreground,
+                               update_interval=5
+                    ),
                     widget.TextBox(
                                    text = '',
                                    background = default_background,
                                    foreground = default_foreground,
                                    padding = 0,
                                    fontsize = 35),
-                    widget.Memory(background=default_foreground, foreground=default_background),
+                    widget.Memory(background=default_foreground, 
+                                  foreground=default_background,
+                                  update_interval=5
+                    ),
                     widget.TextBox(
                                    text = '',
                                    background = default_foreground,
@@ -322,7 +331,7 @@ screens = [Screen(top=bar.Bar(widgets=widgets, size=20))]
 num_screens = int(subprocess.check_output("xrandr | grep -w -c 'connected'", shell=True))
 
 # Just want the groupbox and the layout name
-alt_mon_widgets = widgets[:2] 
+alt_mon_widgets = widgets[:4] 
 
 # There will be one connected display for them main display,
 # only want to add bars for any additional screens
@@ -362,8 +371,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'pinentry-gtk-2'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
     # {'wmclass': 'Steam'},  # Steam
-    {'wmclass': 'pavucontrol'},  # Pavucontrol
-    {'wmclass': 'st-dropdown'},  # Pavucontrol
+    {'wmclass': 'dropdown-term'},  # Pavucontrol/other pop-up terminal things
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
