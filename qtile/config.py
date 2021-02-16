@@ -46,7 +46,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = False
+cursor_warp = True
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -215,7 +215,7 @@ for i in groups:
 # Colors
 default_foreground = '#00FF9C'
 default_background = '#2E2837'
-alt_foreground = '#82AAFF'
+alt_foreground = '#0000FF'
 
 layout_theme = {"border_width":2,
                 "margin":6,
@@ -258,14 +258,13 @@ def getWidgets():
                     widget.GroupBox(active=default_foreground,
                                     background=default_background, 
                                     foreground=default_foreground,
-                                    this_current_screen_border=default_foreground),
+                                    this_current_screen_border=default_foreground,
+                                    other_current_screen_border=alt_foreground,
+                                    other_screen_border=alt_foreground),
                     widget.CurrentLayout(background=default_background, foreground=default_foreground),
                     # Set the text color the background to hide the text
                     # TODO: Remove widget, smashes all the remaining widgets together if removed
-                    widget.WindowName(background=default_background, foreground=default_background),
-                    widget.Chord(
-                        chords_colors={'launch': ("#ff0000", "#ffffff"),},
-                        name_transform=lambda name: name.upper(),),
+                    widget.WindowName(background=default_background, foreground=default_foreground),
                     widget.TextBox(
                                    text = '',
                                    background = default_background,
@@ -331,7 +330,7 @@ screens = [Screen(top=bar.Bar(widgets=widgets, size=20))]
 num_screens = int(subprocess.check_output("xrandr | grep -w -c 'connected'", shell=True))
 
 # Just want the groupbox and the layout name
-alt_mon_widgets = widgets[:4] 
+alt_mon_widgets = getWidgets()[:-1]
 
 # There will be one connected display for them main display,
 # only want to add bars for any additional screens
