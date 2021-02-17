@@ -229,7 +229,7 @@ layout_theme = {"border_width":2,
                }
 
 layouts = [
-    layout.MonadTall(**layout_theme),
+    layout.MonadTall(**layout_theme, max_ratio=.95),
     layout.Max(),
     # layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
