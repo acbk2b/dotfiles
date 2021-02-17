@@ -60,14 +60,12 @@ keys = [
         desc="Move focus down in stack pane"),
     Key([mod], "k", lazy.layout.up(),
         desc="Move focus up in stack pane"),
-    # Increase master pane 
-    Key([mod, "shift"], "l", lazy.layout.grow_main(),
-        desc="Decrease size of master pane"),
     # Decrease master pane 
-    Key([mod, "shift"], "h", lazy.layout.shrink_main(),
+    Key([mod], "comma", lazy.layout.shrink_main(),
         desc="Decrease size of master pane"),
-
-
+    # Increase master pane 
+    Key([mod], "period", lazy.layout.grow_main(),
+        desc="Decrease size of master pane"),
 
     # Move windows up or down in current stack
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
@@ -123,8 +121,8 @@ keys = [
     Key([mod], "i", lazy.spawn(terminal + " --class \"dropdown-term\" -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
     # iPython Terminal
-    Key([mod], "u", lazy.spawn(terminal + " --class \"dropdown-term\" -e ipython"),
-        desc="Spawn floating terminal with ipython"),
+    Key([mod], "u", lazy.spawn(terminal + " --class \"dropdown-term\" -e python"),
+        desc="Spawn floating terminal with python"),
 
     # Select and run scripts in ~/scripts using dmenu
     Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
@@ -174,6 +172,14 @@ keys = [
     # Launch Firefox
     Key([mod], "w", lazy.spawn("firefox"),
         desc='Launch Firefox'),
+    # Launch Spotify
+    Key([mod], "s", lazy.spawn("spotify"),
+        desc='Launch Spotify'),
+    # Launch Joplin
+    Key([mod], "a", lazy.spawn(home + "/Joplin"),
+        desc='Launch Joplin'),
+
+
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -270,7 +276,7 @@ def getWidgets():
                                    background = default_background,
                                    foreground = default_foreground,
                                    padding = 0,
-                                   fontsize = 35),
+                                   fontsize = 34),
 
                     widget.Volume(
                                   background=default_foreground,
@@ -280,7 +286,7 @@ def getWidgets():
                                    background = default_foreground,
                                    foreground = default_background,
                                    padding = 0,
-                                   fontsize = 35),
+                                   fontsize = 34),
                     widget.CPU(background=default_background, 
                                foreground=default_foreground,
                                update_interval=5
@@ -290,7 +296,7 @@ def getWidgets():
                                    background = default_background,
                                    foreground = default_foreground,
                                    padding = 0,
-                                   fontsize = 35),
+                                   fontsize = 34),
                     widget.Memory(background=default_foreground, 
                                   foreground=default_background,
                                   update_interval=5
@@ -300,9 +306,10 @@ def getWidgets():
                                    background = default_foreground,
                                    foreground = default_background,
                                    padding = 0,
-                                   fontsize = 35),
+                                   fontsize = 34),
                     widget.Clock(background=default_background, 
                                  foreground=default_foreground, 
+                                 mouse_callbacks={'Button1':lambda qtile: qtile.cmd_spawn("alacritty --hold --class 'dropdown-term'  -e 'cal' '-3'")},
                                  format='%m-%d-%Y %a %I:%M %p'),
                     widget.Systray(background=default_background, foreground=default_foreground)
                 ]
@@ -325,7 +332,7 @@ def getWidgets():
 
 widgets = getWidgets()
 
-screens = [Screen(top=bar.Bar(widgets=widgets, size=20))]
+screens = [Screen(top=bar.Bar(widgets=widgets, size=19))]
 
 num_screens = int(subprocess.check_output("xrandr | grep -w -c 'connected'", shell=True))
 
@@ -335,7 +342,7 @@ alt_mon_widgets = getWidgets()[:-1]
 # There will be one connected display for them main display,
 # only want to add bars for any additional screens
 for i in range(num_screens-1):
-    screens.append(Screen(top=bar.Bar(widgets=alt_mon_widgets, size=20)))
+    screens.append(Screen(top=bar.Bar(widgets=alt_mon_widgets, size=19)))
 
 # Drag floating layouts.
 mouse = [
