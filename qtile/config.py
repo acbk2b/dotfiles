@@ -56,9 +56,9 @@ def toggle(self):
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "j", lazy.layout.down(),
+    Key([mod], "j", lazy.group.prev_window(),
         desc="Move focus down in stack pane"),
-    Key([mod], "k", lazy.layout.up(),
+    Key([mod], "k", lazy.group.next_window(),
         desc="Move focus up in stack pane"),
     # Decrease master pane 
     Key([mod], "comma", lazy.layout.shrink_main(),
