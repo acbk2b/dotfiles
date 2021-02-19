@@ -103,7 +103,25 @@ keys = [
     Key([mod, "shift"], "d", lazy.spawn('rofi -show drun -show-icons'),
         desc="Spawn an app using a rofi"),
 
+    # Fullscreen
+    Key([mod], "f", lazy.window.toggle_fullscreen(), 
+        desc='Toggle fullscreen for selected window'),
 
+    # Toggle Bar
+    Key([mod], "b", lazy.hide_show_bar(),
+        desc='Toggle bar for selected monitor'),
+
+    # Floating
+    Key([mod, "shift"], "space", lazy.window.toggle_floating(),
+        desc='Toggle floating for selected window'),
+
+    # Previous Monitor
+    Key([mod], "h", lazy.prev_screen(),
+        desc='Switch focus to previous monitor'),
+    # Next Monitor
+    Key([mod], "l", lazy.next_screen(),
+        desc='Switch focus to next monitor'),
+    
     # Media keys
     Key([], "XF86AudioMute", lazy.spawn('pactl set-sink-mute 0 toggle'),
         desc='Mute Volume with media key'),
@@ -120,6 +138,7 @@ keys = [
     # Pavucontrol
     Key([mod], "i", lazy.spawn(terminal + " --class \"dropdown-term\" -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
+
     # iPython Terminal
     Key([mod], "u", lazy.spawn(terminal + " --class \"dropdown-term\" -e python"),
         desc="Spawn floating terminal with python"),
@@ -128,28 +147,6 @@ keys = [
     Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
         desc="Select and run scripts in ~/scripts using dmenu"),
 
-    # Flameshot
-    Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),
-        desc="Launch flameshot"),
-
-    # Fullscreen
-    Key([mod], "f", lazy.window.toggle_fullscreen(), 
-        desc='Toggle fullscreen for selected window'),
-    # Toggle Bar
-    Key([mod], "b", lazy.hide_show_bar(),
-        desc='Toggle bar for selected monitor'),
-
-    # Floating
-    Key([mod, "shift"], "space", lazy.window.toggle_floating(),
-        desc='Toggle floating for selected window'),
-
-    # Previous Monitor
-    Key([mod], "h", lazy.prev_screen(),
-        desc='Switch focus to previous monitor'),
-    # Next Monitor
-    Key([mod], "l", lazy.next_screen(),
-        desc='Switch focus to next monitor'),
-    
     # Toggle Cursor Warp
     # Hacky sed script thing
     Key([mod], "y", lazy.function(toggle), lazy.restart(),
@@ -175,18 +172,17 @@ keys = [
     # Launch Spotify
     Key([mod], "s", lazy.spawn("spotify"),
         desc='Launch Spotify'),
+
     # Launch Joplin
     Key([mod], "a", lazy.spawn(home + "/Joplin"),
         desc='Launch Joplin'),
 
-
+    # Flameshot
+    Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),
+        desc="Launch flameshot"),
 ]
 
 groups = [Group(i) for i in "123456789"]
-# groups.append(ScratchPad("scratchpad", [
-#                          DropDown("term", terminal),
-#                          ]))
-
 num_pad = ["KP_End", "KP_Down", "KP_Next", "KP_Left", "KP_Begin", "KP_Right", "KP_Home", "KP_Up", "KP_Prior"]
 
 index = 0
@@ -213,9 +209,8 @@ for i in groups:
             desc="move focused window to group {}".format(i.name)),
         Key([mod, "shift"], num_pad[index], lazy.window.togroup(i.name),
             desc="move focused window to group {}".format(i.name)),
-
     ])
-
+    
     index += 1
 
 # Colors
@@ -244,6 +239,8 @@ layouts = [
     # layout.Zoomy(),
 ]
 
+# TODO: Clean up widget config; Default values dictionary, with one for purple, one for green
+
 widget_defaults = dict(
     font='Ubunto Mono',
     fontsize=12,
@@ -252,6 +249,24 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 
+widget_purple = dict(
+ background = default_background,
+ foreground = default_foreground
+)
+
+widget_green = dict(
+ background = default_foreground,
+ foreground = default_background
+)
+
+# Note that for arrows, the foreground/background colors need to be flipped compared to the 
+# widgets, so widget_purple arrow goes with widget_green widget
+arrow_defaults = dict(
+    text = '',
+    padding = 0,
+    fontsize = 34
+)
+                                   
 # Need a separate function, doesn't work using the same list
 def getWidgets():
            
@@ -271,51 +286,20 @@ def getWidgets():
                     # Set the text color the background to hide the text
                     # TODO: Remove widget, smashes all the remaining widgets together if removed
                     widget.WindowName(background=default_background, foreground=default_foreground),
-                    widget.TextBox(
-                                   text = '',
-                                   background = default_background,
-                                   foreground = default_foreground,
-                                   padding = 0,
-                                   fontsize = 34),
-
-                    widget.Volume(
-                                  background=default_foreground,
-                                  foreground=default_background),
-                    widget.TextBox(
-                                   text = '',
-                                   background = default_foreground,
-                                   foreground = default_background,
-                                   padding = 0,
-                                   fontsize = 34),
-                    widget.CPU(background=default_background, 
-                               foreground=default_foreground,
-                               update_interval=5
-                    ),
-                    widget.TextBox(
-                                   text = '',
-                                   background = default_background,
-                                   foreground = default_foreground,
-                                   padding = 0,
-                                   fontsize = 34),
-                    widget.Memory(background=default_foreground, 
-                                  foreground=default_background,
-                                  update_interval=5
-                    ),
-                    widget.TextBox(
-                                   text = '',
-                                   background = default_foreground,
-                                   foreground = default_background,
-                                   padding = 0,
-                                   fontsize = 34),
-                    widget.Clock(background=default_background, 
-                                 foreground=default_foreground, 
+                    widget.TextBox(**arrow_defaults, **widget_purple),
+                    widget.Volume(**widget_green),
+                    widget.TextBox(**arrow_defaults, **widget_green),
+                    widget.CPU(**widget_purple, update_interval=5),
+                    widget.TextBox(**arrow_defaults, **widget_purple),
+                    widget.Memory(**widget_green, update_interval=5),
+                    widget.TextBox(**arrow_defaults, **widget_green),
+                    widget.Clock(**widget_purple, 
                                  mouse_callbacks={'Button1':lambda qtile: qtile.cmd_spawn("alacritty --hold --class 'dropdown-term'  -e 'cal' '-3'")},
                                  format='%m-%d-%Y %a %I:%M %p'),
-                    widget.Systray(background=default_background, foreground=default_foreground)
+                    widget.Systray(**widget_purple)
                 ]
 
     # Replace CPU widget with Battery widget on laptop
-
     # Check for existence of a battery
     has_bat = subprocess.check_output("ls /sys/class/power_supply | grep -c 'BAT' || true", shell=True)
 
@@ -326,7 +310,7 @@ def getWidgets():
             if isinstance(widget_list[index], widget.cpu.CPU):
                 break 
         # Replace module
-        widget_list[index] = widget.Battery(background=default_background, foreground=default_foreground, format='{char} {percent:2.0%}')
+        widget_list[index] = widget.Battery(**widget_purple, format='{char} {percent:2.0%}')
 
     return widget_list
 
@@ -359,27 +343,30 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
 
-floating_layout = layout.Floating(float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
-    *layout.Floating.default_float_rules,
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'pinentry-gtk-2'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
-    # {'wmclass': 'Steam'},  # Steam
-    {'wmclass': 'dropdown-term'},  # Pavucontrol/other pop-up terminal things
-])
+floating_layout = layout.Floating(
+    float_rules=[
+        # Run the utility of `xprop` to see the wm class and name of an X client.
+        *layout.Floating.default_float_rules,
+        {'wmclass': 'confirm'},
+        {'wmclass': 'dialog'},
+        {'wmclass': 'download'},
+        {'wmclass': 'error'},
+        {'wmclass': 'file_progress'},
+        {'wmclass': 'notification'},
+        {'wmclass': 'splash'},
+        {'wmclass': 'toolbar'},
+        {'wmclass': 'confirmreset'},  # gitk
+        {'wmclass': 'makebranch'},  # gitk
+        {'wmclass': 'maketag'},  # gitk
+        {'wname': 'branchdialog'},  # gitk
+        {'wname': 'pinentry'},  # GPG key password entry
+        {'wmclass': 'pinentry-gtk-2'},  # GPG key password entry
+        {'wmclass': 'ssh-askpass'},  # ssh-askpass
+        # {'wmclass': 'Steam'},  # Steam
+        {'wmclass': 'dropdown-term'},  # Pavucontrol/other pop-up terminal things
+    ],
+    **layout_theme
+)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
