@@ -286,6 +286,10 @@ def getWidgets():
                     # Set the text color the background to hide the text
                     # TODO: Remove widget, smashes all the remaining widgets together if removed
                     widget.WindowName(background=default_background, foreground=default_foreground),
+                    widget.CheckUpdates(**widget_purple, 
+                                        colour_have_updates=widget_purple['foreground'],
+                                        update_interval=7200,
+                                        custom_command='pacman -Qu'),
                     widget.TextBox(**arrow_defaults, **widget_purple),
                     widget.Volume(**widget_green),
                     widget.TextBox(**arrow_defaults, **widget_green),
