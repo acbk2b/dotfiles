@@ -46,7 +46,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = True
+cursor_warp = False
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -94,7 +94,7 @@ keys = [
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
-    Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
+    Key([mod, "control"], "e", lazy.shutdown(), desc="Shutdown qtile"),
 
     # Launch Dmenu
     Key([mod], "d", lazy.spawn('dmenu_run'),
@@ -153,7 +153,7 @@ keys = [
         desc="Toggle Cursor Warp and restart Qtile"),
 
     # Lock screen with display manager tool thing
-    Key([mod, "shift"], "x", lazy.spawn("dm-tool lock"),
+    Key([mod, "control"], "Delete", lazy.spawn("dm-tool lock"),
         desc='Lock Screen with dm-tool'),
 
     # Run Passmenu dmenu script
