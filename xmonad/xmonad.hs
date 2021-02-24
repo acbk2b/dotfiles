@@ -7,42 +7,38 @@
 -- Normally, you'd only override those defaults you care about.
 --
 
+-- Default Stuff
 import XMonad
 import Data.Monoid
 import System.Exit
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
-
--- Hooks
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.EwmhDesktops ( ewmh )
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, xmobarColor, PP(..))
--- Fullscreen
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
--- Attatch aside thing
-import XMonad.Hooks.InsertPosition
-
--- Layouts
-import XMonad.Layout.ResizableTile 
-import XMonad.Layout.Fullscreen (fullscreenEventHook, fullscreenManageHook, fullscreenSupport, fullscreenFull )
---Gaps
-import XMonad.Layout.Gaps
-import XMonad.Layout.Spacing
-import XMonad.Layout.LayoutModifier
-
--- Screen keybindings
-import XMonad.Actions.CycleWS (nextScreen, prevScreen)
-
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
--- EZKey config thing
-import XMonad.Util.EZConfig (additionalKeysP)
+-- Hooks
+import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks)
+import XMonad.Hooks.EwmhDesktops ( ewmh )
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, xmobarColor, PP(..)) -- Xmobar stuff
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat) -- Fullscreen
+import XMonad.Hooks.InsertPosition -- Attatch aside thing
 
--- Stuff for toggling fullscreen
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
-import XMonad.Layout.NoBorders ( smartBorders )
+-- Layouts
+import XMonad.Layout.ResizableTile 
+import XMonad.Layout.Spiral
+import XMonad.Layout.Fullscreen (fullscreenEventHook, fullscreenManageHook )
+import qualified XMonad.Layout.MultiToggle as MT
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL)) -- Fullscreen layout
+import XMonad.Layout.Spacing --Gaps
+import XMonad.Layout.LayoutModifier --Gaps
+import XMonad.Layout.IndependentScreens -- xmobars for each screen
+
+-- Actions
+import XMonad.Actions.CycleWS (nextScreen, prevScreen) -- Screen keybindings
+import XMonad.Actions.UpdatePointer -- Mouse Warping
+
+-- Media Keys
+import Graphics.X11.ExtraTypes.XF86 ( xF86XK_AudioLowerVolume, xF86XK_AudioRaiseVolume, xF86XK_AudioMute, xF86XK_MonBrightnessDown, xF86XK_MonBrightnessUp )
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -102,16 +98,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_c     ), kill)
 
      -- Rotate through the available layout algorithms
-    , ((modm,               xK_space ), sendMessage NextLayout)
+    , ((modm,               xK_Tab ), sendMessage NextLayout)
 
     --  Reset the layouts on the current workspace to default
     -- , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
 
     -- Resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
-
-    -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
 
     -- Move focus to the next window
     , ((modm,               xK_j     ), windows W.focusDown)
@@ -132,51 +125,62 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
 
     -- Shrink the master area
-    , ((modm .|. shiftMask, xK_h     ), sendMessage Shrink)
+    , ((modm,               xK_comma ), sendMessage Shrink)
 
     -- Expand the master area
-    , ((modm .|. shiftMask, xK_l     ), sendMessage Expand)
+    , ((modm,               xK_period), sendMessage Expand)
 
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
 
     -- Increment the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
+    , ((modm .|. shiftMask, xK_comma ), sendMessage (IncMasterN 1))
 
     -- Deincrement the number of windows in the master area
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
-
-    -- Toggle the status bar gap
-    -- Use this binding with avoidStruts from Hooks.ManageDocks.
-    -- See also the statusBar function from Hooks.DynamicLog.
-    --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
+    , ((modm  .|. shiftMask, xK_period), sendMessage (IncMasterN (-1)))
 
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
 
     -- Restart xmonad
-    , ((modm .|. controlMask, xK_r     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm .|. shiftMask, xK_r   ), spawn "xmonad --recompile; xmonad --restart")
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
 
     -- Shrink the master area
-    , ((modm, xK_h), nextScreen)
+    , ((modm,               xK_h     ), nextScreen)
 
     -- Expand the master area
-    , ((modm, xK_l), prevScreen)
+    , ((modm,               xK_l), prevScreen)
 
     -- Toggle floating for focused window 
     , ((modm .|. shiftMask, xK_space), withFocused $ windows . W.sink)
 
     -- Fullscreen keyboard shortcut
-    , ((modm, xK_f), sendMessage $ Toggle FULL)
+    -- , ((modm, xK_f), sendMessage $ Toggle FULL)
+    , ((modm, xK_f), sendMessage (MT.Toggle NBFULL))
 
     -- Spawn picom
     , ((modm, xK_o), spawn "picom")
     -- Kill picom 
     , ((modm .|. shiftMask, xK_o), spawn "pkill picom")
+    -- Application shortcuts 
+    , ((modm, xK_w), spawn "firefox")
+    , ((modm, xK_s), spawn "spotify")
+    , ((modm, xK_a), spawn "~/Joplin")
+    -- Scripts dmenu prompt
+    , ((modm, xK_r), spawn "~/scripts/run_scripts")
+
+    -- Media Keys
+    -- Audio Keys
+    , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume 0 +5%")
+    , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume 0 -5%")
+    , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute 0 toggle")
+    , ((0, xF86XK_MonBrightnessUp), spawn "light -A 5%")
+    , ((0, xF86XK_MonBrightnessDown), spawn "light -U 5%")
+
+    , ((modm, xK_i), spawn (myTerminal ++ " --class \"dropdown-term\" -e pulsemixer"))
     
     ]
     ++
@@ -196,16 +200,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_KP_End, xK_KP_Down, xK_KP_Next, xK_KP_Left, xK_KP_Begin, xK_KP_Right, xK_KP_Home, xK_KP_Up, xK_KP_Prior]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    ++
-
-
+    -- ++
+    
     --
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     --
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+    -- [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+    --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
 ------------------------------------------------------------------------
@@ -242,10 +245,13 @@ mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spaci
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 
-myLayout = smartBorders $ mkToggle (NOBORDERS ?? FULL ?? EOT) $ avoidStruts $ mySpacing 4 ( tall ||| Full )
-  where
+myLayoutHook = MT.mkToggle (NBFULL MT.?? MT.EOT) $ avoidStruts ( tall ||| Full ||| spirals ) 
+  where 
      -- Better Tile layout
-     tall = ResizableTall 1 (3/100) (1/2) []
+     tall = mySpacing 4 $ ResizableTall nmaster delta ratio []
+
+     -- Fibonacci Spiral Layout
+     spirals  = mySpacing 4 $ spiral (6/7)
 
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -274,12 +280,16 @@ myLayout = smartBorders $ mkToggle (NOBORDERS ?? FULL ?? EOT) $ avoidStruts $ my
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = fullscreenManageHook <+> manageDocks <+> composeAll
+myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , resource  =? "dropdown-term"  --> doFloat
+    , resource  =? "pavucontrol"    --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
-    , isFullscreen --> doFullFloat
+    , isFullscreen --> doFullFloat 
+    , fullscreenManageHook 
+    , manageDocks 
     ]
 
 ------------------------------------------------------------------------
@@ -291,16 +301,25 @@ myManageHook = fullscreenManageHook <+> manageDocks <+> composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = composeAll 
+    [ docksEventHook
+    , fullscreenEventHook
+    ]
 
 ------------------------------------------------------------------------
 -- Status bars and logging
 
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
---
-myLogHook = return ()
 
+myLogHook = composeAll 
+    [ updatePointer (0.5, 0.5) (0, 0) ]
+
+xmobarCommand (S s) = unwords ["xmobar", "-x", show s] 
+pp h s = xmobarPP
+  { ppOutput = hPutStrLn h
+  , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+  } 
 ------------------------------------------------------------------------
 -- Startup hook
 
@@ -310,9 +329,12 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
+  spawnOnce "$HOME/.autostart.sh"
   spawnOnce "variety &"
   spawnOnce "picom"
-  spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
+  spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 18 &"
+
+
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -320,38 +342,37 @@ myStartupHook = do
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/alex/.config/xmobar/xmobarrc"
-    xmonad $ docks $ ewmh def { 
+    -- xmproc <- spawnPipe "xmobar -x 0 /home/alex/.config/xmobar/xmobarrc"
+    -- xmproc1 <- spawnPipe "xmobar -x 1 /home/alex/.config/xmobar/xmobarrc"
+    nScreens    <- countScreens
+    hs          <- mapM (spawnPipe . xmobarCommand) [0 .. nScreens-1]
+    xmonad $ ewmh def { 
         -- simple stuff
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        clickJustFocuses   = myClickJustFocuses,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
+          terminal           = myTerminal
+        , focusFollowsMouse  = myFocusFollowsMouse
+        , clickJustFocuses   = myClickJustFocuses
+        , borderWidth        = myBorderWidth
+        , modMask            = myModMask
+        , workspaces         = myWorkspaces
+        , normalBorderColor  = myNormalBorderColor
+        , focusedBorderColor = myFocusedBorderColor
 
-      -- key bindings
-        keys               = myKeys,
-        mouseBindings      = myMouseBindings,
+        --  key bindings
+        , keys               = myKeys
+        , mouseBindings      = myMouseBindings
 
-      -- hooks, layouts
-        layoutHook         = myLayout,
-      -- insertPostition gives attach bottom functionality
-        manageHook         = insertPosition End Newer <+> myManageHook,
-        handleEventHook    = myEventHook <+> docksEventHook,
-        logHook            = myLogHook <+> dynamicLogWithPP xmobarPP
-                          {
-                            ppOutput = \x -> hPutStrLn xmproc0 x
-                          , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
-                          }
+        --  hooks, layouts
+        , layoutHook         = myLayoutHook
+        --  insertPostition gives attach bottom functionality
+        , manageHook         = insertPosition End Newer <+> myManageHook
+        , handleEventHook    = myEventHook
+        , logHook            = myLogHook <+> (mapM_ dynamicLogWithPP $ zipWith pp hs [0..nScreens])
+        -- , logHook            = myLogHook <+> dynamicLogWithPP xmobarPP
+        --                         { ppOutput = \x -> hPutStrLn xmproc x -- >> hPutStrLn xmproc1 x
+        --                         , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+        --                         } 
         , startupHook        = myStartupHook
-      } `additionalKeysP`
-        [
-          ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume 0 +5%")
-        , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume 0 -5%")
-        ]
+      }
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
 help :: String
