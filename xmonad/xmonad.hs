@@ -18,15 +18,17 @@ import qualified Data.Map        as M
 
 -- Hooks
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks)
-import XMonad.Hooks.EwmhDesktops ( ewmh )
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, xmobarColor, PP(..)) -- Xmobar stuff
+import XMonad.Hooks.EwmhDesktops ( ewmh, fullscreenEventHook )
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, xmobarColor, wrap, PP(..)) -- Xmobar stuff
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat) -- Fullscreen
 import XMonad.Hooks.InsertPosition -- Attatch aside thing
+import XMonad.Hooks.UrgencyHook -- Stop urgent events from stealing focus
+import XMonad.Hooks.Place
 
 -- Layouts
+import XMonad.Layout.Renamed
 import XMonad.Layout.ResizableTile 
 import XMonad.Layout.Spiral
-import XMonad.Layout.Fullscreen (fullscreenEventHook, fullscreenManageHook )
 import qualified XMonad.Layout.MultiToggle as MT
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL)) -- Fullscreen layout
 import XMonad.Layout.Spacing --Gaps
@@ -159,7 +161,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Fullscreen keyboard shortcut
     -- , ((modm, xK_f), sendMessage $ Toggle FULL)
-    , ((modm, xK_f), sendMessage (MT.Toggle NBFULL))
+    , ((modm,               xK_f), sendMessage (MT.Toggle NBFULL))
 
     -- Spawn picom
     , ((modm, xK_o), spawn "picom")
@@ -169,6 +171,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm, xK_w), spawn "firefox")
     , ((modm, xK_s), spawn "spotify")
     , ((modm, xK_a), spawn "~/Joplin")
+    , ((modm .|. shiftMask, xK_s), spawn "flameshot gui")
     -- Scripts dmenu prompt
     , ((modm, xK_r), spawn "~/scripts/run_scripts")
 
@@ -245,13 +248,13 @@ mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spaci
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 
-myLayoutHook = MT.mkToggle (NBFULL MT.?? MT.EOT) $ avoidStruts ( tall ||| Full ||| spirals ) 
+myLayoutHook = MT.mkToggle (NBFULL MT.?? MT.EOT) $ avoidStruts ( tall ||| Full ) 
   where 
      -- Better Tile layout
-     tall = mySpacing 4 $ ResizableTall nmaster delta ratio []
+     tall = renamed [Replace "tall"] $ mySpacing 4 $ ResizableTall nmaster delta ratio []
 
      -- Fibonacci Spiral Layout
-     spirals  = mySpacing 4 $ spiral (6/7)
+     spirals  = renamed [Replace "spiral"] $ mySpacing 4 $ spiral (6/7)
 
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -288,7 +291,6 @@ myManageHook = composeAll
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen --> doFullFloat 
-    , fullscreenManageHook 
     , manageDocks 
     ]
 
@@ -319,6 +321,7 @@ xmobarCommand (S s) = unwords ["xmobar", "-x", show s]
 pp h s = xmobarPP
   { ppOutput = hPutStrLn h
   , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+  , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
   } 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -330,9 +333,9 @@ pp h s = xmobarPP
 -- By default, do nothing.
 myStartupHook = do
   spawnOnce "$HOME/.autostart.sh"
-  spawnOnce "variety &"
+  spawnOnce "variety"
   spawnOnce "picom"
-  spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 18 &"
+  spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor \"primary\" --transparent true --alpha 0 --tint 0x282c34  --height 18"
 
 
 
@@ -346,7 +349,7 @@ main = do
     -- xmproc1 <- spawnPipe "xmobar -x 1 /home/alex/.config/xmobar/xmobarrc"
     nScreens    <- countScreens
     hs          <- mapM (spawnPipe . xmobarCommand) [0 .. nScreens-1]
-    xmonad $ ewmh def { 
+    xmonad $ withUrgencyHook NoUrgencyHook $ ewmh def { 
         -- simple stuff
           terminal           = myTerminal
         , focusFollowsMouse  = myFocusFollowsMouse
@@ -364,7 +367,7 @@ main = do
         --  hooks, layouts
         , layoutHook         = myLayoutHook
         --  insertPostition gives attach bottom functionality
-        , manageHook         = insertPosition End Newer <+> myManageHook
+        , manageHook         = placeHook (withGaps (16,0,16,0) (smart (0.5,0.5))) <+> insertPosition End Newer <+> myManageHook
         , handleEventHook    = myEventHook
         , logHook            = myLogHook <+> (mapM_ dynamicLogWithPP $ zipWith pp hs [0..nScreens])
         -- , logHook            = myLogHook <+> dynamicLogWithPP xmobarPP
