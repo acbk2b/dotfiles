@@ -1,0 +1,11 @@
+# Map Right Alt Key to Super Key
+KEY="$(xmodmap -pke | grep Alt_R | cut -d ' ' -f2)"
+xmodmap -e "keycode $KEY = Super_L"
+xmodmap -e "remove mod1 = Super_L"
+
+# Increase key speed rate change
+xset r rate 300 50
+
+# Remap caps lock to escape
+setxkbmap -option caps:swapescape 
+killall xcape 2>/dev/null ; xcape -e 'Super_L=Escape';
