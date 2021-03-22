@@ -34,7 +34,7 @@ import socket
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook
-from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown
+from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown, Match
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger # For Writing output to qtile.log
@@ -46,7 +46,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = False
+cursor_warp = True
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -94,7 +94,7 @@ keys = [
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "shift"], "r", lazy.restart(), desc="Restart qtile"),
-    Key([mod, "control"], "e", lazy.shutdown(), desc="Shutdown qtile"),
+    Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown qtile"),
 
     # Launch Dmenu
     Key([mod], "d", lazy.spawn('dmenu_run'),
@@ -135,9 +135,12 @@ keys = [
         desc='Lower Volume with media key'),
 
     # Scratchpads and friends
-    # Pavucontrol
+    # pulsemixer
     Key([mod], "i", lazy.spawn(terminal + " --class \"dropdown-term\" -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
+    # Pavucontrol
+    Key([mod, "shift"], "i", lazy.spawn("pavucontrol"),
+        desc="Spawn pavucontrol"),
 
     # iPython Terminal
     Key([mod], "u", lazy.spawn(terminal + " --class \"dropdown-term\" -e python"),
@@ -153,7 +156,7 @@ keys = [
         desc="Toggle Cursor Warp and restart Qtile"),
 
     # Lock screen with display manager tool thing
-    Key([mod, "control"], "Delete", lazy.spawn("dm-tool lock"),
+    Key([mod, "shift"], "x", lazy.spawn("dm-tool lock"),
         desc='Lock Screen with dm-tool'),
 
     # Run Passmenu dmenu script
@@ -167,7 +170,7 @@ keys = [
         desc='Kill Picom'),
 
     # Launch Firefox
-    Key([mod], "w", lazy.spawn("firefox"),
+    Key([mod], "w", lazy.spawn("qutebrowser"),
         desc='Launch Firefox'),
     # Launch Spotify
     Key([mod], "s", lazy.spawn("spotify"),
@@ -182,8 +185,9 @@ keys = [
         desc="Launch flameshot"),
 ]
 
-groups = [Group(i) for i in "123456789"]
-num_pad = ["KP_End", "KP_Down", "KP_Next", "KP_Left", "KP_Begin", "KP_Right", "KP_Home", "KP_Up", "KP_Prior"]
+# TODO: Up Groups to 10, left the numpad key for 0 in the list
+groups = [Group(str(i)) for i in range(1,10)]
+num_pad = ["KP_End", "KP_Down", "KP_Next", "KP_Left", "KP_Begin", "KP_Right", "KP_Home", "KP_Up", "KP_Prior", "KP_Insert"]
 
 index = 0
 for i in groups:
@@ -224,7 +228,7 @@ layout_theme = {"border_width":2,
                }
 
 layouts = [
-    layout.MonadTall(**layout_theme, max_ratio=.95),
+    layout.MonadTall(**layout_theme, ratio=.6, max_ratio=.95),
     layout.Max(),
     # layout.Stack(num_stacks=2),
     # Try more layouts by unleashing below layouts.
@@ -242,7 +246,7 @@ layouts = [
 # TODO: Clean up widget config; Default values dictionary, with one for purple, one for green
 
 widget_defaults = dict(
-    font='Ubunto Mono',
+    font='JetBrains Mono',
     fontsize=12,
     padding=3,
 )
@@ -272,24 +276,22 @@ def getWidgets():
            
     widget_list = [
 
-                    widget.Image(filename="~/.config/qtile/archlinux.png", 
-                                 background=default_background, 
-                                 foreground=default_foreground,
+                    widget.Image(**widget_purple,
+                                 filename="~/.config/qtile/archlinux.png", 
                                  margin = 2),
-                    widget.GroupBox(active=default_foreground,
-                                    background=default_background, 
-                                    foreground=default_foreground,
+                    widget.GroupBox(**widget_purple,
+                                    active=default_foreground,
                                     this_current_screen_border=default_foreground,
                                     other_current_screen_border=alt_foreground,
                                     other_screen_border=alt_foreground),
-                    widget.CurrentLayout(background=default_background, foreground=default_foreground),
+                    widget.CurrentLayout(**widget_purple, fmt=':{}:'),
                     # Set the text color the background to hide the text
                     # TODO: Remove widget, smashes all the remaining widgets together if removed
-                    widget.WindowName(background=default_background, foreground=default_foreground),
+                    widget.WindowName(**widget_purple, max_chars=50),
                     widget.CheckUpdates(**widget_purple, 
                                         colour_have_updates=widget_purple['foreground'],
                                         update_interval=7200,
-                                        custom_command='pacman -Qu'),
+                                        custom_command='yay -Qu'),
                     widget.TextBox(**arrow_defaults, **widget_purple),
                     widget.Volume(**widget_green),
                     widget.TextBox(**arrow_defaults, **widget_green),
@@ -351,23 +353,15 @@ floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
-        {'wmclass': 'confirm'},
-        {'wmclass': 'dialog'},
-        {'wmclass': 'download'},
-        {'wmclass': 'error'},
-        {'wmclass': 'file_progress'},
-        {'wmclass': 'notification'},
-        {'wmclass': 'splash'},
-        {'wmclass': 'toolbar'},
-        {'wmclass': 'confirmreset'},  # gitk
-        {'wmclass': 'makebranch'},  # gitk
-        {'wmclass': 'maketag'},  # gitk
-        {'wname': 'branchdialog'},  # gitk
-        {'wname': 'pinentry'},  # GPG key password entry
-        {'wmclass': 'pinentry-gtk-2'},  # GPG key password entry
-        {'wmclass': 'ssh-askpass'},  # ssh-askpass
-        # {'wmclass': 'Steam'},  # Steam
-        {'wmclass': 'dropdown-term'},  # Pavucontrol/other pop-up terminal things
+        Match(wm_class='confirmreset'),  # gitk
+        Match(wm_class='makebranch'),  # gitk
+        Match(wm_class='maketag'),  # gitk
+        Match(wm_class='ssh-askpass'),  # ssh-askpass
+        Match(title='branchdialog'),  # gitk
+        Match(title='pinentry'),  # GPG key password entry
+        Match(wm_class='pinentry-gtk-2'),  # GPG key password entry
+        Match(wm_class='dropdown-term'),  # pulsemixer/other pop-up terminal things
+        Match(wm_class='pavucontrol'),  # Pavucontrol (Pulseaudio Volume Control)
     ],
     **layout_theme
 )
@@ -384,6 +378,7 @@ focus_on_window_activation = "smart"
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
-@hook.subscribe.startup_once
-def autostart():
-    os.system(home + '/.config/qtile/autostart.sh')
+# Moved autostart and remaps scripts to .xprofile
+# @hook.subscribe.startup_once
+# def autostart():
+#     os.system(home + '/.local/bin/autostart')
