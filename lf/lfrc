@@ -1,0 +1,24 @@
+# Lf configuration file
+
+cmd changeFileName ${{
+  echo "New filename:"
+  read NAME
+  mv $f "$(pwd)/$NAME"
+}}
+
+cmd delete ${{
+	printf "%s\n\t" "$fx"
+	printf "delete?[y/N]"
+	read ans
+	[ $ans = "y" ] && rm -rf -- $fx
+}}
+
+cmd open ${{
+  xdg-open $f
+}}
+
+map D delete
+map . set hidden!
+map o open
+map C changeFileName
+map R reload
