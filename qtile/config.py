@@ -185,8 +185,7 @@ keys = [
         desc="Launch flameshot"),
 ]
 
-# TODO: Up Groups to 10, left the numpad key for 0 in the list
-groups = [Group(str(i)) for i in range(1,10)]
+groups = [Group(i) for i in "1234567890"]
 num_pad = ["KP_End", "KP_Down", "KP_Next", "KP_Left", "KP_Begin", "KP_Right", "KP_Home", "KP_Up", "KP_Prior", "KP_Insert"]
 
 index = 0
@@ -198,19 +197,11 @@ for i in groups:
         # mod + numpad key = switch to group
         Key([mod], num_pad[index], lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
-
-
-        # # mod1 + shift + letter of group = switch to & move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-        #     desc="Switch to & move focused window to group {}".format(i.name)),
-        # # mod + shift + numpad key = switch to and move focused window to group
-        # Key([mod, "shift"], num_pad[index], lazy.window.togroup(i.name, switch_group=True),
-        #     desc="Switch to & move focused window to group {}".format(i.name)),
-
-        # Or, use below if you prefer not to switch to that group.
-        # mod1 + shift + letter of group = move focused window to group
+        
+        # mod1 + shift + number of group = move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
             desc="move focused window to group {}".format(i.name)),
+        # mod1 + shift + numpad_key = move focused window to group
         Key([mod, "shift"], num_pad[index], lazy.window.togroup(i.name),
             desc="move focused window to group {}".format(i.name)),
     ])
@@ -284,7 +275,7 @@ def getWidgets():
                                     this_current_screen_border=default_foreground,
                                     other_current_screen_border=alt_foreground,
                                     other_screen_border=alt_foreground),
-                    widget.CurrentLayout(**widget_purple, fmt=':{}:'),
+                    widget.CurrentLayout(**widget_purple, fmt='[{}]'),
                     # Set the text color the background to hide the text
                     # TODO: Remove widget, smashes all the remaining widgets together if removed
                     widget.WindowName(**widget_purple, max_chars=50),
