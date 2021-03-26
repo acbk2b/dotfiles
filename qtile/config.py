@@ -135,6 +135,9 @@ keys = [
         desc='Lower Volume with media key'),
 
     # Scratchpads and friends
+    # "Scratchpad"
+    Key([mod], "o", lazy.spawn(terminal + " --class \"dropdown-term\""),
+        desc='Spawn floating terminal'),
     # pulsemixer
     Key([mod], "i", lazy.spawn(terminal + " --class \"dropdown-term\" -e pulsemixer"),
         desc="Spawn floating terminal with pulsemixer"),
@@ -172,17 +175,17 @@ keys = [
     # Launch Firefox
     Key([mod], "w", lazy.spawn("qutebrowser"),
         desc='Launch Firefox'),
+
     # Launch Spotify
     Key([mod], "s", lazy.spawn("spotify"),
         desc='Launch Spotify'),
+    # Flameshot
+    Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),
+        desc="Launch flameshot"),
 
     # Launch Joplin
     Key([mod], "a", lazy.spawn(home + "/Joplin"),
         desc='Launch Joplin'),
-
-    # Flameshot
-    Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),
-        desc="Launch flameshot"),
 ]
 
 groups = [Group(i) for i in "1234567890"]
@@ -207,6 +210,16 @@ for i in groups:
     ])
     
     index += 1
+
+groups.append(ScratchPad("scratchpad",[
+                DropDown("term", terminal),
+             ])
+)
+
+keys.append(
+    Key([mod], "n", lazy.group['scratchpad'].dropdown_toggle("term"),
+            desc='Toggle dropdown terminal')
+)
 
 # Colors
 default_foreground = '#00FF9C'
