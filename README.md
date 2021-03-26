@@ -2,71 +2,43 @@
 
 Home for all of my various customization things
 
-#3 Fully Loaded Arch Set Up Dependencies (See script)
+## Specs
 
-i3-gaps polybar light networkmanager blueman konsole yakuake neovim lightdm lightdm-gtk-greeter xorg-server xorg-xinput git pavucontrol arandr zsh
+- OS: Arch Linux
+  - btw
+- WM: Qtile
+  - Favorite WM I have tried, good balance of functionality, customization, and easy config
+- Terminal: Alacritty
+  - Fast, vim-mode, just works
 
-## Stock Programs
+## Active Configs
 
-Display Manager: `lightdm`
+- alacritty
+- dwm 
+  - See [my build][https://github.com/acbk2b/dwm]
+- lf
+- neovim
+- qtile
+- zsh
+  - Requires external plugins:
+    - vi-mode
+    - zsh-autosuggestions
+    - zsh-syntax-highlighting
 
-Window Manger: `bspwm`
+## Archived Configs
 
-Bar: `polybar`
+Things I have used in the past (for varying periods of time), but no longer used
 
-Bar Theme: Modified version of default polybar theme 
-
-## Terminal Stuff
-
-Terminal: `st`
-
-Terminal Editor: `neovim`
-
-Music Player: `cmus`
-
-* Also use `spotify-tui` with `spotifyd` for spotify terminal player
-
-__Zsh__
-
-Manager: `OhMyZsh`
-
-Theme: `robbyrussell`
-
-Plugins: `git, vi-mode, zsh-autosuggestions, zsh-syntax-highlighting`
-
-
-### st
-
-* Use `tmux` for scrolling in terminal
-
-## Vim
-
-Version: `neovim`
-
-Plugin Manager: `vim-plug`
-
-Plugins 
-* `vim-airline`
-    * Powerline status bar
-
-* `deoplete`
-    * Tab completion
-
-* vim-latex-live-preview
-    * LaTeX live previewer
-    * use `evince` as pdf viewer for no particular reason
-
-## Utilities
-Wifi Manager: `networkmanager`
-
-Displays: `arandr` (gui version of `xrandr`, see also autorandr for slightly better hotplugging) 
-
-Bluetooth: `blueman`
-
-Brightness Controls: `light`
-
-Device Config: `xinput` (used for things touchpad config; tap to click in i3, etc)
-
-Pulseaudio Controller thing: `pavucontrol`
-
-GTK Theme Utility: `lxappearance`
+- awesome
+  - Very briefly used
+- bspwm 
+  - Used for a reasonable amount of time, moved on in preference of more dynamic tilers
+- i3
+  - I like the way i3 handles multi-monitors, but don't like the plain-text config and manual tiling
+- polybar
+  - Used with bspwm, no need with qtile or dwm
+- xmonad
+  - Very powerful WM
+  - Not a huge fan of Haskell
+    - Functional programming language
+    - Annoying dependencies/updates, 100+ packages 400+MB for full install, and they ALL update frequently
