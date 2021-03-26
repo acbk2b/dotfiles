@@ -14,11 +14,13 @@ cmd delete ${{
 }}
 
 cmd open ${{
-  xdg-open $f
+  case $(xdg-mime query filetype $f) in
+    text/*|application/json) $EDITOR $f;;
+    *) xdg-open $f & disown;;
+  esac
 }}
 
 map D delete
 map . set hidden!
-map o open
 map C changeFileName
 map R reload
