@@ -15,7 +15,7 @@ Home for all of my various customization things
 
 - alacritty
 - dwm 
-  - See [my build][https://github.com/acbk2b/dwm]
+  - See [my build](https://github.com/acbk2b/dwm)
 - lf
 - neovim
 - qtile
