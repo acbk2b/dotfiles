@@ -13,10 +13,16 @@ cmd delete ${{
 	[ $ans = "y" ] && rm -rf -- $fx
 }}
 
+cmd mkdir ${{ 
+  echo "Folder name:"
+  read NAME
+  mkdir $NAME
+}}
+
 cmd open ${{
   case $(xdg-mime query filetype $f) in
     text/*|application/json) $EDITOR $f;;
-    *) xdg-open $f & disown;;
+    *) xdg-open "$f" & disown;;
   esac
 }}
 
@@ -24,3 +30,4 @@ map D delete
 map . set hidden!
 map C changeFileName
 map R reload
+map M mkdir
