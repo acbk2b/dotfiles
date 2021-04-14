@@ -2,6 +2,8 @@
 
 # Shell Options
 
+# export PATH="${PATH}:.local/bin/"
+
 # Set zsh history file
 HISTFILE=~/.zsh_history 
 HISTSIZE=1000
