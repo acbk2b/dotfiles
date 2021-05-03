@@ -169,7 +169,7 @@ keys = [
         desc='Kill Picom'),
 
     # Launch Firefox
-    Key([mod], "w", lazy.spawn("qutebrowser"),
+    Key([mod], "w", lazy.spawn("firefox"),
         desc='Launch Firefox'),
 
     # Launch Spotify
