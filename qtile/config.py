@@ -46,13 +46,13 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'alacritty'
 
-cursor_warp = True
+cursor_warp = False
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
 # is evaluated on (re)start, it doesn't actually register the change
 def toggle(self):
-    os.system("bash ~/.config/qtile/external.sh " + str(cursor_warp) + " " + str(not cursor_warp))
+    os.system("bash ~/.config/qtile/mouse-warp.sh " + str(cursor_warp) + " " + str(not cursor_warp))
 
 keys = [
     # Switch between windows in current stack pane
