@@ -266,9 +266,9 @@ widget_green = dict(
 # Note that for arrows, the foreground/background colors need to be flipped compared to the 
 # widgets, so widget_purple arrow goes with widget_green widget
 arrow_defaults = dict(
-    text = '',
+    text = '',
     padding = 0,
-    fontsize = 34
+    fontsize = 21
 )
                                    
 # Need a separate function, doesn't work using the same list
@@ -362,6 +362,7 @@ floating_layout = layout.Floating(
         Match(wm_class='pinentry-gtk-2'),  # GPG key password entry
         Match(wm_class='dropdown-term'),  # pulsemixer/other pop-up terminal things
         Match(wm_class='pavucontrol'),  # Pavucontrol (Pulseaudio Volume Control)
+        Match(wm_class='arandr'),  # arandr
     ],
     **layout_theme
 )
