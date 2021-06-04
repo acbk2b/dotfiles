@@ -27,11 +27,11 @@ export MANPAGER="nvim -c 'set ft=man' -"
 
 # Aliases
 alias cl="cal -3"
-alias doas="doas --"
+alias sudo="doas"
 alias e="exit"
 alias gits="git status"
 alias gitc="git commit -m"
-alias ls="exa --icons --group-directories-first"
+alias ls="exa --group-directories-first"
 alias lsl="ls -l"
 alias lsal="ls -al"
 alias lst="ls --tree"
@@ -50,5 +50,5 @@ eval "$(starship init zsh)"
 
 # Plugins
 source ~/.config/zsh/vi-mode.plugin.zsh 2>/dev/null
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null # Syntax highlighting goes last 
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
