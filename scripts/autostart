@@ -5,7 +5,8 @@ variety &
 picom &
 
 ID=$(xinput | grep "Synaptics" | cut -f2 | cut -d "=" -f2)
-xinput set-prop $ID 321 1
+PROP="$(xinput list-props 12 | grep -E "Tapping Enabled \([[:digit:]]+\)" | grep -o -E "[[:digit:]]{3}+")"
+xinput set-prop $ID $PROP 1
 
 numlockx &
 
