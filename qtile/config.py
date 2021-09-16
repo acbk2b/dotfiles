@@ -39,8 +39,6 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger # For Writing output to qtile.log
 
-# from libqtile.core.manager.Qtile import cmd_display_kb
-
 home = os.path.expanduser('~')
 
 mod = "mod4"
@@ -363,6 +361,7 @@ floating_layout = layout.Floating(
         Match(wm_class='dropdown-term'),  # pulsemixer/other pop-up terminal things
         Match(wm_class='pavucontrol'),  # Pavucontrol (Pulseaudio Volume Control)
         Match(wm_class='arandr'),  # arandr
+        Match(wm_class='Variety'),  # arandr
     ],
     **layout_theme
 )
