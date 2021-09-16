@@ -27,7 +27,6 @@ export MANPAGER="nvim -c 'set ft=man' -"
 
 # Aliases
 alias cl="cal -3"
-alias sudo="doas"
 alias e="exit"
 alias gits="git status"
 alias gitc="git commit -m"
@@ -42,13 +41,15 @@ alias pdflatexs="pdflatex -shell-escape"
 alias suspend="dm-tool lock | systemctl suspend"
 alias vim="nvim"
 alias xclipc="xclip -selection \"clipboard\""
-alias yay="yay --sudo doas"
 alias zf="zathura --fork"
 
 # Starship prompt
 eval "$(starship init zsh)"
 
 # Plugins
+# https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/vi-mode/vi-mode.plugin.zsh
 source ~/.config/zsh/vi-mode.plugin.zsh 2>/dev/null
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+pokemon-colorscripts -r
