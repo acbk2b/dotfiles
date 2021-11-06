@@ -167,7 +167,7 @@ keys = [
         desc='Kill Picom'),
 
     # Launch Firefox
-    Key([mod], "w", lazy.spawn("firefox"),
+    Key([mod], "w", lazy.spawn("brave"),
         desc='Launch Firefox'),
 
     # Launch Spotify
@@ -299,7 +299,7 @@ def getWidgets():
                     widget.TextBox(**arrow_defaults, **widget_green),
                     widget.Clock(**widget_purple, 
                                  mouse_callbacks={'Button1':lambda qtile: qtile.cmd_spawn("alacritty --hold --class 'dropdown-term'  -e 'cal' '-3'")},
-                                 format='%m-%d-%Y %a %I:%M %p'),
+                                 format='%m-%d-%Y %a %H:%M %p'),
                     widget.Systray(**widget_purple)
                 ]
 
