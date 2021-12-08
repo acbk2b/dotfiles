@@ -23,7 +23,8 @@ export EDITOR='nvim'
 # allows tmux to use st instead of screen as default term
 export TERM=st-256color
 # Use nvim for viewing man pages
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
 
 # Aliases
 alias cl="cal -3"
