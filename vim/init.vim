@@ -8,11 +8,8 @@ call plug#begin('~/.config/nvim/data/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Deoplete
-" Completion engine thingy
-Plug 'Shougo/deoplete.nvim'
-" Python integration with jedi
-Plug 'zchee/deoplete-jedi'
+" Coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Dracula Color Scheme
 Plug 'dracula/vim',{'as':'dracula'}
@@ -33,12 +30,14 @@ set expandtab
 " Use mouse
 set mouse=a
 
-" Show line numbers
+" Show line numbers (hybrid)
 set number
+set relativenumber
 
 " turn off swap files
 set noswapfile
 set nobackup
+set nowritebackup
 
 " Color Scheme
 colorscheme dracula
@@ -53,10 +52,20 @@ nnoremap <A-l> <C-w>l
 
 " Plugin Configuration
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-" <Tab>: Completion
-inoremap <expr><TAB> pumvisible() ? "\<c-n>" :"\<TAB>"
-
 " Vim Airline Theme Stuff
 let g:airline_powerline_fonts = 1
+
+" Coc stuff
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
