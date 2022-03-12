@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export PATH="${PATH}:.local/bin/"
+export PATH="${PATH}:$HOME/.local/bin/"
 
 # Set HDMI output as primary monitor
 xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
