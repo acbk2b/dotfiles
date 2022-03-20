@@ -4,6 +4,12 @@ set icons
 set cleaner "~/.config/lf/cleaner"
 set previewer "~/.config/lf/scope"
 
+cmd changeFileName ${{
+  echo "New filename:"
+  read NAME
+  mv $f "$(pwd)/$NAME"
+}}
+
 cmd delete ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
