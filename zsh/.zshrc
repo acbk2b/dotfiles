@@ -1,9 +1,6 @@
 # zshrc
 
 # Shell Options
-
-# export PATH="${PATH}:.local/bin/"
-
 # Set zsh history file
 HISTFILE=~/.zsh_history 
 HISTSIZE=1000
@@ -15,19 +12,9 @@ setopt autocd
 # Fuzzy match completions
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
-# Misc exports
-
-# Default editor to neovim
-export EDITOR='nvim'
-# change term env var
-# allows tmux to use st instead of screen as default term
-export TERM=st-256color
-# Use nvim for viewing man pages
-export MANPAGER='nvim +Man!'
-export MANWIDTH=999
-
 # Aliases
 alias cl="cal -3"
+alias gitdb="git diff | diff-so-fancy | bat"
 alias e="exit"
 alias gitp="git push"
 alias gits="git status"

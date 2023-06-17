@@ -1,11 +1,24 @@
 #! /bin/bash
 
+# Misc exports
+export WALLPAPER="/home/alex/pics/wallpapers/fictional-landscapes/tree.jpg"
+# Default editor to neovim
+export EDITOR='nvim'
+# change term env var
+# Use nvim for viewing man pages
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
+# Set git pager to bat
+export GIT_PAGER='bat'
+# Add ~/.local/bin to $PATH
 export PATH="${PATH}:$HOME/.local/bin/"
-export DOTFILES="$HOME/documents/dotfiles"
 
 # Set HDMI output as primary monitor
 xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
 
+# Set wallpaper
+feh --bg-scale $WALLPAPER
+# Autostart programs and misc remaps
 autostart &
 remaps &
 
