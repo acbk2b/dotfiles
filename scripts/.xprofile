@@ -1,7 +1,5 @@
 #! /bin/bash
 
-# Misc exports
-export WALLPAPER="/home/alex/pics/wallpapers/fictional-landscapes/tree.jpg"
 # Default editor to neovim
 export EDITOR='nvim'
 # change term env var
@@ -17,7 +15,7 @@ export PATH="${PATH}:$HOME/.local/bin/"
 xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
 
 # Set wallpaper
-feh --bg-scale $WALLPAPER
+~/.fehbg &
 # Autostart programs and misc remaps
 autostart &
 remaps &
