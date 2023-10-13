@@ -63,6 +63,9 @@ vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', { noremap = true })
 vim.api.nvim_set_keymap('n', '<A-j>', '<C-w>j', { noremap = true })
 vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>k', { noremap = true })
 vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true })
+-- Clear highlight
+vim.api.nvim_set_keymap('n', '<C-h>', ':noh<Enter>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<S-h>', ':set wrap!<Enter>', { noremap = true })
 
 -- Visual block indent; keep block
 vim.cmd[[
