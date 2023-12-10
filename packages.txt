@@ -1,0 +1,1 @@
+alacritty arandr bat brave-bin feh gamemode lf-bin numlockx mangohud neovim py-nvim pulsemixer sddm sddm-sugar-candy-git steam ttf-jetbrains-mono unzip qtile zsh-autosuggestions wget zsh-syntax-highlighting

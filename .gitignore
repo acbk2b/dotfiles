@@ -1,5 +1,5 @@
 __pycache__
 qtile/default_config.py 
 qtile/archlinux.png
-vim/data/
+*/nvim/data/
 *.bak
