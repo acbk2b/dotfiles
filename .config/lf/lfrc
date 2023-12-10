@@ -1,5 +1,9 @@
 # Lf configuration file
 
+set icons
+set cleaner "~/.config/lf/cleaner"
+set previewer "~/.config/lf/scope"
+
 cmd changeFileName ${{
   echo "New filename:"
   read NAME
@@ -7,17 +11,16 @@ cmd changeFileName ${{
 }}
 
 cmd delete ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
 	printf "%s\n\t" "$fx"
 	printf "delete?[y/N]"
 	read ans
 	[ $ans = "y" ] && rm -rf -- $fx
+  notify-send "📂 File(s) deleted"
 }}
 
-cmd mkdir ${{ 
-  echo "Folder name:"
-  read NAME
-  mkdir $NAME
-}}
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 cmd open ${{
   case $(xdg-mime query filetype $f) in
@@ -28,6 +31,9 @@ cmd open ${{
 
 map D delete
 map . set hidden!
-map C changeFileName
+map A rename
+map I push A<c-a>
 map R reload
-map M mkdir
+map M push :mkdir<space>
+map <enter> shell
+map Y $printf "%s" "$fx" | xclip -selection clipboard
