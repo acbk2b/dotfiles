@@ -1,26 +1,15 @@
 #! /bin/bash
-
-# Default editor to neovim
-export EDITOR='nvim'
-# change term env var
-# Use nvim for viewing man pages
-export MANPAGER='nvim +Man!'
-export MANWIDTH=999
-# Set git pager to bat
-export GIT_PAGER='bat'
-# Add ~/.local/bin to $PATH
-export PATH="${PATH}:$HOME/.local/bin/"
-
+#
+# Computer specific set up
 # Set HDMI output as primary monitor
 xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
-
-# Set wallpaper
+# Set wallpaper -> Alternatively use variety
 ~/.fehbg &
 # Autostart programs and misc remaps
 autostart &
 remaps &
 
-# This is the list for lf icons:
+# Set lf icons:
 export LF_ICONS="di=📁:\
 fi=📃:\
 tw=🤝:\

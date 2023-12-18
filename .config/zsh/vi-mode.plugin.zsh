@@ -1,3 +1,4 @@
+# https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/vi-mode/vi-mode.plugin.zsh
 # Control whether to force a redraw on each mode change.
 #
 # Resetting the prompt on every mode change can cause lag when switching modes.
