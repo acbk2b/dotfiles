@@ -3,3 +3,5 @@ qtile/default_config.py
 qtile/archlinux.png
 */nvim/data/
 *.bak
+*.log
+*.json
