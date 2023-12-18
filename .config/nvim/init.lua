@@ -7,23 +7,23 @@ HOME = os.getenv("HOME")
 --
 
 vim.call('plug#begin', '~/.config/nvim/data/plugged')
-
--- Vim-Airline
-vim.fn['plug#']('vim-airline/vim-airline')
 -- Coc
 vim.fn['plug#']('neoclide/coc.nvim', { branch = 'release' })
 -- Dracula Color Scheme
 vim.fn['plug#']('dracula/vim', { as = 'dracula' })
--- Markdown
--- https://github.com/preservim/vim-markdown
-vim.fn['plug#']('godlygeek/tabular')
-vim.fn['plug#']('preservim/vim-markdown')
 -- Easy Motion
 vim.fn['plug#']('easymotion/vim-easymotion')
--- File Tree
+-- Markdown
+vim.fn['plug#']('godlygeek/tabular')
+vim.fn['plug#']('preservim/vim-markdown')
+-- Nerd Tree
 vim.fn['plug#']('preservim/nerdtree')
--- Better syntax highlighting
+-- Treesitter -> Better syntax highlighting
 vim.fn['plug#']('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+-- Vim-Airline Statusbar
+vim.fn['plug#']('vim-airline/vim-airline')
+-- Vimwiki
+vim.fn['plug#']('vimwiki/vimwiki')
 
 vim.call('plug#end')
 
@@ -84,6 +84,9 @@ vim.g.airline_powerline_fonts = 1
 -- Plugin configuration source files
 require('coc-config')
 require('treesitter-config')
+if vim.fn.has('wsl') == 1 then
+    require('windows-stuff')
+end
 
 -- Nerd Tree
 -- Remaps
