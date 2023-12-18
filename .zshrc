@@ -25,6 +25,7 @@ export PATH="${PATH}:$HOME/.local/bin/"
 alias cl="cal -3"
 alias gitc="git commit -m"
 alias gitd="git diff | diff-so-fancy | bat"
+alias gitl="git log"
 alias gits="git status"
 alias ipy="ipython"
 # LF wrapper script
