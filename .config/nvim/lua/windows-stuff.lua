@@ -18,3 +18,9 @@ vim.cmd[[
 ]]
 
 vim.g['coc_global_extensions'] = {'coc-go', 'coc-java', 'coc-json', 'coc-pairs', 'coc-pyright', 'coc-tsserver'}
+-- autocmd User CocStatusChange redraws
+vim.api.nvim_create_autocmd("User", {
+    pattern = "CocStatusChange",
+    command = "redraws",
+    desc = "Fix no statusbar update without keypress"
+})
