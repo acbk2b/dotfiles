@@ -95,6 +95,17 @@ vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', { noremap = true })
 
+-- VimWiki
+-- Fix coc/VimWiki conflict on Tab/S-Tab key
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "vimwiki",
+    callback = function()
+        -- Unmap for current buffer, in insert mode, Tab and S-Tab keys
+        vim.api.nvim_buf_del_keymap(0, 'i', '<Tab>')
+        vim.api.nvim_buf_del_keymap(0, 'i', '<S-Tab>')
+    end
+})
+
 -- Config
 -- Start NERDTree and put the cursor back in the other window.
 vim.cmd("autocmd VimEnter * NERDTree | wincmd p")
