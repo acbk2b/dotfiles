@@ -17,15 +17,15 @@ export EDITOR='nvim'
 # Use nvim for viewing man pages
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
-# Set git pager to bat
-export GIT_PAGER='bat'
 # Add ~/.local/bin to $PATH
 export PATH="${PATH}:$HOME/.local/bin/"
 # Aliases
 alias cl="cal -3"
+alias gita="git add"
 alias gitc="git commit -m"
-alias gitd="git diff | diff-so-fancy | bat"
+alias gitd="git diff"
 alias gitl="git log"
+alias gitr="git restore --staged"
 alias gits="git status"
 alias ipy="ipython"
 # LF wrapper script
