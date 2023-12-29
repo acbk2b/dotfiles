@@ -18,6 +18,8 @@ vim.fn['plug#']('godlygeek/tabular')
 vim.fn['plug#']('preservim/vim-markdown')
 -- Nerd Tree
 vim.fn['plug#']('preservim/nerdtree')
+-- Rainbow CSV
+vim.fn['plug#']('mechatroner/rainbow_csv')
 -- Treesitter -> Better syntax highlighting
 vim.fn['plug#']('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 -- Vim-Airline Statusbar
