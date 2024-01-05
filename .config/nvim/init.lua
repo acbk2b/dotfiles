@@ -20,6 +20,8 @@ vim.fn['plug#']('preservim/vim-markdown')
 vim.fn['plug#']('preservim/nerdtree')
 -- Rainbow CSV
 vim.fn['plug#']('mechatroner/rainbow_csv')
+-- surround.vim
+vim.fn['plug#']('tpope/vim-surround')
 -- Treesitter -> Better syntax highlighting
 vim.fn['plug#']('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 -- Vim-Airline Statusbar
@@ -74,9 +76,6 @@ vim.cmd[[
     vmap < <gv
     vmap > >gv
 ]]
-
--- Macros
-vim.cmd("let @t = 'i`wea`'")
 
 -- Plugin Configuration
 
