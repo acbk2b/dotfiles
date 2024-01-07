@@ -11,3 +11,5 @@ if [ "$(/usr/bin/ls /sys/class/power_supply)" ]; then
 fi
 # Enable numlock by default
 numlockx &
+# Set wallpaper -> Alternatively use variety
+~/.fehbg &
