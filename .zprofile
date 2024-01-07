@@ -6,8 +6,8 @@ xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}')
 # Set wallpaper -> Alternatively use variety
 ~/.fehbg &
 # Autostart programs and misc remaps
-autostart &
-remaps &
+$HOME/.local/bin/autostart &
+$HOME/.local/bin/remaps &
 
 # Set lf icons:
 export LF_ICONS="di=📁:\
