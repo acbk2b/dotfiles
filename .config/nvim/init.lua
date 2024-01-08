@@ -1,11 +1,7 @@
 -- NVim lua config file
--- 
-HOME = os.getenv("HOME")
-
 --
 -- Vim-Plug plugin configuration
 --
-
 vim.call('plug#begin', '~/.config/nvim/data/plugged')
 -- Coc
 vim.fn['plug#']('neoclide/coc.nvim', { branch = 'release' })
@@ -33,7 +29,7 @@ vim.call('plug#end')
 
 -- General Stuff
 
--- Enable Syntax Highlighting
+-- Enable Syntax Highlighting/color scheme
 vim.cmd[[
     syntax = true
     colorscheme dracula
@@ -85,8 +81,9 @@ vim.g.airline_powerline_fonts = 1
 -- Plugin configuration source files
 require('coc-config')
 require('treesitter-config')
+-- Load WSL config if running on WSL
 if vim.fn.has('wsl') == 1 then
-    require('windows-stuff')
+    require('wsl-stuff')
 end
 
 -- Nerd Tree
@@ -109,6 +106,19 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Config
 -- Start NERDTree and put the cursor back in the other window.
-vim.cmd("autocmd VimEnter * NERDTree | wincmd p")
+-- vim.cmd("autocmd VimEnter * NERDTree | wincmd p")
+vim.api.nvim_create_autocmd("VimEnter", {
+    pattern = "*",
+    callback = function ()
+        -- TODO
+        vim.cmd("NERDTree | wincmd p")
+    end
+})
 -- Exit Vim if NERDTree is the only window remaining in the only tab.
-vim.cmd("autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif")
+-- vim.cmd("autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif")
+vim.api.nvim_create_autocmd("BufEnter" , {
+    pattern = "*",
+    callback = function ()
+        vim.cmd("if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif")
+    end
+})
