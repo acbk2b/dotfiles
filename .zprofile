@@ -3,8 +3,6 @@
 # Computer specific set up
 # Set HDMI output as primary monitor
 xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
-# Set wallpaper -> Alternatively use variety
-~/.fehbg &
 # Autostart programs and misc remaps
 $HOME/.local/bin/autostart &
 $HOME/.local/bin/remaps &
