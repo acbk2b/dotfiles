@@ -1,10 +1,13 @@
 -- NVim lua config file
---
+
 -- Vim-Plug plugin configuration
---
+
 vim.call('plug#begin', '~/.config/nvim/data/plugged')
+
 -- Coc
 vim.fn['plug#']('neoclide/coc.nvim', { branch = 'release' })
+-- Commentary
+vim.fn['plug#']('tpope/vim-commentary')
 -- Dracula Color Scheme
 vim.fn['plug#']('dracula/vim', { as = 'dracula' })
 -- Easy Motion
@@ -72,6 +75,12 @@ vim.cmd[[
     vmap < <gv
     vmap > >gv
 ]]
+
+-- Set Jenkinsfiles to groovy FileType
+vim.api.nvim_create_autocmd({"BufRead" ,"BufNewFile"}, {
+    pattern = "Jenkinsfile*",
+    command = "setfiletype groovy"
+})
 
 -- Plugin Configuration
 
