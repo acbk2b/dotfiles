@@ -46,5 +46,8 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Starship prompt
 eval "$(starship init zsh)"
+# zoxide
+eval "$(zoxide init zsh)"
 # Print random pokemon on shell startup
 pokemon-colorscripts -r
+source /usr/share/nvm/init-nvm.sh
