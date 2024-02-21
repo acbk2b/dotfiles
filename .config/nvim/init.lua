@@ -61,14 +61,25 @@ vim.opt.writebackup = false
 
 -- Custom keymaps
 
--- Move between split panes using the Alt key
+-- Pane navigation
 vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', { noremap = true })
 vim.api.nvim_set_keymap('n', '<A-j>', '<C-w>j', { noremap = true })
 vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>k', { noremap = true })
 vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true })
+
+-- Pane split size
+vim.api.nvim_set_keymap('n', '<A-,>', '<C-w>>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<A-.>', '<C-w><', { noremap = true })
+vim.api.nvim_set_keymap('n', '<A-->', '<C-w>-', { noremap = true })
+vim.api.nvim_set_keymap('n', '<A-=>', '<C-w>+', { noremap = true })
+
 -- Clear highlight
 vim.api.nvim_set_keymap('n', '<C-h>', ':noh<Enter>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<S-h>', ':set wrap!<Enter>', { noremap = true })
+
+-- coc-java
+-- Organize Imports
+vim.api.nvim_set_keymap('n', '<A-S-o>', ':call CocAction(\'organizeImport\')<Enter>', { noremap = true })
 
 -- Visual block indent; keep block
 vim.cmd[[

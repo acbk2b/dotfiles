@@ -47,7 +47,11 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Starship prompt
 eval "$(starship init zsh)"
 # zoxide
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --cmd \"cd\")"
 # Print random pokemon on shell startup
 pokemon-colorscripts -r
-source /usr/share/nvm/init-nvm.sh
+
+# TODO
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
