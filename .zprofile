@@ -1,11 +1,9 @@
-#! /bin/bash
-#
 # Computer specific set up
-# Set HDMI output as primary monitor
-xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
+# Set HDMI output as primary monitor if DISPLAY is set
+[[ $DISPLAY != "" ]] && xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
 # Autostart programs and misc remaps
-$HOME/.local/bin/autostart &
-$HOME/.local/bin/remaps &
+$HOME/.local/bin/autostart &!
+$HOME/.local/bin/remaps &!
 
 # Set lf icons:
 export LF_ICONS="di=📁:\

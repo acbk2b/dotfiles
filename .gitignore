@@ -1,3 +1,4 @@
+.stow-local-ignore
 __pycache__
 qtile/default_config.py 
 qtile/archlinux.png
