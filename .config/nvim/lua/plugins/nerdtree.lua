@@ -1,0 +1,25 @@
+-- -- Nerd Tree
+-- -- Remaps
+-- vim.api.nvim_set_keymap('n', '<leader>n', ':NERDTreeFocus<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', { noremap = true })
+
+-- -- Config
+-- -- Start NERDTree and put the cursor back in the other window.
+-- -- vim.cmd("autocmd VimEnter * NERDTree | wincmd p")
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--     pattern = "*",
+--     callback = function ()
+--         -- TODO
+--         vim.cmd("NERDTree | wincmd p")
+--     end
+-- })
+-- -- Exit Vim if NERDTree is the only window remaining in the only tab.
+-- -- vim.cmd("autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif")
+-- vim.api.nvim_create_autocmd("BufEnter" , {
+--     pattern = "*",
+--     callback = function ()
+--         vim.cmd("if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif")
+--     end
+-- })
