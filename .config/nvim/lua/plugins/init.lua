@@ -1,29 +1,42 @@
 -- Vim-Plug plugin configuration
 
-vim.call('plug#begin', '~/.config/nvim/data/plugged')
+-- Load Lazy
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Coc
-vim.fn['plug#']('neoclide/coc.nvim', { branch = 'release' })
--- Commentary
-vim.fn['plug#']('tpope/vim-commentary')
--- Dracula Color Scheme
-vim.fn['plug#']('dracula/vim', { as = 'dracula' })
--- Easy Motion
-vim.fn['plug#']('easymotion/vim-easymotion')
--- Nvim Tree
-vim.fn['plug#']('nvim-tree/nvim-tree.lua')
--- Rainbow CSV
-vim.fn['plug#']('mechatroner/rainbow_csv')
--- surround.vim
-vim.fn['plug#']('tpope/vim-surround')
--- Treesitter -> Better syntax highlighting
-vim.fn['plug#']('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
--- Vim-Airline Statusbar
-vim.fn['plug#']('vim-airline/vim-airline')
--- Vimwiki
-vim.fn['plug#']('vimwiki/vimwiki')
+local plugins = {
+    { 'neoclide/coc.nvim', branch = 'release', },
+    { 'nvim-tree/nvim-tree.lua', lazy = true, },
+    { 'tpope/vim-commentary' },
+    { 'dracula/vim', lazy = true, name = 'dracula' },
+    { 'easymotion/vim-easymotion' },
+    { 'mechatroner/rainbow_csv' },
+    { 'tpope/vim-surround' },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        config = function ()
+            local configs = require('nvim-treesitter.configs')
+            configs.setup(require('plugins/treesitter-config'))
+        end
+    },
+    { 'vim-airline/vim-airline' },
+    { 'vimwiki/vimwiki' },
+}
 
-vim.call('plug#end')
+local opts = {}
+
+require('lazy').setup(plugins, opts)
 
 -- Plugin configuration source files
 require('plugins/coc-config')
