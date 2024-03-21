@@ -27,7 +27,7 @@ local plugins = {
         build = ':TSUpdate',
         config = function ()
             local configs = require('nvim-treesitter.configs')
-            configs.setup(require('plugins/treesitter-config'))
+            configs.setup(require('plugins/treesitter'))
         end
     },
     { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
@@ -41,7 +41,6 @@ require('lazy').setup(plugins, opts)
 -- Plugin configuration setup
 require('plugins/coc-config')
 require('plugins.nvim-tree')
-require('plugins.treesitter-config')
 require('plugins.vimwiki')
 require('lualine').setup()
 -- Load WSL config if running on WSL
