@@ -9,10 +9,4 @@ vim.cmd[[
             autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
         augroup END
     endif
-    "TODO: Coc Extensions
-    let g:coc_global_extensions = [
-    \'coc-java',
-    \'coc-pyright',
-    \'coc-tsserver'
-    \]
 ]]

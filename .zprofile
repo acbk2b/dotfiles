@@ -1,7 +1,9 @@
 # Computer specific set up
-# Set HDMI output as primary monitor if DISPLAY is set
-[[ $DISPLAY != "" ]] && xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
-# Autostart programs and misc remaps
+# Set HDMI output as primary monitor if DISPLAY is set and an HDMI monitor is connected
+if [[ $DISPLAY != "" ]] && xrandr --listactivemonitors | grep "HDMI"; then
+    xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
+fi
+# Autostart programs and misc remaps w/ disown
 $HOME/.local/bin/autostart &!
 $HOME/.local/bin/remaps &!
 
