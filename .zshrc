@@ -19,9 +19,9 @@ export EDITOR='nvim'
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 # Add ~/.local/bin to $PATH
-export PATH="${PATH}:$HOME/.local/bin/"
+export PATH="$HOME/.local/bin:$PATH"
 # Aliases
-alias cl="cal -3"
+alias cl="ncal -3"
 alias gita="git add"
 alias gitc="git commit -m"
 alias gitd="git diff"
@@ -34,7 +34,7 @@ alias lf="$HOME/.local/bin/lfub"
 alias ls="exa --group-directories-first --icons"
 alias l="ls -al"
 alias ll="ls -l"
-alias lst="ls --tree"
+alias lst="ls -a --tree"
 alias pdflatexs="pdflatex -shell-escape"
 alias pkmn="clear; pokemon-colorscripts -r"
 alias vim="nvim"
@@ -51,6 +51,7 @@ eval "$(zoxide init zsh --cmd \"cd\")"
 # Print random pokemon on shell startup
 pokemon-colorscripts -r
 
+# Node/NVM stuff
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
