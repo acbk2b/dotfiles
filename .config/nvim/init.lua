@@ -34,3 +34,9 @@ vim.api.nvim_create_autocmd({"BufRead" ,"BufNewFile"}, {
     pattern = "Jenkinsfile*",
     command = "setfiletype groovy"
 })
+
+-- Turn on spell check for .md and .wiki files
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = "*.md,*.wiki",
+    command = "set spell!"
+})

@@ -32,6 +32,7 @@ local plugins = {
     },
     { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
     { 'vimwiki/vimwiki' },
+    { 'christoomey/vim-tmux-navigator', lazy = false },
 }
 
 local opts = {}
