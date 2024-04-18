@@ -30,9 +30,9 @@ local plugins = {
             configs.setup(require('plugins/treesitter'))
         end
     },
-    { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
     { 'vimwiki/vimwiki' },
-    { 'christoomey/vim-tmux-navigator', lazy = false },
+    { 'christoomey/vim-tmux-navigator' },
+    { 'vim-airline/vim-airline' }
 }
 
 local opts = {}
@@ -41,9 +41,8 @@ require('lazy').setup(plugins, opts)
 
 -- Plugin configuration setup
 require('plugins/coc-config')
-require('plugins.nvim-tree')
-require('plugins.vimwiki')
-require('lualine').setup()
+require('plugins/nvim-tree')
+require('plugins/vimwiki')
 -- Load WSL config if running on WSL
 if vim.fn.has('wsl') == 1 then
     require('wsl-stuff')

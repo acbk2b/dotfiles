@@ -10,3 +10,10 @@ vim.cmd[[
         augroup END
     endif
 ]]
+
+-- autocmd User CocStatusChange redraws
+vim.api.nvim_create_autocmd("User", {
+    pattern = "CocStatusChange",
+    command = "redraws",
+    -- desc = "Fix no statusbar update without keypress"
+})
