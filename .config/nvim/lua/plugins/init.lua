@@ -40,6 +40,7 @@ local opts = {}
 require('lazy').setup(plugins, opts)
 
 -- Plugin configuration setup
+require('plugins/airline')
 require('plugins/coc-config')
 require('plugins/nvim-tree')
 require('plugins/vimwiki')
