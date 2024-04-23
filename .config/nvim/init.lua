@@ -2,7 +2,7 @@
 
 -- Configs
 require('plugins/init')
-require('remaps')
+require('keymaps')
 
 -- General Stuff
 -- Enable Syntax Highlighting/color scheme
