@@ -1,0 +1,10 @@
+#! /usr/bin/bash
+
+# Set clipboard executable depending on platform
+CLIP="xclip -clipboard"
+if $(uname -r | grep -q "WSL"); then
+    CLIP="clip.exe"
+fi
+
+# Select bookmark from $BM_FILE and copy using $CLIP
+echo "$(cat ${BM_FILE:=$HOME/.local/share/nvim/zettelkasten/local/bookmarks-file} | fzf)" | awk -F '"' '{print $2}' | $CLIP
