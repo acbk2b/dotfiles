@@ -39,7 +39,7 @@ from libqtile.lazy import lazy
 home = os.path.expanduser('~')
 
 mod = "mod4"
-terminal = 'alacritty'
+terminal = 'st'
 
 cursor_warp = False
 
@@ -82,7 +82,7 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn(terminal + ' -e tmux'), desc="Launch terminal"),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -128,17 +128,17 @@ keys = [
 
     # Scratchpads and friends
     # "Scratchpad"
-    Key([mod], "o", lazy.spawn(terminal + " --class \"dropdown-term\""),
+    Key([mod], "o", lazy.spawn(terminal + ' -c "dropdown-term"'),
         desc='Spawn floating terminal'),
     # pulsemixer
-    Key([mod], "i", lazy.spawn(terminal + " --class \"dropdown-term\" -e pulsemixer"),
+    Key([mod], "i", lazy.spawn(terminal + ' -c "dropdown-term" -e pulsemixer'),
         desc="Spawn floating terminal with pulsemixer"),
     # Pavucontrol
     Key([mod, "shift"], "i", lazy.spawn("pavucontrol"),
         desc="Spawn pavucontrol"),
 
     # iPython Terminal
-    Key([mod], "u", lazy.spawn(terminal + " --class \"dropdown-term\" -e python"),
+    Key([mod], "u", lazy.spawn(terminal + ' -c "dropdown-term" -e python'),
         desc="Spawn floating terminal with python"),
 
     # Select and run scripts in ~/scripts using dmenu
