@@ -7,4 +7,4 @@ if $(uname -r | grep -q "WSL"); then
 fi
 
 # Select bookmark from $BM_FILE and copy using $CLIP
-echo "$(cat ${BM_FILE:=$HOME/.local/share/nvim/zettelkasten/local/bookmarks-file} | fzf)" | awk -F '"' '{print $2}' | $CLIP
+echo "$(cat ${BM_DIR:=$HOME/.local/share/nvim/zettelkasten/bookmarks}/* | fzf)" | awk -F '"' '{print $2}' | $CLIP
