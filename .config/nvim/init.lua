@@ -2,6 +2,7 @@
 
 -- Configs
 require('plugins/init')
+require('autocmds')
 require('keymaps')
 
 -- General Stuff
@@ -28,15 +29,3 @@ vim.opt.relativenumber = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
-
--- Set Jenkinsfiles to groovy FileType
-vim.api.nvim_create_autocmd({"BufRead" ,"BufNewFile"}, {
-    pattern = "Jenkinsfile*",
-    command = "setfiletype groovy"
-})
-
--- Turn on spell check for .md and .wiki files
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-    pattern = "*.md,*.wiki",
-    command = "set spell!"
-})
