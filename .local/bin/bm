@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 # Set clipboard executable depending on platform
-CLIP="xclip -clipboard"
+CLIP="xclip -selection clipboard"
 if $(uname -r | grep -q "WSL"); then
     CLIP="clip.exe"
 fi

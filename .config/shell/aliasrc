@@ -1,7 +1,7 @@
 # vim: filetype=sh
 # Alias config file
 
-alias cl="ncal -3"
+alias cl="cal -3"
 alias gita="git add"
 alias gitc="git commit -m"
 alias gitd="git diff"

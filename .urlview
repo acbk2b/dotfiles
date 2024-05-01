@@ -25,4 +25,4 @@ REGEXP (((http|https|ftp|gopher)|mailto)[.:][^ >"\t]*|www\.[-a-z0-9.]+)[^ .,;\t>
 
 #COMMAND lynx %s
 #COMMAND netscape -remote 'openURL(%s)'
-COMMAND brave
+COMMAND xdg-open

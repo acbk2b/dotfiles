@@ -1,6 +1,9 @@
 # vim filetype=sh
 # Shell options
 
+# Load nvm
+source /usr/share/nvm/init-nvm.sh
+
 export EDITOR='nvim'
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999

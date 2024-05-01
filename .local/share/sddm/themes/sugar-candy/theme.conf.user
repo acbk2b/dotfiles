@@ -1,5 +1,5 @@
 [General]
-Background="/mnt/toshiba/Pictures/wallpapers/movies-video-games/star-wars-hidden-sanctuary.jpg"
+Background="/usr/share/sddm/themes/wallpaper.jpg"
 ScreenWidth="1920"
 ScreenHeight="1080"
 AccentColor="#00FF9C"
