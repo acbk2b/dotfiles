@@ -2,3 +2,10 @@ https://lukesmith.xyz/index.xml
 https://archlinux.org/feeds/news/
 https://gitlab.archlinux.org/groups/archlinux/packaging/packages/-/issues?format=atom
 https://suckless.org/atom.xml
+
+# YouTube Feeds
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "YouTube" # Luke Smith
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "YouTube" # Mental Outlaw
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA "YouTube" # Brodie Robertson
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "YouTube" # DistroTube
+https://www.youtube.com/feeds/videos.xml?channel_id=UCCU0HzTA9ddqOgtuV-TJ9yw "YouTube" # Dry Creek Wrangler School
