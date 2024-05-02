@@ -1,4 +1,4 @@
-# vim filetype=sh
+# vim: filetype=sh
 # Shell options
 
 # Load nvm
