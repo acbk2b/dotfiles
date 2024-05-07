@@ -1,0 +1,8 @@
+#! /usr/bin/sh
+
+# TODO Update for multiple batteries
+BAT_DIR="/sys/class/power_supply/BAT0"
+
+if [ -d "${BAT_DIR}" ]; then
+    echo "$(cat ${BAT_DIR}/status): $(cat ${BAT_DIR}/capacity)%"
+fi

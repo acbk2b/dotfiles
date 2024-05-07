@@ -29,20 +29,17 @@ import os
 # Used to get the output of os commands
 import subprocess
 # Used to get hostname for widget things
-import socket
 
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Screen, ScratchPad, DropDown, Match
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from libqtile.log_utils import logger # For Writing output to qtile.log
 
 home = os.path.expanduser('~')
 
 mod = "mod4"
-terminal = 'alacritty'
+terminal = 'st'
 
 cursor_warp = False
 
@@ -85,7 +82,7 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn(terminal + ' -e tmux'), desc="Launch terminal"),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -97,9 +94,6 @@ keys = [
     # Launch Dmenu
     Key([mod], "d", lazy.spawn('dmenu_run'),
         desc="Spawn a command using dmenu"),
-    # Launch Rofi
-    Key([mod, "shift"], "d", lazy.spawn('rofi -show drun -show-icons'),
-        desc="Spawn an app using a rofi"),
 
     # Fullscreen
     Key([mod], "f", lazy.window.toggle_fullscreen(), 
@@ -134,17 +128,17 @@ keys = [
 
     # Scratchpads and friends
     # "Scratchpad"
-    Key([mod], "o", lazy.spawn(terminal + " --class \"dropdown-term\""),
+    Key([mod], "o", lazy.spawn(terminal + ' -c "dropdown-term"'),
         desc='Spawn floating terminal'),
     # pulsemixer
-    Key([mod], "i", lazy.spawn(terminal + " --class \"dropdown-term\" -e pulsemixer"),
+    Key([mod], "i", lazy.spawn(terminal + ' -c "dropdown-term" -e pulsemixer'),
         desc="Spawn floating terminal with pulsemixer"),
     # Pavucontrol
     Key([mod, "shift"], "i", lazy.spawn("pavucontrol"),
         desc="Spawn pavucontrol"),
 
     # iPython Terminal
-    Key([mod], "u", lazy.spawn(terminal + " --class \"dropdown-term\" -e python"),
+    Key([mod], "u", lazy.spawn(terminal + ' -c "dropdown-term" -e python'),
         desc="Spawn floating terminal with python"),
 
     # Select and run scripts in ~/scripts using dmenu
@@ -176,10 +170,6 @@ keys = [
     # Flameshot
     Key([mod, "shift"], "s", lazy.spawn("flameshot gui"),
         desc="Launch flameshot"),
-
-    # Launch Joplin
-    Key([mod], "a", lazy.spawn(home + "/Joplin"),
-        desc='Launch Joplin'),
 ]
 
 groups = [Group(i) for i in "1234567890"]

@@ -2,9 +2,14 @@
 
 # variety &
 picom &
-# Enable tapping on laptop trackpad
-ID=$(xinput | grep "Synaptics" | cut -f2 | cut -d "=" -f2)
-PROP="$(xinput list-props $ID | grep -E "Tapping Enabled \([[:digit:]]+\)" | grep -o -E "[[:digit:]]{3}+")"
-xinput set-prop $ID $PROP 1
+# Check if system has a battery (laptop check)
+if [ "$(/usr/bin/ls /sys/class/power_supply)" ]; then
+    # Enable tapping on laptop trackpad
+    ID=$(xinput | grep "Synaptics" | cut -f2 | cut -d "=" -f2)
+    PROP="$(xinput list-props $ID | grep -E "Tapping Enabled \([[:digit:]]+\)" | grep -o -E "[[:digit:]]{3}+")"
+    xinput set-prop $ID $PROP 1
+fi
 # Enable numlock by default
 numlockx &
+# Set wallpaper -> Alternatively use variety
+~/.fehbg &

@@ -1,0 +1,5 @@
+#! /usr/bin/bash
+ADGROUP="$1"
+# Get net group members, removing junk and leave plain EIDs
+# Then pipe eids to get-email with xargs
+powershell.exe "net group $1 /domain" 2>/dev/null | sed '1,/-------------------------------------------------------------------------------/g' | sed '/The command completed successfully./d' | xargs get-email

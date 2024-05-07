@@ -1,0 +1,3 @@
+#! /usr/bin/sh
+EMAIL="$1"
+powershell.exe "get-aduser -filter \"userprincipalname -like '${EMAIL}'\"" | grep "^Name" | awk '{print $3}'

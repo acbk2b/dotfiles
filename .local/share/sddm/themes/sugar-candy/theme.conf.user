@@ -1,0 +1,6 @@
+[General]
+Background="/usr/share/sddm/themes/wallpaper.jpg"
+ScreenWidth="1920"
+ScreenHeight="1080"
+AccentColor="#00FF9C"
+BackgroundColor="#2E2837"

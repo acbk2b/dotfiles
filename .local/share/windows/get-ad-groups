@@ -1,0 +1,3 @@
+#! /usr/bin/sh
+EID="$1"
+powershell.exe "get-aduser ${EID} -properties memberof | select memberof | convertto-json" | jq

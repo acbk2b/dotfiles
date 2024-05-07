@@ -1,1 +1,1 @@
-alacritty arandr bat brave-bin feh gamemode lf-bin numlockx mangohud neovim py-nvim pulsemixer sddm sddm-sugar-candy-git steam ttf-jetbrains-mono unzip qtile zsh-autosuggestions wget zsh-syntax-highlighting
+alacritty arandr bat brave-bin discord feh gamemode lf-bin numlockx mangohud mesa lib32-mesa neovim ntfs-3g pulsemixer python-psutil sddm sddm-sugar-candy-git spotify steam unzip qtile wget ttf-jetbrains-mono-nerd xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon zsh-autosuggestions zsh-syntax-highlighting

@@ -1,0 +1,16 @@
+#! /usr/bin/bash
+
+# Set clipboard executable depending on platform
+CLIP="xclip -selection clipboard"
+if $(uname -r | grep -q "WSL"); then
+    CLIP="clip.exe"
+fi
+
+# Default to fzf for URL selection, optionally run as dmenu script with -d
+PROG="fzf"
+if [ "$1" == "-d" ]; then
+    PROG="dmenu -i -l 30"
+fi
+
+# Select bookmark from $BM_FILE and copy using $CLIP
+echo "$(cat ${BM_DIR:=$HOME/.local/share/bookmarks}/* | $PROG)" | awk -F '"' '{print $2}' | $CLIP

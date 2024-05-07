@@ -1,0 +1,9 @@
+#! /usr/bin/sh
+
+# Construct an LDAP Filter string to query multiple users at once
+LDAPFILTER=""
+for E in "$@"; do
+    LDAPFILTER="${LDAPFILTER}(samaccountname=$E)"
+done
+# Run get ad user with constructed LDAP filter and format the result as a table
+powershell.exe "Get-ADUser -LDAPFilter '(|${LDAPFILTER})' | Format-Table Name,UserPrincipalName"

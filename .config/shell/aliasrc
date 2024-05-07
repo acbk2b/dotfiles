@@ -1,0 +1,21 @@
+# vim: filetype=sh
+# Alias config file
+
+alias cl="cal -3"
+alias gita="git add"
+alias gitc="git commit -m"
+alias gitd="git diff"
+alias gitl="git log"
+alias gitr="git restore --staged"
+alias gits="git status"
+alias ipy="ipython"
+alias lf="$HOME/.local/bin/lfub"
+alias ls="exa --group-directories-first --icons"
+alias l="ls -al"
+alias ll="ls -l"
+alias lst="ls -a --tree"
+alias pdflatexs="pdflatex -shell-escape"
+alias pkmn="clear; pokemon-colorscripts -r"
+alias vim="nvim"
+alias xclipc="xclip -selection \"clipboard\""
+alias zf="zathura --fork"
