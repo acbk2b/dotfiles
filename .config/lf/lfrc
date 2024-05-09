@@ -16,8 +16,8 @@ cmd delete ${{
 	printf "%s\n\t" "$fx"
 	printf "delete?[y/N]"
 	read ans
-	[ $ans = "y" ] && rm -rf -- "$fx"
-  notify-send "📂 File(s) deleted"
+	[ $ans = "y" ] && echo "$fx" | xargs -I {} rm -rf "{}"
+    notify-send "📂 File(s) deleted"
 }}
 
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
