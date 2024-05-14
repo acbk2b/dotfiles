@@ -3,6 +3,6 @@
 if [[ $DISPLAY != "" ]] && xrandr --listactivemonitors | grep "HDMI"; then
     xrandr --output $(xrandr --listactivemonitors | grep "HDMI" | awk '{print $NF}') --primary
 fi
-# Autostart programs and misc remaps w/ disown
+# Auto-start programs and misc remaps w/ disown
 $HOME/.local/bin/autostart &!
 $HOME/.local/bin/remaps &!

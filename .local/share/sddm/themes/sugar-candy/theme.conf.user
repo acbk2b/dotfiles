@@ -1,5 +1,5 @@
 [General]
-Background="/usr/share/sddm/themes/wallpaper.jpg"
+Background="/usr/share/sddm/themes/wallpaper"
 ScreenWidth="1920"
 ScreenHeight="1080"
 AccentColor="#00FF9C"
