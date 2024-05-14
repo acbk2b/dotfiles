@@ -2,22 +2,56 @@
 
 There's not place like `~`
 
-# Program Configurations
+# Software I Use
 
-- Active program configurations
-    - `dunst`, `ipython` `lf`, `mutt`, `newsboat`, `nvim`, `picom`, `qtile`, `tmux`, `zathura`, `zsh`
-- Inactive program configurations
-    - `alacritty`, `awesome`, `bspwm`, `i3`, `polybar`, `xmonad`
-- Misc configurations 
-    - `users-dirs.dirs` -> Sets most `XDG_*_DIRS`
-    `.xprofile` -> Runs auto-start and remap scripts
-- Additional programs without configuration files
-    - `arandr`
-- Additional optional dependencies from other repositories
-    - [dwm](https://github.com/acbk2b/dwm.git) -> My custom `dwm` build
-    - [dwmblocks](https://github.com/acbk2b/dwmblocks.git) -> My custom `dwmblocks` build.
-      Status bar scripts are in this repository.
-    - [st](https://github.com/acbk2b/st.git) -> My custom `st` build
+## Main Stuff
+
+Distribution
+- `Arch Linux`
+
+Terminal
+- `st` -> [My custom build](https://github.com/acbk2b/st.git).  I use `st` in conjunction with `tmux`, which handles copying text, scroll back, etc
+- I also have an `alacritty` configuration in this repository as well, which I use without `tmux`
+
+Shell
+- `zsh`
+
+Window Manager
+- I flip back and forth between `dwm` and `qtile`.  My `qtile` configuration is in this repository, I have a [custom dwm build](https://github.com/acbk2b/dwm.git).  For `dwm`, I have [a `dwmblocks` build](https://github.com/acbk2b/dwmblocks.git) for my status bar
+
+Text editor
+- `neovim`
+
+## Utilities
+
+Audio
+- `audacity` for recording/tracking
+- `pulsemixer` for general audio management
+
+Documents
+- `latex` for putting together "official" looking papers/presentations/documents.  I just use `markdown` for general notes and things like that
+
+File management
+
+Image viewer
+- `feh`
+
+Notifications
+- `dunst`
+
+PDF Viewer
+- `zathura` with the `zathura-pdf-poppler` add-on
+
+RSS Reader
+- `newsboat`
+
+Spreadsheets
+- `R` for formulas/statistics
+- `sc-im` for editing CSVs
+
+Misc configurations 
+- `users-dirs.dirs` -> Sets most `XDG_*_DIRS`
+- `.xprofile` -> Runs auto-start and remap scripts
 
 # Scripts
 
