@@ -1,13 +1,22 @@
-# dotfiles
+dotfiles
+========
 
 There's not place like `~`
 
-# Software I Use
+Software I Use
+==============
 
-## Main Stuff
+Main Stuff
+----------
 
 Distribution
 - `Arch Linux`
+
+Colors
+- I have a green/purple color scheme I usually use for fore/background colors on a lot of my programs
+    - Green: `00FF9C`
+    - Purple: `2E2837`
+- `dracula` is my go-to general color scheme
 
 Terminal
 - `st` -> [My custom build](https://github.com/acbk2b/st.git).  I use `st` in conjunction with `tmux`, which handles copying text, scroll back, etc
@@ -17,12 +26,13 @@ Shell
 - `zsh`
 
 Window Manager
-- I flip back and forth between `dwm` and `qtile`.  My `qtile` configuration is in this repository, I have a [custom dwm build](https://github.com/acbk2b/dwm.git).  For `dwm`, I have [a `dwmblocks` build](https://github.com/acbk2b/dwmblocks.git) for my status bar
+- I flip back and forth between `dwm` and `qtile`.  My `qtile` configuration is in this repository, I have a [custom dwm build](https://github.com/acbk2b/dwm.git).  For `dwm`, I have a [`dwmblocks` build](https://github.com/acbk2b/dwmblocks.git) for my status bar
 
 Text editor
 - `neovim`
 
-## Utilities
+Utilities
+---------
 
 Audio
 - `audacity` for recording/tracking
@@ -53,7 +63,8 @@ Misc configurations
 - `users-dirs.dirs` -> Sets most `XDG_*_DIRS`
 - `.xprofile` -> Runs auto-start and remap scripts
 
-# Scripts
+Scripts
+=======
 
 - `autostart`, `remaps` -> Loaded in `.xprofile`
 - `bm` -> Bookmarks script
@@ -70,7 +81,8 @@ Misc configurations
 - `sb-battery` -> `dwmblocks` status bar script for checking the battery
     - If a battery is present, it will output: `Status: Percentage%`
 
-# Installing
+Installing
+==========
 
 `packages.csv` contains a list of all packages.
 This file also contains a column for packages for setting up games (TODO add as optional part of install script)
