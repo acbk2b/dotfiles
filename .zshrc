@@ -7,11 +7,19 @@
 HISTFILE=~/.zsh_history 
 HISTSIZE=1000
 SAVEHIST=1000
-setopt HIST_IGNORE_SPACE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 # Auto Completions
 autoload -Uz compinit; compinit
 # Auto cd
 setopt autocd
+# zstyle
 # Fuzzy match completions for autocd and other commands
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
@@ -28,11 +36,19 @@ setopt prompt_subst
 PS1='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]$fg[green](${vcs_info_msg_0_})
 $%{$reset_color%}%b '
 
+# Keybinds
+bindkey '^f' autosuggest-accept
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
 # Zsh Plugins
-source ~/.config/zsh/vi-mode.plugin.zsh 2>/dev/null
+# System plugins
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# User plugins
+source ~/.config/zsh/vi-mode.plugin.zsh 2>/dev/null
 
+# evals
 # zoxide
 eval "$(zoxide init zsh --cmd \"cd\")"
 
