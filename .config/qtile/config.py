@@ -41,7 +41,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'st'
 
-cursor_warp = False
+cursor_warp = True
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
@@ -137,9 +137,13 @@ keys = [
     Key([mod, "shift"], "i", lazy.spawn("pavucontrol"),
         desc="Spawn pavucontrol"),
 
-    # iPython Terminal
-    Key([mod], "u", lazy.spawn(terminal + ' -c "dropdown-term" -e python'),
-        desc="Spawn floating terminal with python"),
+    # bookmark dmenu script
+    Key([mod], "y", lazy.spawn('bm -d'),
+        desc='bookmark dmenu script'),
+
+    # dmenu emoji/unicode script
+    Key([mod], "u", lazy.spawn('dmenuunicode'),
+        desc='dmenu emoji/unicode select script'),
 
     # Select and run scripts in ~/scripts using dmenu
     Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
@@ -147,7 +151,7 @@ keys = [
 
     # Toggle Cursor Warp
     # Hacky sed script thing
-    Key([mod], "y", lazy.function(toggle), lazy.restart(),
+    Key([mod, "shift"], "y", lazy.function(toggle), lazy.restart(),
         desc="Toggle Cursor Warp and restart Qtile"),
 
     # Run Passmenu dmenu script
