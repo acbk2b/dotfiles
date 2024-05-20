@@ -1,7 +1,27 @@
 # zshell config
 
+# zinit setup
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME/.local/share}}/zinit/zinit.git"
+
 # Load aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+
+# Download zinit if it does not exist
+if [ ! -d "${ZINIT_HOME}" ]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Load zinit
+source "${ZINIT_HOME}"/zinit.zsh
+
+# Plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+# ohmyzsh vi mode plugin
+zinit snippet OMZP::vi-mode
 
 # Misc zsh Options
 HISTFILE=~/.zsh_history 
@@ -19,9 +39,13 @@ setopt hist_find_no_dups
 autoload -Uz compinit; compinit
 # Auto cd
 setopt autocd
+
 # zstyle
 # Fuzzy match completions for autocd and other commands
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+# Disable default completion menu
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls $realpath'
 
 # Prompt options
 # Enable colors
@@ -41,16 +65,11 @@ bindkey '^f' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
-# Zsh Plugins
-# System plugins
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-# User plugins
-source ~/.config/zsh/vi-mode.plugin.zsh 2>/dev/null
-
-# evals
 # zoxide
 eval "$(zoxide init zsh --cmd \"cd\")"
+
+# fzf
+eval "$(fzf --zsh)"
 
 # Print random pokemon on shell startup
 pokemon-colorscripts -r
