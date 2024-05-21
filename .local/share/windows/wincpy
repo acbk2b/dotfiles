@@ -3,8 +3,10 @@
 # Read from stdin
 input=$(</dev/stdin)
 
-# Convert to html w/ pandoc and copy to windows clipboard as html (pasting in teams, outlook, etc)
-echo "$input" | pandoc --ascii | clip.exe | powershell.exe -command "get-clipboard | set-clipboard -ashtml"
+# Convert to html w/ pandoc
+echo "$input" | pandoc --ascii | clip.exe
+# Copy to windows clipboard as html (pasting in teams, outlook, etc)
+powershell.exe -command "get-clipboard | set-clipboard -ashtml"
 
 # Echo back original contents to prevent deleting content when used in vim
 echo "$input"

@@ -22,6 +22,12 @@ map('n', '<S-h>', ':set wrap!<Enter>', { noremap = true })
 map('v', '<', '<gv', { noremap = true })
 map('v', '>', '>gv', { noremap = true })
 
+-- wincpy script
+-- Copy entire buffer
+map('n', '<A-S-m>', ':%!wincpy<Enter>')
+-- Copy selected visual range
+map('v', '<A-S-m>', '!wincpy<Enter>')
+
 -- Plugin Keymaps
 
 -- coc-java

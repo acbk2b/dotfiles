@@ -1,3 +1,7 @@
+# General configuration
+
+refresh-on-startup yes
+
 # Vim keybinds
 
 bind-key j down
