@@ -1,10 +1,10 @@
 # zshell config
 
-# zinit setup
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME/.local/share}}/zinit/zinit.git"
-
 # Load aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+
+# zinit setup
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download zinit if it does not exist
 if [ ! -d "${ZINIT_HOME}" ]; then
