@@ -145,10 +145,6 @@ keys = [
     Key([mod], "u", lazy.spawn('dmenuunicode'),
         desc='dmenu emoji/unicode select script'),
 
-    # Select and run scripts in ~/scripts using dmenu
-    Key([mod], "r", lazy.spawn(home + '/scripts/run_scripts'),
-        desc="Select and run scripts in ~/scripts using dmenu"),
-
     # Toggle Cursor Warp
     # Hacky sed script thing
     Key([mod, "shift"], "y", lazy.function(toggle), lazy.restart(),
@@ -165,7 +161,7 @@ keys = [
         desc='Kill Picom'),
 
     # Launch Firefox
-    Key([mod], "w", lazy.spawn("brave"),
+    Key([mod], "w", lazy.spawn('firefox'),
         desc='Launch Firefox'),
 
     # Launch Spotify
