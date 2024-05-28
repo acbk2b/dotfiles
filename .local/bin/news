@@ -1,0 +1,5 @@
+#! /usr/bin/bash
+
+newsboat -I ~/.config/newsboat/readarticles
+newsboat
+newsboat -E ~/.config/newsboat/readarticles
