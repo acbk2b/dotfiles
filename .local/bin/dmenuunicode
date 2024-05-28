@@ -1,16 +1,35 @@
 #!/bin/sh
 
-# The famous "get a menu of emojis to copy" script.
+# (Modified version of) The famous "get a menu of emojis to copy" script.
+
+# Default to fzf
+PROG="fzf"
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -d)
+            # Override to use dmenu
+            PROG="dmenu -i -l 30"
+            shift
+           ;;
+        *)
+            # Set mode variable to direct insert option
+            MODE="i"
+            shift
+            ;;
+    esac
+done
 
 # Get user selection via dmenu from emoji file.
-chosen=$(cut -d ';' -f1 ~/.local/share/chars/* | dmenu -i -l 30 | sed "s/ .*//")
+chosen=$(cut -d ';' -f1 ~/.local/share/chars/* | $PROG | sed "s/ .*//")
 
 # Exit if none chosen.
 [ -z "$chosen" ] && exit
 
-# If you run this command with an argument, it will automatically insert the
+# If you run this command with a -i, it will automatically insert the
 # character. Otherwise, show a message that the emoji has been copied.
-if [ -n "$1" ]; then
+if [ ! -z "$MODE" ]; then
 	xdotool type "$chosen"
 else
 	printf "%s" "$chosen" | xclip -selection clipboard

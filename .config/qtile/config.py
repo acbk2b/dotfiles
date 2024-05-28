@@ -142,7 +142,7 @@ keys = [
         desc='bookmark dmenu script'),
 
     # dmenu emoji/unicode script
-    Key([mod], "u", lazy.spawn('dmenuunicode'),
+    Key([mod], "u", lazy.spawn('dmenuunicode -d'),
         desc='dmenu emoji/unicode select script'),
 
     # Toggle Cursor Warp
