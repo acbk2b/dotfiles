@@ -41,7 +41,7 @@ home = os.path.expanduser('~')
 mod = "mod4"
 terminal = 'st'
 
-cursor_warp = True
+cursor_warp = False
 
 # Hacky sed thing to get the cursor warp to work
 # lazy.function will flip the variable, but because the config file
