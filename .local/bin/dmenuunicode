@@ -6,7 +6,7 @@
 PROG="fzf"
 
 # Parse args
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
     case $1 in
         -d)
             # Override to use dmenu
