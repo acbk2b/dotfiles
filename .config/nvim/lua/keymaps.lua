@@ -22,6 +22,9 @@ map('n', '<S-h>', ':set wrap!<Enter>', { noremap = true })
 map('v', '<', '<gv', { noremap = true })
 map('v', '>', '>gv', { noremap = true })
 
+-- Highlight the entire buffer in visual mode
+map('n', 'vA', 'ggVG', { noremap = true })
+
 -- wincpy script
 -- Copy entire buffer
 map('n', '<A-S-m>', ':%!wincpy<Enter>')

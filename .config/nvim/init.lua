@@ -1,31 +1,27 @@
--- NVim lua config file
+-- NVim main config file
 
 -- Configs
 require('plugins/init')
 require('autocmds')
 require('keymaps')
 
--- General Stuff
 -- Enable Syntax Highlighting/color scheme
 vim.cmd('colorscheme dracula')
 
--- Set all of the tab spacing settings to 2 spaces
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+local options = {
+    backup = false,
+    expandtab = true,
+    foldmethod = 'indent',
+    mouse = 'a',
+    number = true,
+    relativenumber = true,
+    shiftwidth = 4,
+    softtabstop = 4,
+    swapfile = false,
+    tabstop = 4,
+    writebackup = false,
+}
 
--- Fold method
-vim.opt.foldmethod = "indent"
-
--- Use mouse
-vim.opt.mouse = "a"
-
--- Show line numbers (hybrid)
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- turn off swap files
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.writebackup = false
+for k, v in pairs(options) do
+    vim.opt[k] = v
+end
