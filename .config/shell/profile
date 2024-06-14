@@ -4,10 +4,12 @@
 # Load nvm
 source /usr/share/nvm/init-nvm.sh
 
+export BROWSER="firefox"
 export EDITOR='nvim'
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 export PATH="$HOME/.local/bin:$PATH"
+
 export LF_ICONS="di=📁:\
 fi=📃:\
 tw=🤝:\
