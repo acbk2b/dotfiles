@@ -1,5 +1,3 @@
-local map = vim.keymap.set
-
 -- Set up lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
