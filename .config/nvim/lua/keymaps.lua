@@ -31,13 +31,18 @@ map('n', '<A-S-m>', ':%!wincpy<Enter>')
 -- Copy selected visual range
 map('v', '<A-S-m>', '!wincpy<Enter>')
 
+-- Plugin Keymaps
+
 -- lsp mappings
 map('n', '<leader>dj', vim.diagnostic.goto_next, {buffer=0})
 map('n', '<leader>dk', vim.diagnostic.goto_prev, {buffer=0})
 map('n', '<leader>r', vim.lsp.buf.rename, {buffer=0})
 map('n', '<leader>c', vim.lsp.buf.code_action, {buffer=0})
 
--- Plugin Keymaps
+-- nvim-cmp
+local cmp = require('cmp')
+map('i', '<Tab>', cmp.select_next_item, {})
+map('i', '<S-Tab>', cmp.select_prev_item, {})
 
 -- coc-java
 -- Organize Imports
