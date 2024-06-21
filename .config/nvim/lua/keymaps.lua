@@ -39,11 +39,6 @@ map('n', '<leader>dk', vim.diagnostic.goto_prev, {buffer=0})
 map('n', '<leader>r', vim.lsp.buf.rename, {buffer=0})
 map('n', '<leader>c', vim.lsp.buf.code_action, {buffer=0})
 
--- nvim-cmp
-local cmp = require('cmp')
-map('i', '<Tab>', cmp.select_next_item, {})
-map('i', '<S-Tab>', cmp.select_prev_item, {})
-
 -- coc-java
 -- Organize Imports
 map('n', '<A-S-o>', ':call CocAction(\'organizeImport\')<Enter>', { noremap = true })
