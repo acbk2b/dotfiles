@@ -1,0 +1,13 @@
+#! /bin/bash
+
+if uname -r | grep -q "Microsoft"; then
+	powershell.exe Get-Clipboard
+elif [[ $(uname) == "Darwin" ]]; then
+	/usr/bin/pbpaste
+else
+	if [[ -n "$WAYLAND_DISPLAY" ]] && command -v wl-paste >/dev/null; then
+		wl-paste "$@"
+	else
+		xsel --output --clipboard "$@"
+	fi
+fi

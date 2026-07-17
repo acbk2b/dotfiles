@@ -1,0 +1,39 @@
+#! /bin/bash
+
+set -euo pipefail
+
+macos() {
+    local hex; hex=$(printf '%s' "$HTML_TXT" | hexdump -ve '1/1 "%.2x"')
+    printf 'set the clipboard to {text:" ", «class HTML»:«data HTML%s»}' "$hex" | osascript -
+}
+
+windows() {
+    printf '%s' "$HTML_TXT" | powershell.exe -NoProfile -Command '$body = [Console]::In.ReadToEnd(); $html = "<html><body>$body</body></html>"; Set-Clipboard -AsHtml $html'
+}
+
+
+# Get input
+if [ -p /dev/stdin ]; then
+    input=$(cat)
+else
+    input=$(pbpaste)
+fi
+
+# Convert text markdown -> html
+if command -v pandoc &>/dev/null; then
+	HTML_TXT="$(printf '%s' "$input" | pandoc -f markdown-smart -t html)"
+elif command -v marked &>/dev/null; then
+	HTML_TXT="$(printf '%s' "$input" | marked)"
+else
+	echo "Please install 'pandoc' or 'marked'!"
+	exit 1
+fi
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    macos
+elif uname -r | grep -iq "microsoft"; then 
+    windows
+else
+    echo "Only MacOS + WSL supported at this time!"
+    exit 1
+fi

@@ -1,0 +1,63 @@
+# vim: filetype=sh
+# Alias config file
+
+if [[ $(uname) != "Darwin" ]]; then
+    # BSD ls does not support --group-directories-first"
+    alias ls="ls --color --group-directories-first"
+fi
+
+alias cfg="\$(which git) --git-dir=$HOME/.cfg --work-tree=$HOME"
+alias cfzf="fzf | pbcopy"
+alias cl="clear"
+alias cpr="rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1"
+alias dcd="docker compose down"
+alias dcl="docker compose logs -f"
+alias dcu="docker compose up -d"
+alias dmu="dmenuunicode"
+alias dp="docker ps"
+alias ga="git add"
+alias gb="git branch"
+alias gch="git checkout"
+alias gcm="git commit -m"
+alias gd="git diff"
+alias gdt="nvim -c 'DiffviewOpen' -c 'tabonly'"
+alias gl="git log --pretty --oneline"
+alias glmr="glab mr create -f && glab mr view -w"
+alias gp="git pull"
+alias gps="git push"
+alias gr="git restore --staged"
+alias gs="git status"
+alias ipy="python -m IPython"
+alias l="ls -al"
+alias ll="ls -l"
+alias mvr="rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files"
+alias notes="cd ~/notes && nvim -c 'normal \oo'"
+alias ports="ss -atn"
+alias senv="source .env"
+alias svenv="source .venv/bin/activate"
+alias tf="terraform"
+alias v="nvim"
+alias zf="zathura --fork"
+
+# Shell functions
+
+# fzf repo hopper
+zr() {
+	repos="$HOME/repos"
+	local -a cmd
+
+	# use fd if available, fallback to find if not
+	if command -v "fd" >/dev/null 2>&1; then
+		cmd=(fd -H -L -I -t d "^\.git$" "$repos")
+	else
+		cmd=(find -L "$repos" -type d -name .git)
+	fi
+
+	local dir
+	dir=$("${cmd[@]}" 2>/dev/null | xargs dirname | fzf --preview 'ls {}') && cd "$dir"
+}
+
+vf() {
+	local f
+	f=$(fzf) && $EDITOR "$f"
+}

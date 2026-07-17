@@ -1,0 +1,23 @@
+# vim: filetype=sh
+# Shell options
+
+export BROWSER="brave"
+export EDITOR='nvim'
+export FZF_DEFAULT_OPTS="--preview 'cat {}'"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
+export QT_QPA_PLATFORMTHEME="qt5ct:qt6ct"
+
+# Language specific package managers/environments + PATH updates
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/env"
+
+# Load .bashrc if the current shell is bash
+if [[ "$SHELL" =~ "bash" && -f ~/.bashrc ]]; then
+	. ~/.bashrc
+fi
+
+# Start hyprland if available and not running
+WM_CMD="start-hyprland"
+if [[ "$(tty)" = "/dev/tty1" ]] && command -v "$WM_CMD" >/dev/null && ! pidof -s "$WM_CMD" >/dev/null; then
+	exec "$WM_CMD"
+fi

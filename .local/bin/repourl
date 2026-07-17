@@ -1,0 +1,8 @@
+#! /bin/bash
+
+URL=$(git config remote.origin.url)
+if [[ "$URL" =~ "git@" ]]; then
+	URL="$(echo "$URL" | sed 's|:|/|g' | sed 's|git@|https://|')"
+fi
+
+echo "$URL" | pbcopy

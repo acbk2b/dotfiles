@@ -1,0 +1,26 @@
+# vim: filetype=sh
+
+# nvm
+if [[ -f "/usr/share/nvm/init-nvm.sh" ]]; then
+	source /usr/share/nvm/init-nvm.sh
+else
+	# Find nvm home
+	if [[ -d "/home/linuxbrew/.linuxbrew/opt/nvm" ]]; then
+		export NVM_DIR="/home/linuxbrew/.linuxbrew/opt/nvm"
+	else
+		export NVM_DIR="$HOME/.config/nvm"
+	fi
+
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                    # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+fi
+
+# Cargo
+CARGO_ENV="$HOME/.cargo/env"
+[[ -f "$CARGO_ENV" ]] && . "$CARGO_ENV"
+
+# PATH updates
+PATHS=("$HOME/.local/bin" "/home/linuxbrew/.linuxbrew/bin" "$HOME/.cache/.bun/bin" "$HOME/.bun/bin" "$HOME/go/bin")
+for P in ${PATHS[@]}; do
+	[[ -d "$P" ]] && export PATH="$P:$PATH"
+done

@@ -1,0 +1,19 @@
+#! /bin/bash
+
+if uname -r | grep -q "Microsoft"; then
+	clip.exe
+elif [[ $(uname) == "Darwin" ]]; then
+	/usr/bin/pbcopy
+else
+	# Select xsel for X11, wl-copy for Wayland
+	if [[ -n "$WAYLAND_DISPLAY" ]] && command -v wl-copy >/dev/null; then
+		wl-copy "$@"
+	elif [[ -n "$DISPLAY" ]] && command -v xsel >/dev/null; then
+		xsel --input --clipboard "$@"
+	elif [[ -n "$DISPLAY" ]] && command -v xclip >/dev/null; then
+		xclip -selection clipboard "$@"
+	else
+		echo "Error: No supported clipboard utility found (need wl-copy, xsel, or xclip)" >&2
+		exit 1
+	fi
+fi

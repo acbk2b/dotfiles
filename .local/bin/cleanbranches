@@ -1,0 +1,12 @@
+#! /bin/bash
+
+FORCE="$1"
+
+# Fetch/prune old branches
+git fetch --prune
+if [[ "$FORCE" == "-f" ]]; then
+	# Force delete branches that are not fully merged
+	git branch -vv | awk '/: gone]/{print $1}' | xargs -r -I{} git branch -D {}
+else
+	git branch -vv | awk '/: gone]/{print $1}' | xargs -r -I{} git branch -d {}
+fi

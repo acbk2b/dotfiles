@@ -1,0 +1,7 @@
+@theme "dracula"
+
+configuration {
+    show-icons:      true;
+    display-drun:    "";
+    disable-history: false;
+}

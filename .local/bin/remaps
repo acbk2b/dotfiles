@@ -1,0 +1,12 @@
+#! /usr/bin/bash
+
+# Increase key speed rate change
+xset r rate 300 50
+
+# Enable trackpad tapping on a laptop
+if [ "$(/usr/bin/ls /sys/class/power_supply)" ]; then
+    # Enable tapping on laptop trackpad
+    ID=$(xinput | grep "Touchpad" | cut -f2 | cut -d "=" -f2)
+    PROP="$(xinput list-props $ID | grep -E "Tapping Enabled \([[:digit:]]+\)" | grep -o -E "[[:digit:]]{3}+")"
+    xinput set-prop $ID $PROP 1
+fi
