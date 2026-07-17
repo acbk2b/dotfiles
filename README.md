@@ -9,7 +9,7 @@ This repository is a flat mirror of my home directory, keeping things simple and
 To get started on a fresh machine, run the bootstrap script:
 
 ```bash
-curl -fsSL "https://gitlab.com/acbk2b/dotfiles/-/raw/main/scripts/cfg.sh?ref_type=heads" | bash
+curl -fsSL "https://raw.githubusercontent.com/acbk2b/dotfiles/refs/heads/main/scripts/cfg.sh" | bash
 ```
 
 This will:
