@@ -10,9 +10,10 @@ load_ssh_agent() {
         ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
     fi
     # `$SSH_AUTH_SOCK` exported in `$XDG_RUNTIME_DIR/ssh-agent.env`
-    if [ ! -f "$SSH_AUTH_SOCK" ]; then
+    # MacOS automatically starts an ssh agent, but it does not use an `ssh-agent.env` file
+    if [[ ! -f "$SSH_AUTH_SOCK" ]] && [[ -f "${XDG_RUNTIME_DIR}/ssh-agent.env" ]]; then
         # Load `ssh-agent.env` if not loaded in current shell
-        source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+        source "${XDG_RUNTIME_DIR}/ssh-agent.env" >/dev/null
     fi
 
     # Load ssh keys
