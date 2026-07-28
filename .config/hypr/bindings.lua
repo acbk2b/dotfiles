@@ -35,7 +35,11 @@ for i = 1, 10 do
     hl.bind(main_mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
+-- Scratchpad keybinding
 hl.bind(main_mod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+
+-- Lock screen w/ hyprlock
+hl.bind(main_mod .. " + CONTROL + q", hl.dsp.exec_cmd("hyprlock"))
 
 hl.bind(main_mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(main_mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
