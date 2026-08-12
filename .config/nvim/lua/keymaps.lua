@@ -70,15 +70,6 @@ for _, pair in ipairs(abbreviations) do
 	create_abbreviation(pair.abbr, pair.exp)
 end
 
--- Auto-open VimWiki and /var/tmp/scratchpad.md shortcuts
-vim.api.nvim_create_user_command("Opennotes", function()
-	-- Load via lazy cmd option
-	vim.cmd("VimwikiIndex")
-	vim.cmd("tabnew /var/tmp/scratchpad.md")
-	vim.cmd("tabfirst")
-end, { desc = "Open notes VimWiki and scratchpad" })
-map("n", "<leader>oo", ":Opennotes<Enter>", { noremap = true, silent = true })
-
 vim.api.nvim_create_user_command("GitUrl", function()
 	local filepath = vim.fn.expand("%:p")
 	if filepath == "" then
