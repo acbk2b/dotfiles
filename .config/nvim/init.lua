@@ -7,9 +7,6 @@ require("fmt")
 require("keymaps")
 require("plugins/init")
 
--- Enable Syntax Highlighting/color scheme
-vim.cmd("colorscheme dracula")
-
 local options = {
     autocomplete = true,
 	backup = false,

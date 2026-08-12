@@ -1,1 +1,4 @@
 theme = Dracula
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+background-opacity = 0.85
+background-blur = 20
