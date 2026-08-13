@@ -39,6 +39,7 @@ return {
                     { "pyright" },
                     { "rust_analyzer" },
                     { "terraformls" },
+                    { "ts_ls" },
                 }
 
                 for _, lsp in ipairs(lsps) do
