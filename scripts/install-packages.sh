@@ -39,6 +39,7 @@ if [ "$ID" = "arch" ]; then
 		jq
 		neovim
 		openssh
+		tree-sitter-cli
 		pass
 		rsync
 		tmux
@@ -57,6 +58,7 @@ elif [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
 		rsync
 		software-properties-common
 		tmux
+		tree-sitter-cli
 		zsh
 	)
 	sudo apt update && sudo apt install -y "${PKGS[@]}"
@@ -70,17 +72,22 @@ elif [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
 
 elif [ "$ID" = "ol" ]; then
 	PKGS=(
+		cargo
 		cronie
 		curl
 		gcc
+		gcc-c++
 		git
 		jq
+		make
 		pass
 		rsync
+		rust
 		zsh
 	)
 	sudo dnf update -y && sudo dnf install -y "${PKGS[@]}"
 
 	install_fzf
 	install_nvim
+	cargo install tree-sitter-cli
 fi
