@@ -61,3 +61,25 @@ vf() {
 	local f
 	f=$(fzf) && $EDITOR "$f"
 }
+
+skills() {
+    # Install code claude explicitly (via symlink), `~/.agents/skills` is included by default
+    bunx skills add mattpocock/skills \
+          --skill codebase-design \
+          --skill domain-modeling \
+          --skill grill-me \
+          --skill grill-with-docs \
+          --skill grilling \
+          --skill improve-codebase-architecture \
+          --skill research \
+          --skill tdd \
+          --skill teach \
+          --agent claude-code \
+          --global \
+          -y
+    bunx skills add JuliusBrussee/caveman \
+          --skill caveman \
+          --agent claude-code \
+          --global \
+          -y
+}
