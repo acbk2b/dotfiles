@@ -3,27 +3,6 @@
 # Shell-agnostic config lives up top; per-dialect blocks are fenced by
 # $ZSH_VERSION / $BASH_VERSION
 
-load_ssh_agent() {
-    # Check whether agent is running
-    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-        # Create user runtime env file with `ssh-agent` proc details
-        ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-    fi
-    # `$SSH_AUTH_SOCK` exported in `$XDG_RUNTIME_DIR/ssh-agent.env`
-    # MacOS automatically starts an ssh agent, but it does not use an `ssh-agent.env` file
-    if [[ ! -f "$SSH_AUTH_SOCK" ]] && [[ -f "${XDG_RUNTIME_DIR}/ssh-agent.env" ]]; then
-        # Load `ssh-agent.env` if not loaded in current shell
-        source "${XDG_RUNTIME_DIR}/ssh-agent.env" >/dev/null
-    fi
-
-    # Load ssh keys
-    KEYS=("$HOME/.ssh/id_github" "$HOME/.ssh/id_gitlab")
-    for _key in "${KEYS[@]}"; do
-        [[ -f "$_key" ]] && ssh-add -l 2>/dev/null | grep -q "$_key" || ssh-add "$_key" 2>/dev/null
-    done
-    unset _key
-}
-
 # Launch tmux for non-ssh sessions
 if command -v tmux &>/dev/null && [[ -z "$TMUX" ]] && [[ -z "$SSH_CLIENT" ]] && [[ -z "$SSH_TTY" ]]; then
 	exec tmux new-session
@@ -105,5 +84,3 @@ elif [ -n "$BASH_VERSION" ]; then
 	# fzf
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
-
-load_ssh_agent
