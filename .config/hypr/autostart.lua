@@ -1,5 +1,6 @@
 hl.on("hyprland.start", function()
-    hl.exec_cmd("waybar & hyprpaper")
+    hl.exec_cmd("waybar")
+    hl.exec_cmd("hyprpaper")
     hl.exec_cmd("ghostty --class=com.term.scratchpad")
     hl.exec_cmd('hyprctl setcursor "Banana-Dracula" 48')
 end)
