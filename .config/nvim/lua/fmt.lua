@@ -26,6 +26,7 @@ local fmt = {
     { pattern = "*.lua",  callback = lspFmt },
     { pattern = "*.md",   callback = shellFmt({ "prettier", "--parser", "markdown" }) },
     { pattern = "*.py",   callback = shellFmt({ "black", "-q", "-" }) },
+    { pattern = "*.rego", callback = shellFmt({ "opa", "fmt" })},
     { pattern = "*.rs",   callback = lspFmt },
     { pattern = "*.tf",   callback = shellFmt({ "terraform", "fmt", "-" }) },
     { pattern = "*.yml",  callback = shellFmt({ "prettier", "--parser", "yaml" }) },
