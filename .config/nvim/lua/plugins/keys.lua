@@ -29,7 +29,18 @@ return {
 		},
 	},
 	-- Code comment shortcuts
-	{ "tpope/vim-commentary", cmd = { "Commentary", "CommentaryLine" } },
+	{
+		"tpope/vim-commentary",
+		cmd = { "Commentary", "CommentaryLine" },
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "rego",
+				callback = function()
+					vim.bo.commentstring = "# %s"
+				end,
+			})
+		end,
+	},
 	-- Change enclosing characters
 	{
 		"tpope/vim-surround",
