@@ -15,6 +15,9 @@ HIST_SIZE=1000
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 
 if [ -n "$ZSH_VERSION" ]; then
+	# Deduplicate paths accumulated by inherited environment and startup files.
+	typeset -U path PATH fpath FPATH
+
 	# History
 	HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/.zsh_history"
 	HISTSIZE=$HIST_SIZE
@@ -28,9 +31,13 @@ if [ -n "$ZSH_VERSION" ]; then
 	setopt hist_ignore_dups
 	setopt hist_find_no_dups
 
-	# Completions
+	# Completions: trust an existing dump to avoid a full audit on every shell.
 	autoload -Uz compinit
-	compinit
+	if [[ -s "${ZDOTDIR:-$HOME}/.zcompdump" ]]; then
+		compinit -C
+	else
+		compinit
+	fi
 	# Fuzzy match completions for autocd and other commands
 	zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 	# Disable default completion menu
@@ -45,13 +52,14 @@ if [ -n "$ZSH_VERSION" ]; then
 	# Fix backspace in vi mode
 	bindkey '^?' backward-delete-char
 
-	# Prompt (with git branch via vcs_info)
+	# Prompt (with git branch). Refresh Git state before every prompt.
 	autoload -U colors && colors
-	autoload -Uz vcs_info
-	precmd() { vcs_info; }
-	zstyle ':vcs_info:git:*' formats '%b'
+	typeset -g __prompt_vcs_branch=
+	precmd() {
+		__prompt_vcs_branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || __prompt_vcs_branch=
+	}
 	setopt prompt_subst
-	PS1='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]$fg[green](${vcs_info_msg_0_})
+	PS1='%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$fg[green]%}${__prompt_vcs_branch:+(${__prompt_vcs_branch})}
 $%{$reset_color%}%b '
 
 	# Keybinds
@@ -75,11 +83,20 @@ elif [ -n "$BASH_VERSION" ]; then
 		. /etc/bash_completion
 	fi
 
-	# Auto cd (cd without typing "cd")
-	shopt -s autocd
+	# Auto cd (cd without typing "cd") when supported (Bash 4+).
+	shopt -s autocd 2>/dev/null || true
 
-	# Prompt (with git branch)
-	PS1='\[\033[1;31m\][\[\033[1;33m\]\u\[\033[1;32m\]@\[\033[1;34m\]\h \[\033[1;35m\]\w\[\033[1;31m\]]\[\033[1;32m\]($(git branch 2>/dev/null | grep -e "^*" | sed "s/^* //"))\n$ \[\033[0m\]'
+	# Prompt (with git branch). Refresh Git state before every prompt.
+	__prompt_vcs_branch=
+	__prompt_update_vcs() {
+		__prompt_vcs_branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || __prompt_vcs_branch=
+	}
+	# Preserve any prompt hooks installed before this file (compatible with Bash 3.2).
+	case ";${PROMPT_COMMAND:-};" in
+		*";__prompt_update_vcs;"*) ;;
+		*) PROMPT_COMMAND="__prompt_update_vcs${PROMPT_COMMAND:+; $PROMPT_COMMAND}" ;;
+	esac
+	PS1='\[\033[1;31m\][\[\033[1;33m\]\u\[\033[1;32m\]@\[\033[1;34m\]\h \[\033[1;35m\]\w\[\033[1;31m\]]\[\033[1;32m\]${__prompt_vcs_branch:+(${__prompt_vcs_branch})}\n$ \[\033[0m\]'
 
 	# fzf
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
