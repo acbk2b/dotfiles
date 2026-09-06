@@ -52,7 +52,7 @@
   "cpu": {
     "interval": 5,
     "format": "󰍛",
-    "on-click": "alacritty -e btop"
+    "on-click": "ghostty --class=com.term.htop --window-width=120 --window-height=35 -e htop"
   },
   "clock": {
     "format": "{:%A %B %e, %H:%M}",
@@ -76,7 +76,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "spacing": 1,
-    "on-click": "alacritty --class=Impala -e impala"
+    "on-click": "ghostty --class=com.term.impala -e impala"
   },
   "battery": {
     "format": "{capacity}% {icon}",
@@ -126,17 +126,23 @@
     "on-click": "blueman-manager"
   },
   "pulseaudio": {
-    "format": "{volume}% {icon}",
-    "on-click": "alacritty --class=pulsemixer -e pulsemixer",
+    "format": "{desc} {volume}% {icon}",
+    "format-bluetooth": "{desc} {volume}% {icon}",
+    "format-muted": "{desc} 󰝟",
+    "max-length": 28,
+    "on-click": "ghostty --class=com.term.wiremix --window-width=90 --window-height=28 -e wiremix",
     "on-click-right": "pamixer -t",
-    "tooltip-format": "Playing at {volume}%",
+    "tooltip-format": "{desc} playing at {volume}%",
     "scroll-step": 5,
-    "format-muted": "󰝟",
     "format-icons": {
+      "headphone": "",
+      "headset": "",
+      "speaker": "",
+      "hdmi": "󰡁",
       "default": [
-        "",
-        "",
-        ""
+        "",
+        "",
+        ""
       ]
     }
   },

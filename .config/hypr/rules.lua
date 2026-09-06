@@ -58,9 +58,9 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "pavucontrol-float",
+    name = "term-popup-float",
     match = {
-        class = "^(org.pulseaudio.pavucontrol)$",
+        class = "^(com.term.(wiremix|htop))$",
     },
     float = true,
 })

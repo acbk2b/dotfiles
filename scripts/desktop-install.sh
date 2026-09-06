@@ -36,6 +36,7 @@ if [ "$IS_DESKTOP" = true ] && [ "$ID" = "arch" ]; then
 		"spotify"
 		"syncthing"
 		"ttf-jetbrains-mono-nerd"
+		"wiremix"
 		"yazi"
 		"zathura"
 		"zathura-pdf-poppler"
