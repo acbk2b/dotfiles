@@ -126,7 +126,7 @@
     "on-click": "blueman-manager"
   },
   "pulseaudio": {
-    "format": "{icon}",
+    "format": "{volume}% {icon}",
     "on-click": "alacritty --class=pulsemixer -e pulsemixer",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
