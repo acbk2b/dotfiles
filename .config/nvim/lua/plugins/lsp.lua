@@ -1,16 +1,5 @@
 return {
     {
-        "dlyongemallo/diffview.nvim",
-        version = "*",
-        cmd = {
-            "DiffviewOpen",
-            "DiffviewToggle",
-            "DiffviewFileHistory",
-            "DiffviewDiffFiles",
-            "DiffviewLog",
-        },
-    },
-    {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         cmd = { "LspInfo", "LspLog", "LspStart", "LspRestart", "LspStop" },
@@ -66,36 +55,9 @@ return {
                 end, { expr = true, silent = true })
             end
 
-            local function set_lsp_keymaps(bufnr, client)
-                local map = vim.keymap.set
-                local function jump_diagnostic(count)
-                    vim.diagnostic.jump({
-                        count = count,
-                        on_jump = function(diagnostic, diagnostic_bufnr)
-                            if not diagnostic then
-                                return
-                            end
-
-                            vim.diagnostic.open_float(diagnostic_bufnr, {
-                                scope = "line",
-                                focus = false,
-                            })
-                        end,
-                    })
-                end
-
-                map("n", "<leader>dj", function()
-                    jump_diagnostic(1)
-                end, { buffer = bufnr })
-                map("n", "<leader>dk", function()
-                    jump_diagnostic(-1)
-                end, { buffer = bufnr })
-                map("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr })
-                map("n", "<leader>c", vim.lsp.buf.code_action, { buffer = bufnr })
-                map("n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr, desc = "Show lsp errors/warnings" })
-
+            local function set_jdtls_keymaps(bufnr, client)
                 if client and client.name == "jdtls" then
-                    map("n", "<leader>oi", function()
+                    vim.keymap.set("n", "<leader>oi", function()
                         vim.lsp.buf.code_action({
                             context = { only = { "source.organizeImports" } },
                             apply = true,
@@ -118,7 +80,7 @@ return {
                     vim.api.nvim_set_option_value("autocomplete", false, { scope = "local", buf = args.buf })
                 end
 
-                set_lsp_keymaps(args.buf, client)
+                set_jdtls_keymaps(args.buf, client)
             end
 
             setup_servers()

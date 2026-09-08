@@ -9,7 +9,6 @@ require("plugin-loader")
 
 local options = {
     autocomplete = true,
-	backup = false,
 	clipboard = "unnamedplus",
     completeopt = { 'menu', 'menuone', 'noselect' },
 	expandtab = true,
@@ -31,8 +30,3 @@ end
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
-
--- WSL
-if vim.fn.has("wsl") == 1 then
-	require("nvim-treesitter.install").prefer_git = true
-end

@@ -4,39 +4,39 @@ local git = require("lib.git")
 local map = vim.keymap.set
 
 -- Use verymagic regex mode by default for search/replace ops
-map("n", "/", "/\\v", { noremap = true, desc = "Search with very magic mode" })
-map("n", "?", "?\\v", { noremap = true, desc = "Search backwards with very magic mode" })
-map("c", "s/", "s/\\v", { noremap = true, desc = "Substitute with very magic mode" })
+map("n", "/", "/\\v", { desc = "Search with very magic mode" })
+map("n", "?", "?\\v", { desc = "Search backwards with very magic mode" })
+map("c", "s/", "s/\\v", { desc = "Substitute with very magic mode" })
 
 -- Pane navigation
-map("n", "<C-h>", "<C-w>h", { noremap = true })
-map("n", "<C-j>", "<C-w>j", { noremap = true })
-map("n", "<C-k>", "<C-w>k", { noremap = true })
-map("n", "<C-l>", "<C-w>l", { noremap = true })
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
+map("n", "<C-l>", "<C-w>l")
 
 -- Pane split size
-map("n", "<C-,>", "<C-w>>", { noremap = true })
-map("n", "<C-.>", "<C-w><", { noremap = true })
-map("n", "<C-->", "<C-w>-", { noremap = true })
-map("n", "<C-=>", "<C-w>+", { noremap = true })
+map("n", "<C-,>", "<C-w>>")
+map("n", "<C-.>", "<C-w><")
+map("n", "<C-->", "<C-w>-")
+map("n", "<C-=>", "<C-w>+")
 
 -- Toggle netrw sidebar
 map("n", "<C-t>", ":Lexplore<CR>", { desc = "Toggle netrw sidebar" })
 
 -- Clear highlight
-map("n", "<leader>h", ":noh<Enter>", { noremap = true })
+map("n", "<leader>h", ":noh<Enter>")
 -- Toggle line wrap
-map("n", "<leader>w", ":set wrap!<Enter>", { noremap = true })
+map("n", "<leader>w", ":set wrap!<Enter>")
 
 -- Visual block indent; keep block
-map("v", "<", "<gv", { noremap = true })
-map("v", ">", ">gv", { noremap = true })
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
 -- Highlight the entire buffer in visual mode
-map("n", "vA", "ggVG", { noremap = true })
+map("n", "vA", "ggVG")
 
 -- Invert Capitalization of a word
-map("n", "cA", "b~e", { noremap = true })
+map("n", "cA", "b~e")
 
 -- md2rich script
 -- Copy entire buffer
