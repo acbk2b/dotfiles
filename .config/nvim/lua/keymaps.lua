@@ -1,6 +1,5 @@
 -- Custom keymaps
 
-local git = require("lib.git")
 local map = vim.keymap.set
 
 -- Use verymagic regex mode by default for search/replace ops
@@ -77,7 +76,7 @@ vim.api.nvim_create_user_command("GitUrl", function()
 		return
 	end
 
-	local url = git.getFileUrl(filepath)
+	local url = require("lib.git").getFileUrl(filepath)
 	if not url then return end
 
 	vim.fn.setreg("+", url)
