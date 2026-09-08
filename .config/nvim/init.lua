@@ -5,7 +5,7 @@
 require("autocmds")
 require("fmt")
 require("keymaps")
-require("plugins/init")
+require("plugin-loader")
 
 local options = {
     autocomplete = true,
