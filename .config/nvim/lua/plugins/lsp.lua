@@ -13,33 +13,24 @@ return {
                 local project_hash = vim.fn.sha256(project_root):sub(1, 12)
                 local workspace_dir = vim.fn.stdpath("data") ..
                     "/jdtls-workspace/" .. project_name .. "-" .. project_hash
-                local lsps = {
-                    { "gopls" },
-                    {
-                        "jdtls",
-                        {
-                            cmd = {
-                                vim.fn.exepath("jdtls"),
-                                "--jvm-arg=-javaagent:" .. lombok_path,
-                                "-data",
-                                workspace_dir,
-                            },
-                        },
+                vim.lsp.config("jdtls", {
+                    cmd = {
+                        vim.fn.exepath("jdtls"),
+                        "--jvm-arg=-javaagent:" .. lombok_path,
+                        "-data",
+                        workspace_dir,
                     },
-                    { "lua_ls" },
-                    { "pyright" },
-                    { "rust_analyzer" },
-                    { "terraformls" },
-                    { "ts_ls" },
-                }
+                })
 
-                for _, lsp in ipairs(lsps) do
-                    local name, server_config = lsp[1], lsp[2]
-                    if server_config then
-                        vim.lsp.config(name, server_config)
-                    end
-                    vim.lsp.enable(name)
-                end
+                vim.lsp.enable({
+                    "gopls",
+                    "jdtls",
+                    "lua_ls",
+                    "pyright",
+                    "rust_analyzer",
+                    "terraformls",
+                    "ts_ls",
+                })
             end
 
             local function set_completion_keymaps()
@@ -53,17 +44,6 @@ return {
                 map('i', '<CR>', function()
                     return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
                 end, { expr = true, silent = true })
-            end
-
-            local function set_jdtls_keymaps(bufnr, client)
-                if client and client.name == "jdtls" then
-                    vim.keymap.set("n", "<leader>oi", function()
-                        vim.lsp.buf.code_action({
-                            context = { only = { "source.organizeImports" } },
-                            apply = true,
-                        })
-                    end, { buffer = bufnr, desc = "Organize imports" })
-                end
             end
 
             local function on_lsp_attach(args)
@@ -80,7 +60,6 @@ return {
                     vim.api.nvim_set_option_value("autocomplete", false, { scope = "local", buf = args.buf })
                 end
 
-                set_jdtls_keymaps(args.buf, client)
             end
 
             setup_servers()
