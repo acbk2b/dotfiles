@@ -3,6 +3,14 @@
 local filetype_overrides = vim.api.nvim_create_augroup("UserFiletypeOverrides", { clear = true })
 local filetype_local_opts = vim.api.nvim_create_augroup("UserFiletypeLocalOptions", { clear = true })
 
+vim.api.nvim_create_autocmd("FileType", {
+	group = filetype_local_opts,
+	pattern = "rego",
+	callback = function()
+		vim.bo.commentstring = "# %s"
+	end,
+})
+
 -- Set Jenkinsfiles to groovy FileType
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	group = filetype_overrides,
