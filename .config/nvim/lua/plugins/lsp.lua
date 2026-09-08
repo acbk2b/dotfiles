@@ -12,6 +12,8 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        event = { "BufReadPre", "BufNewFile" },
+        cmd = { "LspInfo", "LspLog", "LspStart", "LspRestart", "LspStop" },
         config = function()
             local lsp_attach_group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true })
 
