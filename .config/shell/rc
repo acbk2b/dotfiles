@@ -70,6 +70,11 @@ $%{$reset_color%}%b '
 	# fzf
 	eval "$(fzf --zsh)"
 
+    # mise
+    if command -v mise &>/dev/null; then
+        eval "$(mise activate zsh)"
+    fi
+
 elif [ -n "$BASH_VERSION" ]; then
 	# History
 	HISTFILE=~/.bash_history
@@ -100,4 +105,9 @@ elif [ -n "$BASH_VERSION" ]; then
 
 	# fzf
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+    # mise
+    if command -v mise &>/dev/null; then
+        eval "$(mise activate bash)"
+    fi
 fi
