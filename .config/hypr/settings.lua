@@ -1,5 +1,4 @@
-local active_border_color = "rgba(00ff9cee)"
-local inactive_border_color = "rgba(595959aa)"
+local colors = dofile(os.getenv("HOME") .. "/.local/state/omarchy/current/theme/hyprland.lua")
 
 hl.monitor({
     output = "",
@@ -20,8 +19,8 @@ hl.config({
         allow_tearing = false,
         layout = "master",
         col = {
-            active_border = active_border_color,
-            inactive_border = inactive_border_color,
+            active_border = colors.active_border,
+            inactive_border = colors.inactive_border,
         },
     },
     decoration = {
@@ -32,7 +31,7 @@ hl.config({
             enabled = true,
             range = 4,
             render_power = 3,
-            color = "rgba(1a1a1aee)",
+            color = colors.shadow,
         },
         blur = {
             enabled = true,

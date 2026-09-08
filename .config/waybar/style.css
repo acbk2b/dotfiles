@@ -1,6 +1,4 @@
-/* My custom colorscheme */
-@define-color foreground #00ff9c;
-@define-color background #2e2837;
+@import url("file:///home/alex/.local/state/omarchy/current/theme/waybar.css");
 
 * {
   background-color: @background;
