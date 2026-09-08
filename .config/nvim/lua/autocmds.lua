@@ -45,10 +45,12 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
+vim.api.nvim_create_autocmd("FileType", {
 	group = filetype_local_opts,
-	pattern = { "*.md", "*.wiki" },
-	callback = function()
+	pattern = "markdown",
+	callback = function(args)
 		local options = {
+			conceallevel = 2,
 			expandtab = true,
 			shiftwidth = 2,
 			softtabstop = 2,
