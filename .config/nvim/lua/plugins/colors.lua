@@ -20,6 +20,11 @@ return {
               -- fall back to terminal's transparency
               vim.api.nvim_set_hl(0, group, { bg = "none" })
             end
+
+            -- Match Vimwiki's Markdown colors
+            vim.api.nvim_set_hl(0, "@markup.heading", { link = "Title" })
+            vim.api.nvim_set_hl(0, "@markup.raw", { link = "DraculaPink" })
+            vim.api.nvim_set_hl(0, "@markup.list", { link = "Normal" })
         end,
     },
     {
@@ -31,7 +36,7 @@ return {
             local treesitter_group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true })
             vim.api.nvim_create_autocmd('FileType', {
                 group = treesitter_group,
-                pattern = { 'go', 'lua', 'python', 'sh', 'groovy', 'java', 'yaml', 'sql' },
+                pattern = { 'go', 'lua', 'markdown', 'python', 'sh', 'groovy', 'java', 'yaml', 'sql' },
                 callback = function() vim.treesitter.start() end,
             })
         end,
