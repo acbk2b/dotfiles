@@ -16,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins + configuration
 local plugins = {}
-local plugCfg = { "colors", "keys", "lsp", "vimwiki" }
+local plugCfg = { "colors", "keys", "lsp", "vimwiki", "git" }
 for _, plug in ipairs(plugCfg) do
 	table.insert(plugins, require("plugins/" .. plug))
 end
