@@ -44,7 +44,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
 vim.api.nvim_create_autocmd("FileType", {
 	group = filetype_local_opts,
 	pattern = "markdown",
