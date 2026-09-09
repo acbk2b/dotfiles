@@ -1,0 +1,11 @@
+{
+  "dracula": { "branch": "master", "commit": "e7817b4baccfb3529f709ac048c621f35cdbc5b3" },
+  "fzf": { "branch": "master", "commit": "ad151d84154632a6abec67b40fe326c1ea2c9481" },
+  "fzf.vim": { "branch": "master", "commit": "8a0068127ac9ee23d71dab2944ce995726bef462" },
+  "gitsigns.nvim": { "branch": "main", "commit": "5be654f2232c10ddcad19c1607a67b6b4b78fc29" },
+  "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
+  "nvim-lspconfig": { "branch": "master", "commit": "da1aff0332774a0f60d52bf972e815dfc226f276" },
+  "nvim-treesitter": { "branch": "main", "commit": "5cb0114e6242625db56dd6440e945ed1ece10bc7" },
+  "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
+  "vim-tmux-navigator": { "branch": "master", "commit": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" }
+}
