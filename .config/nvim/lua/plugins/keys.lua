@@ -38,4 +38,11 @@ return {
 			{ "S", mode = "v", desc = "Add surrounding in visual mode" },
 		},
 	},
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+        -- use opts = {} for passing setup options
+        -- this is equivalent to setup({}) function
+    }
 }
