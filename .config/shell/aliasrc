@@ -74,12 +74,12 @@ skills() {
           --skill research \
           --skill tdd \
           --skill teach \
-          --agent claude-code \
+          --agent codex \
           --global \
           -y
-    bunx skills add JuliusBrussee/caveman \
-          --skill caveman \
-          --agent claude-code \
+    bunx skills add ayghri/i-have-adhd \
+          --skill i-have-adhd \
+          --agent codex \
           --global \
           -y
 }
