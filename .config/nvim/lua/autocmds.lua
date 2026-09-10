@@ -44,6 +44,33 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+local function markdown_list_prefix()
+	local line = vim.api.nvim_get_current_line()
+
+	if line:match("^%s*%- %[[ xX]%]") then
+		return "- [ ] "
+	end
+
+	if line:match("^%s*%- ") then
+		return "- "
+	end
+
+	return ""
+end
+
+local function markdown_enter()
+	local line = vim.api.nvim_get_current_line()
+	local indent = line:match("^(%s*)%- %[[ xX]%]%s*$") or line:match("^(%s*)%-%s*$")
+
+    -- indent == true for "" and "  "
+	if indent then
+        -- Fire <C-u< for empty indent and <C-o><< for non-empty indent
+		return indent == "" and "<C-u>" or "<C-o><<"
+	end
+
+	return "<CR>" .. markdown_list_prefix()
+end
+
 vim.api.nvim_create_autocmd("FileType", {
 	group = filetype_local_opts,
 	pattern = "markdown",
@@ -59,6 +86,25 @@ vim.api.nvim_create_autocmd("FileType", {
 		for k, v in pairs(options) do
 			vim.opt_local[k] = v
 		end
+		vim.keymap.set("i", "<CR>", markdown_enter, {
+			buffer = args.buf,
+			expr = true,
+			desc = "Continue Markdown list",
+		})
+		vim.keymap.set("n", "o", function()
+			return "o" .. markdown_list_prefix()
+		end, {
+			buffer = args.buf,
+			expr = true,
+			desc = "Continue Markdown list below",
+		})
+		vim.keymap.set("n", "O", function()
+			return "O" .. markdown_list_prefix()
+		end, {
+			buffer = args.buf,
+			expr = true,
+			desc = "Continue Markdown list above",
+		})
 	end,
 })
 
