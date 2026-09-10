@@ -126,9 +126,9 @@
     "on-click": "blueman-manager"
   },
   "pulseaudio": {
-    "format": "{desc} {volume}% {icon}",
-    "format-bluetooth": "{desc} {volume}% {icon}",
-    "format-muted": "{desc} 󰝟",
+    "format": "{icon} {volume}% {desc}",
+    "format-bluetooth": "{icon} {volume}% {desc}",
+    "format-muted": "󰝟 {desc}",
     "max-length": 28,
     "on-click": "ghostty --class=com.term.wiremix --window-width=90 --window-height=28 -e wiremix",
     "on-click-right": "pamixer -t",
