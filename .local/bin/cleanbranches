@@ -4,9 +4,25 @@ FORCE="$1"
 
 # Fetch/prune old branches
 git fetch --prune
+
+# Remove worktrees whose branch is gone from the remote
+git worktree list --porcelain |
+	awk '/^worktree /{wt=$2} /^branch /{sub("refs/heads/","",$2); print $2"\t"wt}' |
+	while IFS=$'\t' read -r branch path; do
+		track=$(git for-each-ref --format='%(upstream:track)' "refs/heads/$branch")
+		if [[ "$track" == "[gone]" ]]; then
+			if [[ "$FORCE" == "-f" ]]; then
+				git worktree remove --force "$path"
+			else
+				git worktree remove "$path"
+			fi
+		fi
+	done
+
+# Delete local branches whose upstream is gone
 if [[ "$FORCE" == "-f" ]]; then
 	# Force delete branches that are not fully merged
-	git branch -vv | awk '/: gone]/{print $1}' | xargs -r -I{} git branch -D {}
+	git branch -vv | awk '/: gone]/{sub(/^\*/,""); sub(/^\+/,""); print $1}' | xargs -r -I{} git branch -D {}
 else
-	git branch -vv | awk '/: gone]/{print $1}' | xargs -r -I{} git branch -d {}
+	git branch -vv | awk '/: gone]/{sub(/^\*/,""); sub(/^\+/,""); print $1}' | xargs -r -I{} git branch -d {}
 fi
