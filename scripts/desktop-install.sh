@@ -38,12 +38,13 @@ if [[ "$ID" = "arch" ]]; then
 	)
 
 	HYPRLAND_PKGS=(
-		"hyprland"
-		"hyprpaper"
-		"rofi"
-		"waybar"
-		"wl-clipboard"
-		"xdg-desktop-portal-hyprland"
+        "hyprland"
+        "hyprlock"
+        "hyprpaper"
+        "rofi"
+        "waybar"
+        "wl-clipboard"
+        "xdg-desktop-portal-hyprland"
 	)
 
 	if command -v "yay" >/dev/null 2>&1; then
