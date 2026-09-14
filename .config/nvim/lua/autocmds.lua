@@ -44,6 +44,19 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+local function toggle_markdown_checkbox()
+	local line = vim.api.nvim_get_current_line()
+	local updated, count = line:gsub("%[ %]", "[x]", 1)
+
+	if count == 0 then
+		updated, count = line:gsub("%[[xX]%]", "[ ]", 1)
+	end
+
+	if count > 0 then
+		vim.api.nvim_set_current_line(updated)
+	end
+end
+
 local function markdown_list_prefix()
 	local line = vim.api.nvim_get_current_line()
 
@@ -86,6 +99,11 @@ vim.api.nvim_create_autocmd("FileType", {
 		for k, v in pairs(options) do
 			vim.opt_local[k] = v
 		end
+
+		vim.keymap.set("n", "<C-Space>", toggle_markdown_checkbox, {
+			buffer = args.buf,
+			desc = "Toggle Markdown checkbox",
+		})
 		vim.keymap.set("i", "<CR>", markdown_enter, {
 			buffer = args.buf,
 			expr = true,
