@@ -31,4 +31,17 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
 
 -- Colorscheme
-vim.cmd.colorscheme("dracula")
+vim.cmd.colorscheme("tokyonight-moon")
+-- Transparency fix for ghostty on MacOS
+-- local transparent_groups = {
+--     "Normal",
+--     "NormalFloat",
+--     "SignColumn",
+--     "FoldColumn",
+--     "EndOfBuffer",
+-- }
+-- for _, group in ipairs(transparent_groups) do
+--     -- Set background for each transparency group to none
+--     -- fall back to terminal's transparency
+--     vim.api.nvim_set_hl(0, group, { bg = "none" })
+-- end

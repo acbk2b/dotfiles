@@ -122,13 +122,13 @@ return {
                     enable_document_highlight(buf)
                 end
 
-                if client:supports_method("textDocument/foldingRange") then
-                    local win = vim.api.nvim_get_current_win()
-                    if vim.api.nvim_win_get_buf(win) == buf then
-                        vim.wo[win][0].foldmethod = "expr"
-                        vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
-                    end
-                end
+                -- if client:supports_method("textDocument/foldingRange") then
+                --     local win = vim.api.nvim_get_current_win()
+                --     if vim.api.nvim_win_get_buf(win) == buf then
+                --         vim.wo[win][0].foldmethod = "expr"
+                --         vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+                --     end
+                -- end
             end
 
             setup_diagnostics()
