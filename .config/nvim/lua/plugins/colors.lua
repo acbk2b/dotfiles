@@ -5,22 +5,6 @@ return {
         name = "dracula",
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme("dracula")
-
-            -- Transparency fix for ghostty on MacOS
-            local transparent_groups = {
-              "Normal",
-              "NormalFloat",
-              "SignColumn",
-              "FoldColumn",
-              "EndOfBuffer",
-            }
-            for _, group in ipairs(transparent_groups) do
-              -- Set background for each transparency group to none
-              -- fall back to terminal's transparency
-              vim.api.nvim_set_hl(0, group, { bg = "none" })
-            end
-
             -- Match Vimwiki's Markdown colors
             vim.api.nvim_set_hl(0, "@markup.heading", { link = "Title" })
             vim.api.nvim_set_hl(0, "@markup.raw", { link = "DraculaPink" })
