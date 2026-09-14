@@ -8,9 +8,7 @@ require("keymaps")
 require("plugin-loader")
 
 local options = {
-    autocomplete = true,
 	clipboard = "unnamedplus",
-    completeopt = { 'menu', 'menuone', 'noselect' },
 	expandtab = true,
 	foldmethod = "indent",
 	mouse = "a",
@@ -19,6 +17,7 @@ local options = {
 	shiftwidth = 4,
 	swapfile = false,
 	tabstop = 4,
+	winborder = "rounded", -- Borders on all floats (hover, signature, diagnostics)
 	writebackup = false,
 }
 
