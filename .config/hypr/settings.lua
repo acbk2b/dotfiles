@@ -1,4 +1,4 @@
-local colors = dofile(os.getenv("HOME") .. "/.local/state/omarchy/current/theme/hyprland.lua")
+local colors = dofile(os.getenv("HOME") .. "/.config/themes/current/hyprland.lua")
 
 hl.monitor({
     output = "",
