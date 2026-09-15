@@ -30,5 +30,10 @@ vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
 
--- Colorscheme
-vim.cmd.colorscheme("dracula")
+-- Set colorscheme
+local theme = require("theme")
+vim.cmd.colorscheme(theme.colorscheme)
+
+if theme.configure then
+    theme.configure()
+end

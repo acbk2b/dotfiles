@@ -1,17 +1,5 @@
 return {
     {
-        "dracula/vim",
-        lazy = false,
-        name = "dracula",
-        priority = 1000,
-        config = function()
-            -- Match Vimwiki's Markdown colors
-            vim.api.nvim_set_hl(0, "@markup.heading", { link = "Title" })
-            vim.api.nvim_set_hl(0, "@markup.raw", { link = "DraculaPink" })
-            vim.api.nvim_set_hl(0, "@markup.list", { link = "Normal" })
-        end,
-    },
-    {
         "nvim-treesitter/nvim-treesitter", -- Syntax highlighting
         lazy = false,
         branch = "main",
