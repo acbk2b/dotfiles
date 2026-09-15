@@ -1,4 +1,5 @@
-/*Dracula theme based on the Purple official rofi theme*/
+/* Verdant theme for rofi, based on the Purple official rofi theme.
+   Uses the Dracula palette that verdant shares with ghostty. */
 
 * {
     font: "Jetbrains Mono Nerd Font 12";
