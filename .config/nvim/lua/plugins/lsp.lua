@@ -122,11 +122,14 @@ return {
                     enable_document_highlight(buf)
                 end
 
+                -- Enable LSP folding
                 if client:supports_method("textDocument/foldingRange") then
                     local win = vim.api.nvim_get_current_win()
                     if vim.api.nvim_win_get_buf(win) == buf then
                         vim.wo[win][0].foldmethod = "expr"
                         vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+                        -- Keep top-level declarations open while folding nested regions.
+                        vim.wo[win][0].foldlevel = 1
                     end
                 end
             end
