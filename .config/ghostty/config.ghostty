@@ -1,4 +1,5 @@
-theme = Dracula
+config-file = ../themes/current/ghostty.conf
+
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
-background-opacity = 0.85
+background-opacity = 0.90
 background-blur = 20
