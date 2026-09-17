@@ -8,6 +8,8 @@ This repository is a flat mirror of my home directory, keeping things simple and
 
 To get started on a fresh machine, run the bootstrap script:
 
+test
+
 ```bash
 curl -fsSL "https://raw.githubusercontent.com/acbk2b/dotfiles/refs/heads/main/scripts/cfg.sh" | bash
 ```
