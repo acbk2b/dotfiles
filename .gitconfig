@@ -1,0 +1,23 @@
+[push]
+	autoSetupRemote = true
+[remote "origin"]
+	prune = true
+[init]
+	defaultBranch = main
+[remote]
+	origin = prune
+[pull]
+	rebase = false
+
+# Directory-specific configuration. The trailing slash matches repositories
+# anywhere below each directory.
+[includeIf "gitdir:~/repos/personal/"]
+	path = ~/.gitconfig.personal
+[includeIf "gitdir:~/repos/work/"]
+	path = ~/.gitconfig.work
+
+[alias]
+    # delta
+    delta = -c core.pager=delta diff
+    # difftastic
+    tdiff = -c diff.external=difft diff
