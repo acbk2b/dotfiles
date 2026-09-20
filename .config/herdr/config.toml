@@ -1,0 +1,12 @@
+onboarding = false
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[keys]
+# Match the tmux prefix
+prefix = "ctrl+space"
+
+[ui.toast]
+delivery = "system"
