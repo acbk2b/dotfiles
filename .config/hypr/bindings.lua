@@ -4,7 +4,7 @@ local browser = "brave"
 local main_mod = "SUPER"
 
 -- Navigation keybindings
-hl.bind(main_mod .. " + Return", hl.dsp.exec_cmd(terminal .. " -e tmux"))
+hl.bind(main_mod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(main_mod .. " + grave", hl.dsp.workspace.toggle_special("scratchpad"))
 hl.bind(main_mod .. " + w", hl.dsp.window.close())
 hl.bind(main_mod .. " + SHIFT + e", hl.dsp.exit())
