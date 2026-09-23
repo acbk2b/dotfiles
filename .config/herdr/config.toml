@@ -5,7 +5,6 @@ name = "tokyo-night"
 auto_switch = false
 
 [keys]
-# Match the tmux prefix
 prefix = "ctrl+space"
 # Swap the focused pane with its neighbour
 swap_pane_left = "prefix+shift+h"
@@ -14,7 +13,6 @@ swap_pane_up = "prefix+shift+k"
 swap_pane_right = "prefix+shift+l"
 
 [ui]
-# tmux-style shared splitters, no outer frame (hyprland already adds gaps)
 pane_gaps = false
 pane_outer_borders = false
 
