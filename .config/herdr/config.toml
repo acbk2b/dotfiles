@@ -6,6 +6,9 @@ auto_switch = false
 
 [keys]
 prefix = "ctrl+space"
+# In navigate mode, j/k selects workspaces; arrows move between vertically split panes
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
 # Swap the focused pane with its neighbour
 swap_pane_left = "prefix+shift+h"
 swap_pane_down = "prefix+shift+j"
