@@ -83,3 +83,11 @@ skills() {
           --global \
           -y
 }
+
+churn() {
+    git log --since="1 year ago" --format= --name-only | sort | uniq -c | sort -rn | head -n25
+}
+
+whoknows() {
+    git shortlog -sn -- "$1"
+}
