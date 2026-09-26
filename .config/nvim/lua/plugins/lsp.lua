@@ -54,7 +54,7 @@ return {
                     "pyright",
                     "rust_analyzer",
                     "terraformls",
-                    "ts_ls",
+                    "tsc",
                 })
             end
 
