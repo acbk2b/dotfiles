@@ -3,21 +3,6 @@
 # Shell-agnostic config lives up top; per-dialect blocks are fenced by
 # $ZSH_VERSION / $BASH_VERSION
 
-# Launch tmux for non-SSH sessions, unless explicitly disabled or already
-# inside a multiplexer (tmux or herdr).
-if command -v tmux &>/dev/null &&
-   [[ -z "$TMUX" && -z "$HERDR_ENV" && -z "$SSH_CLIENT" && -z "$SSH_TTY" && -z "$NO_TMUX" ]]; then
-    _startup_tmux_session="terminal-$$"
-
-    if tmux new-session -s "$_startup_tmux_session"; then
-        if ! tmux has-session -t "=$_startup_tmux_session" 2>/dev/null; then
-            exit
-        fi
-    fi
-
-    unset _startup_tmux_session
-fi
-
 # History file sizing
 HIST_SIZE=1000
 
