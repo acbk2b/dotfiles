@@ -1,11 +1,11 @@
-local terminal = "ghostty"
+local terminal = "ghostty +new-window"
 local menu = "rofi -show drun"
 local browser = "brave"
 local main_mod = "SUPER"
 
 -- Navigation keybindings
 hl.bind(main_mod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(main_mod .. " + grave", hl.dsp.workspace.toggle_special("scratchpad"))
+hl.bind("CTRL + grave", hl.dsp.global("com.mitchellh.ghostty:CTRL+grave"))
 hl.bind(main_mod .. " + w", hl.dsp.window.close())
 hl.bind(main_mod .. " + SHIFT + e", hl.dsp.exit())
 hl.bind(main_mod .. " + SHIFT + Space", hl.dsp.window.float({ action = "toggle" }))

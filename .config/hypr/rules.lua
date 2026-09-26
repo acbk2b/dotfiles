@@ -1,15 +1,4 @@
 hl.window_rule({
-    name = "termscratch",
-    match = {
-        class = "com.term.scratchpad",
-    },
-    workspace = "special:scratchpad silent",
-    float = true,
-    size = "80% 85%",
-    center = true,
-})
-
-hl.window_rule({
     name = "windowrule-1",
     match = {
         class = ".*",
