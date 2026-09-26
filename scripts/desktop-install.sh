@@ -24,7 +24,7 @@ if [[ "${ID:-}" = "arch" ]]; then
         "ipython"
         "man-db"
         "networkmanager"
-        "newsboat"
+        "noto-fonts-emoji"
         "nwg-look"
         "openssh"
         "playerctl"
@@ -36,6 +36,7 @@ if [[ "${ID:-}" = "arch" ]]; then
         "ttf-jetbrains-mono-nerd"
         "wiremix"
         "xdg-desktop-portal"
+        "xdg-utils"
         "yazi"
         "zathura"
         "zathura-pdf-poppler"
@@ -55,7 +56,7 @@ if [[ "${ID:-}" = "arch" ]]; then
 	if command -v "yay" >/dev/null 2>&1; then
 		yay -Syu --noconfirm --needed "${DESKTOP_PKGS[@]}" "${HYPRLAND_PKGS[@]}"
 	else
-		echo "Error: yay not found. Skipping desktop packages."
+		echo "Error: yay not found. Please install 'yay' or 'yay-bin' from the AUR"
 		exit 1
 	fi
 else
