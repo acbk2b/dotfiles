@@ -5,7 +5,14 @@ CARGO_ENV="$HOME/.cargo/env"
 [[ -f "$CARGO_ENV" ]] && . "$CARGO_ENV"
 
 # PATH updates
-PATHS=("$HOME/.local/bin" "/home/linuxbrew/.linuxbrew/bin" "$HOME/.cache/.bun/bin" "$HOME/.bun/bin" "$HOME/go/bin")
+PATHS=(
+    "$HOME/.local/bin" \
+    "/home/linuxbrew/.linuxbrew/bin" \
+    "$HOME/.local/homebrew/bin" \
+    "$HOME/.cache/.bun/bin" \
+    "$HOME/.bun/bin" \
+    "$HOME/go/bin"
+)
 for P in ${PATHS[@]}; do
 	[[ -d "$P" ]] && export PATH="$P:$PATH"
 done
