@@ -6,13 +6,16 @@ set -euo pipefail
 BM_DIR="${BM_DIR:=$HOME/notes/areas/bookmarks}"
 
 # Default to fzf for URL selection, optionally run as dmenu script with -d
-PROG="fzf"
+picker=(fzf)
 if [[ "${1:-}" == "-d" ]]; then
-	PROG="rofi -dmenu"
+	picker=(rofi -dmenu)
 fi
 
-# Get bookmarks files
-bookmarks="$(find "$BM_DIR" -type f -not -name '.*' | xargs)"
+# Read bookmark files safely, select a line, then extract its whitespace-delimited URL.
+sel=$(find "$BM_DIR" -type f ! -name '.*' -exec cat -- {} + |
+	"${picker[@]}" |
+	awk 'NF >= 2 { print $2 }') || exit $?
 
-# cat bookmarks full list + select + copy to clipboard (if selected)
-sel=$(cat $bookmarks | $PROG | awk -F '"' '{print $2}') && echo "$sel" | pbcopy
+if [[ -n "$sel" ]]; then
+	printf '%s' "$sel" | pbcopy
+fi
