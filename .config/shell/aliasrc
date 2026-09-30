@@ -9,6 +9,7 @@ fi
 alias cfg="\$(which git) --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias cfzf="fzf | pbcopy"
 alias cl="clear"
+alias contrib="git shortlog -sn HEAD | head -n 10"
 alias cpr="rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1"
 alias dcd="docker compose down"
 alias dcl="docker compose logs -f"
@@ -84,8 +85,20 @@ skills() {
           -y
 }
 
+loc() {
+    cat $(find . -name "*.$1" | xargs) | wc -l
+}
+
 churn() {
     git log --since="1 year ago" --format= --name-only | sort | uniq -c | sort -rn | head -n25
+}
+
+contrib-loc() {
+    git log HEAD --format='AUTHOR:%aN' --numstat |
+        awk '/^AUTHOR:/ { author=substr($0,8); next }
+             $1 ~ /^[0-9]+$/ && $2 ~ /^[0-9]+$/ { added[author]+=$1 }
+             END { for (author in added) print added[author], author }' |
+        sort -nr | head -n 10
 }
 
 whoknows() {
