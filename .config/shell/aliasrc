@@ -86,7 +86,12 @@ skills() {
 }
 
 loc() {
-    cat $(find . -name "*.$1" | xargs) | wc -l
+    ext="$1"
+    if [[ -z "$ext" ]]; then
+        echo "Please specify a file extension"
+        return 1
+    fi
+    cat $(find . -name "*.$ext" | xargs) | wc -l
 }
 
 churn() {
