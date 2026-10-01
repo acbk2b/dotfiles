@@ -3,7 +3,6 @@
 -- Configs
 
 require("autocmds")
-require("fmt")
 require("keymaps")
 require("plugin-loader")
 

@@ -77,7 +77,6 @@ return {
                 end
                 map("gd", vim.lsp.buf.definition, "Goto definition")
                 map("gD", vim.lsp.buf.declaration, "Goto declaration")
-                map("<leader>cf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
             end
 
             -- Highlight other references to the symbol under the cursor
