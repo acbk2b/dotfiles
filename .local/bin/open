@@ -1,0 +1,20 @@
+#! /bin/bash
+
+if uname -r | grep -q "Microsoft"; then
+	# WSL: hand off to Windows
+	if command -v wslview >/dev/null; then
+		wslview "$@"
+	else
+		explorer.exe "$@"
+	fi
+elif [[ $(uname) == "Darwin" ]]; then
+	# Absolute path so this script does not recurse into itself
+	/usr/bin/open "$@"
+else
+	if command -v xdg-open >/dev/null; then
+		xdg-open "$@"
+	else
+		echo "Error: xdg-open not found (install xdg-utils)" >&2
+		exit 1
+	fi
+fi
