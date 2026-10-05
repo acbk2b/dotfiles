@@ -1,7 +1,7 @@
 # vim: filetype=sh
 # Shell options
 
-export BROWSER="brave"
+export BROWSER="firefox"
 export EDITOR='nvim'
 export FZF_DEFAULT_OPTS="--preview 'cat {}'"
 export MANPAGER='nvim +Man!'
