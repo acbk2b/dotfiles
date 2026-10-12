@@ -7,6 +7,13 @@ hl.monitor({
     scale = 1,
 })
 
+hl.monitor({
+    output = "desc:Samsung Electric Company LS27A800U HCJW400114",
+    mode = "preferred",
+    position = "auto", -- 2560x1440 logical desktop.
+    scale = 1.5,
+})
+
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
