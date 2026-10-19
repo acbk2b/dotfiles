@@ -11,6 +11,10 @@ windows() {
     printf '%s' "$HTML_TXT" | powershell.exe -NoProfile -Command '$body = [Console]::In.ReadToEnd(); $html = "<html><body>$body</body></html>"; Set-Clipboard -AsHtml $html'
 }
 
+linux() {
+    printf '%s' "$HTML_TXT" | wl-copy --type text/html
+}
+
 
 # Get input
 if [ -p /dev/stdin ]; then
@@ -33,6 +37,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
     macos
 elif uname -r | grep -iq "microsoft"; then 
     windows
+elif [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+    linux
 else
     echo "Only MacOS + WSL supported at this time!"
     exit 1
