@@ -9,8 +9,6 @@
 [pull]
 	rebase = false
 
-# Directory-specific configuration. The trailing slash matches repositories
-# anywhere below each directory.
 [includeIf "gitdir:~/repos/personal/"]
 	path = ~/.gitconfig.personal
 [includeIf "gitdir:~/repos/work/"]
@@ -19,5 +17,3 @@
 [alias]
     # delta
     delta = -c core.pager=delta diff
-    # difftastic
-    tdiff = -c diff.external=difft diff
