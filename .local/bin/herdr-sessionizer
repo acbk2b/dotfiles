@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+project=$(
+  find "$HOME/repos/personal" "$HOME/repos/work"  \
+    -mindepth 1 -maxdepth 1 -type d 2>/dev/null |
+    fzf --prompt="Project > " --preview="ls"
+)
+
+[[ -n "$project" ]] || exit 0
+
+herdr workspace create \
+  --cwd "$project" \
+  --label "$(basename "$project")" \
+  --focus

@@ -1,5 +1,8 @@
 onboarding = false
 
+[terminal]
+shell_mode = "login"
+
 [theme]
 name = "tokyo-night"
 auto_switch = false
@@ -27,3 +30,11 @@ delivery = "system"
 key = "ctrl+q"
 type = "shell"
 command = "herdr pane send-keys \"$HERDR_ACTIVE_PANE_ID\" ctrl+l"
+
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "~/.local/bin/herdr-sessionizer"
+description = "Find project"
+width = "80%"
+height = "70%"

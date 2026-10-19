@@ -45,18 +45,14 @@ alias zf="zathura --fork"
 
 # fzf repo hopper
 zr() {
-	repos="$HOME/repos"
-	local -a cmd
+    project=$(
+      find "$HOME/repos/personal" "$HOME/repos/work"  \
+        -mindepth 1 -maxdepth 1 -type d 2>/dev/null |
+        fzf --prompt="Project > " --preview="ls"
+    )
+    [[ -n "$project" ]] || exit 0
 
-	# use fd if available, fallback to find if not
-	if command -v "fd" >/dev/null 2>&1; then
-		cmd=(fd -H -L -I -t d "^\.git$" "$repos")
-	else
-		cmd=(find -L "$repos" -type d -name .git)
-	fi
-
-	local dir
-	dir=$("${cmd[@]}" 2>/dev/null | xargs dirname | fzf --preview 'ls {}') && cd "$dir"
+    cd "$project"
 }
 
 vf() {
