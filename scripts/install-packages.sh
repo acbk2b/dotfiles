@@ -75,6 +75,27 @@ install_fzf() {
 	fi
 }
 
+
+install_yay() {
+    # OS specific config
+    if [ "${ID:-}" = "arch" ]; then
+        # install yay
+        if ! command -v "yay" >/dev/null 2>&1; then
+            git clone https://aur.archlinux.org/yay-bin.git "${REPOS_DIR}/yay-bin"
+            cd "${REPOS_DIR}/yay-bin"
+            makepkg -si --noconfirm
+            cd -
+        fi
+
+        # pacman config updates
+        sudo sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
+        sudo sed -i 's/#Color/Color/' /etc/pacman.conf
+    else
+        echo "yay installation only supported on Arch"
+        return 1
+    fi
+}
+
 if [ "${ID:-}" = "macos" ]; then
 	install_brew
 
@@ -89,12 +110,12 @@ if [ "${ID:-}" = "macos" ]; then
 		tree-sitter-cli
 		pass
 		rsync
-		tmux
 		zsh
 	)
 	brew install "${PKGS[@]}"
 
 elif [ "${ID:-}" = "arch" ]; then
+    install_yay
 	PKGS=(
 		curl
 		fzf
@@ -105,10 +126,9 @@ elif [ "${ID:-}" = "arch" ]; then
 		tree-sitter-cli
 		pass
 		rsync
-		tmux
 		zsh
 	)
-	sudo pacman -Sy --noconfirm --needed "${PKGS[@]}"
+	yay -Sy --noconfirm --needed "${PKGS[@]}"
 	install_herdr
 
 elif [ "${ID:-}" = "debian" ] || [ "${ID:-}" = "ubuntu" ]; then
@@ -121,7 +141,6 @@ elif [ "${ID:-}" = "debian" ] || [ "${ID:-}" = "ubuntu" ]; then
 		pass
 		rsync
 		software-properties-common
-		tmux
 		tree-sitter-cli
 		zsh
 	)
