@@ -7,6 +7,7 @@ CARGO_ENV="$HOME/.cargo/env"
 # PATH updates
 PATHS=(
     "$HOME/.local/bin" \
+    "/opt/homebrew/bin" \
     "/home/linuxbrew/.linuxbrew/bin" \
     "$HOME/.local/homebrew/bin" \
     "$HOME/.cache/.bun/bin" \

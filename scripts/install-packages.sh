@@ -2,9 +2,25 @@
 set -euo pipefail
 
 # Load OS information
-if [ -f /etc/os-release ]; then
+if [ "$(uname -s)" = "Darwin" ]; then
+	ID="macos"
+elif [ -f /etc/os-release ]; then
 	. /etc/os-release
 fi
+
+install_brew() {
+	if ! command -v brew >/dev/null 2>&1; then
+        if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+            return 1
+        fi
+        # Temporarily add to path
+        if [ -x /opt/homebrew/bin/brew ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        else
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
+    fi
+}
 
 latest_github_release() {
 	# Fall back to a known-good version if the API is unreachable or rate-limited.
@@ -59,7 +75,26 @@ install_fzf() {
 	fi
 }
 
-if [ "$ID" = "arch" ]; then
+if [ "${ID:-}" = "macos" ]; then
+	install_brew
+
+	PKGS=(
+		curl
+		fzf
+		git
+        herdr
+		jq
+		neovim
+		openssh
+		tree-sitter-cli
+		pass
+		rsync
+		tmux
+		zsh
+	)
+	brew install "${PKGS[@]}"
+
+elif [ "${ID:-}" = "arch" ]; then
 	PKGS=(
 		curl
 		fzf
@@ -76,7 +111,7 @@ if [ "$ID" = "arch" ]; then
 	sudo pacman -Sy --noconfirm --needed "${PKGS[@]}"
 	install_herdr
 
-elif [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
+elif [ "${ID:-}" = "debian" ] || [ "${ID:-}" = "ubuntu" ]; then
 	PKGS=(
 		cron
 		curl
@@ -100,7 +135,7 @@ elif [ "$ID" = "debian" ] || [ "$ID" = "ubuntu" ]; then
 	install_fzf
 	install_herdr
 
-elif [ "$ID" = "ol" ]; then
+elif [ "${ID:-}" = "ol" ]; then
 	PKGS=(
 		cargo
 		cronie
@@ -118,7 +153,7 @@ elif [ "$ID" = "ol" ]; then
 	sudo dnf update -y && sudo dnf install -y "${PKGS[@]}"
 
 	install_fzf
-	install_herdr
 	install_nvim
+	install_herdr
 	cargo install tree-sitter-cli
 fi
