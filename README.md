@@ -65,13 +65,10 @@ The repository is a direct mirror of the home directory:
 
 ### Shell config
 
-- `.config/shell/rc` — unified interactive rc, symlinked as both `~/.zshrc` and
-  `~/.bashrc`. Shared logic up top; per-shell blocks fenced by `$ZSH_VERSION` /
-  `$BASH_VERSION`.
-- `.config/shell/profile` — login-shell setup (exports, runtime PATHs), linked
-  via `~/.zprofile` / `~/.bash_profile`.
+- `.config/shell/rc` — unified rc, symlinked as both `~/.zshrc` and `~/.bashrc`.
+  - `$PATH` updates are made idempotently in `rc` files -> avoids a bunch of foot-guns with (non-)interactive shells
+- `.config/shell/profile` — login-shell exports, linked via `~/.zprofile` / `~/.bash_profile`.
 - `.config/shell/aliasrc` — aliases and shell functions.
-- `.config/shell/env` — language runtime / PATH bootstrap (nvm, cargo, etc.).
 
 ### Non-dotfile configs
 

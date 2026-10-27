@@ -1,13 +1,48 @@
 # vim: filetype=sh
-# Unified shell rc, symlinked as ~/.bashrc and ~/.zshrc.
-# Shell-agnostic config lives up top; per-dialect blocks are fenced by
-# $ZSH_VERSION / $BASH_VERSION
+
+export BROWSER="firefox"
+export EDITOR='nvim'
+export FZF_DEFAULT_OPTS="--preview 'cat {}'"
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
+export QT_QPA_PLATFORMTHEME="qt5ct:qt6ct"
+
+# PATH: prepend a directory if it exists and isn't already present.
+path_prepend() {
+	[ -d "$1" ] || return 0
+	case ":$PATH:" in
+		*":$1:"*) ;;
+		*) PATH="$1:$PATH" ;;
+	esac
+}
+
+# Listed in increasing priority: the last entry ends up first in PATH.
+PATHS=(
+	"$HOME/.local/bin"
+	"/opt/homebrew/bin"
+	"$HOME/.local/homebrew/bin"
+	"$HOME/.cache/.bun/bin"
+	"$HOME/.bun/bin"
+	"$HOME/go/bin"
+)
+for P in "${PATHS[@]}"; do
+	path_prepend "$P"
+done
+unset P PATHS
+unset -f path_prepend
+export PATH
+
+# Cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # History file sizing
 HIST_SIZE=1000
 
 # Load aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+
+# Everything below is for interactive shells only.
+case $- in *i*) ;; *) return ;; esac
 
 if [ -n "$ZSH_VERSION" ]; then
 	# Deduplicate paths accumulated by inherited environment and startup files.
@@ -63,13 +98,14 @@ $%{$reset_color%}%b '
 	bindkey '^n' history-search-forward
 
 	# fzf
-	eval "$(fzf --zsh)"
+	if command -v fzf >/dev/null; then
+		eval "$(fzf --zsh)"
+	fi
 
-    # mise
-    if command -v mise &>/dev/null; then
-        eval "$(mise activate zsh)"
-    fi
-
+	# mise
+	if command -v mise >/dev/null; then
+		eval "$(mise activate zsh)"
+	fi
 elif [ -n "$BASH_VERSION" ]; then
 	# History
 	HISTFILE=~/.bash_history
@@ -101,8 +137,8 @@ elif [ -n "$BASH_VERSION" ]; then
 	# fzf
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-    # mise
-    if command -v mise &>/dev/null; then
-        eval "$(mise activate bash)"
-    fi
+	# mise
+	if command -v mise >/dev/null; then
+		eval "$(mise activate bash)"
+	fi
 fi

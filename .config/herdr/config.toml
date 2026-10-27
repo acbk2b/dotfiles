@@ -1,8 +1,5 @@
 onboarding = false
 
-[terminal]
-shell_mode = "login"
-
 [theme]
 name = "tokyo-night"
 auto_switch = false
