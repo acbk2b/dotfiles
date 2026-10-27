@@ -2,13 +2,42 @@
 set -euo pipefail
 
 # Load OS information
-if [ -f /etc/os-release ]; then
+if [ "$(uname -s)" = "Darwin" ]; then
+	ID="macos"
+elif [ -f /etc/os-release ]; then
 	. /etc/os-release
 fi
 
-if [[ "${ID:-}" = "arch" ]]; then
+if [[ "${ID:-}" = "macos" ]]; then
+    DESKTOP_PKGS=(
+        dos2unix
+        fastfetch
+        htop
+        inetutils
+        ipython
+        openssh
+        python
+        yazi
+    )
+    DESKTOP_CASKS=(
+        firefox
+        ghostty
+        rectangle
+        signal
+        spotify
+        syncthing-app
+    )
+
+    if command -v "brew" >/dev/null 2>&1; then
+        brew install -y "${DESKTOP_PKGS[@]}"
+        brew install -y --cask "${DESKTOP_CASKS[@]}"
+    else
+        echo "Error: brew not found. Please install 'brew' from the official documentation (or scripts/install-packges.sh)"
+        exit 1
+    fi
+elif [[ "${ID:-}" = "arch" ]]; then
 	DESKTOP_PKGS=(
-        "brave-bin"
+        "firefox"
         "brightnessctl"
         "cronie"
         "dos2unix"
@@ -60,6 +89,6 @@ if [[ "${ID:-}" = "arch" ]]; then
 		exit 1
 	fi
 else
-	echo "Only Arch is supported at this time for desktop installation"
+	echo "Only Arch and macOS are supported at this time for desktop installation"
 	exit 1
 fi

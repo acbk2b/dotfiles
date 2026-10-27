@@ -112,7 +112,7 @@ if [ "${ID:-}" = "macos" ]; then
 		rsync
 		zsh
 	)
-	brew install "${PKGS[@]}"
+	brew install -y "${PKGS[@]}"
 
 elif [ "${ID:-}" = "arch" ]; then
     install_yay
