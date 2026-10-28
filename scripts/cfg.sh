@@ -7,7 +7,7 @@ cfg() {
 }
 
 if [[ ! -d "$HOME/.cfg" ]]; then
-	DOTFILE_REPO="https://gitlab.com/acbk2b/dotfiles.git"
+	DOTFILE_REPO="https://github.com/acbk2b/dotfiles.git"
 	git clone --bare "$DOTFILE_REPO" "$HOME/.cfg"
 
 	# Back up existing dotfiles
