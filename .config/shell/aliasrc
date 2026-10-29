@@ -60,22 +60,21 @@ vf() {
 }
 
 skills() {
-    # Install code claude explicitly (via symlink), `~/.agents/skills` is included by default
     bunx skills add mattpocock/skills \
-          --skill codebase-design \
           --skill domain-modeling \
           --skill grill-me \
           --skill grill-with-docs \
           --skill grilling \
           --skill improve-codebase-architecture \
-          --skill research \
-          --skill tdd \
           --skill teach \
           --agent codex \
           --global \
           -y
-    bunx skills add ayghri/i-have-adhd \
-          --skill i-have-adhd \
+    bunx skills add backnotprop/pstack \
+          --skill bro \
+          --skill how \
+          --skill unslop \
+          --skill show-me-your-work \
           --agent codex \
           --global \
           -y

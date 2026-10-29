@@ -1,6 +1,10 @@
 # vim: filetype=sh
 
-export BROWSER="firefox"
+# Fallback to `open`'s default on MacOS
+if [ "$(uname -s)" = "Linux" ]; then
+    export BROWSER="firefox"
+fi
+
 export EDITOR='nvim'
 export FZF_DEFAULT_OPTS="--preview 'cat {}'"
 export MANPAGER='nvim +Man!'
