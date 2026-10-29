@@ -37,44 +37,64 @@ latest_github_release() {
 	printf '%s\n' "$tag"
 }
 
+# Download a single-file binary into ~/.local/bin/<name>.
+# Downloads beside the target, then renames over it: writing directly fails
+# with ETXTBSY (curl error 23) while the binary is running; mv swaps it safely.
+install_binary() {
+	local url="$1"
+	local name="$2"
+	local install_dir="$HOME/.local/bin"
+	mkdir -p "$install_dir"
+	local tmp
+	tmp=$(mktemp "${install_dir}/.${name}.XXXXXX")
+	if curl -fsSL -o "$tmp" "$url"; then
+		chmod u+x "$tmp"
+		mv -f "$tmp" "${install_dir}/${name}"
+	else
+		rm -f "$tmp"
+		return 1
+	fi
+}
+
 install_herdr() {
+	# Linux x86_64 only; macOS gets herdr from brew.
 	local repo="herdrdev/herdr"
-	local tag os arch
-	case "$(uname -s)" in
-		Linux) os="linux" ;;
-		Darwin) os="macos" ;;
-		*) echo "Unsupported OS for herdr: $(uname -s)" >&2; return 1 ;;
-	esac
-	case "$(uname -m)" in
-		x86_64) arch="x86_64" ;;
-		aarch64|arm64) arch="aarch64" ;;
-		*) echo "Unsupported architecture for herdr: $(uname -m)" >&2; return 1 ;;
-	esac
+	local tag
 	tag=$(latest_github_release "$repo" "v0.9.5")
-	mkdir -p "$HOME/.local/bin"
-	curl -fsSL -o "$HOME/.local/bin/herdr" \
-		"https://github.com/${repo}/releases/download/${tag}/herdr-${os}-${arch}"
-	chmod u+x "$HOME/.local/bin/herdr"
+	install_binary \
+		"https://github.com/${repo}/releases/download/${tag}/herdr-linux-x86_64" \
+		herdr
 }
 
 install_nvim() {
 	local repo="neovim/neovim-releases"
 	local tag
 	tag=$(latest_github_release "$repo" "v0.12.1")
-	mkdir -p "$HOME/.local/bin"
-	curl -fsSL -o ~/.local/bin/nvim \
-		"https://github.com/${repo}/releases/download/${tag}/nvim-linux-x86_64.appimage"
-	chmod u+x ~/.local/bin/nvim
+	install_binary \
+		"https://github.com/${repo}/releases/download/${tag}/nvim-linux-x86_64.appimage" \
+		nvim
 }
 
 install_fzf() {
-	if command -v "go" >/dev/null 2>&1; then
+	local repo="junegunn/fzf"
+	local tag
+	tag=$(latest_github_release "$repo" "v0.74.5")
+	# Tags are "vX.Y.Z" but asset names omit the "v".
+	local version="${tag#v}"
+	local install_dir="$HOME/.local/bin"
+	mkdir -p "$install_dir"
+
+	# Asset is a tarball containing the fzf binary; extract it in place.
+	if curl -fsSL \
+		"https://github.com/${repo}/releases/download/${tag}/fzf-${version}-linux_amd64.tar.gz" \
+		| tar -xz -C "$install_dir" fzf; then
+		chmod u+x "${install_dir}/fzf"
+	elif command -v "go" >/dev/null 2>&1; then
 		go install github.com/junegunn/fzf@latest
 	else
 		echo "Please install 'go' to install fzf!"
 	fi
 }
-
 
 install_yay() {
     # OS specific config
