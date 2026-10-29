@@ -37,6 +37,15 @@ latest_github_release() {
 	printf '%s\n' "$tag"
 }
 
+# Return 0 (and say so) if <name> is already on PATH, so callers can skip.
+already_installed() {
+	if command -v "$1" >/dev/null 2>&1; then
+		echo "$1 already installed at $(command -v "$1"); skipping"
+		return 0
+	fi
+	return 1
+}
+
 # Download a single-file binary into ~/.local/bin/<name>.
 # Downloads beside the target, then renames over it: writing directly fails
 # with ETXTBSY (curl error 23) while the binary is running; mv swaps it safely.
@@ -58,6 +67,7 @@ install_binary() {
 
 install_herdr() {
 	# Linux x86_64 only; macOS gets herdr from brew.
+	already_installed herdr && return 0
 	local repo="herdrdev/herdr"
 	local tag
 	tag=$(latest_github_release "$repo" "v0.9.5")
@@ -67,6 +77,7 @@ install_herdr() {
 }
 
 install_nvim() {
+	already_installed nvim && return 0
 	local repo="neovim/neovim-releases"
 	local tag
 	tag=$(latest_github_release "$repo" "v0.12.1")
@@ -76,6 +87,7 @@ install_nvim() {
 }
 
 install_fzf() {
+	already_installed fzf && return 0
 	local repo="junegunn/fzf"
 	local tag
 	tag=$(latest_github_release "$repo" "v0.74.5")
