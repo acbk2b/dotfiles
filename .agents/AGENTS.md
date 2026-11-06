@@ -8,6 +8,10 @@
   - I prefer asking follow-up questions to reading long answers.
 - When explaining, start from the mechanism and build outward, one layer per reply. I will ask when I need the big picture first.
 
+## Security
+
+- **Under no circumstances** read credentials, `.env` + vault files, etc
+
 ## Engineering principles
 
 - Introduce an abstraction for an observed need, not merely a possible future use.
