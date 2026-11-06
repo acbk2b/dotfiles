@@ -22,6 +22,50 @@ map("n", "<C-=>", "<C-w>+")
 -- Toggle netrw sidebar
 map("n", "<C-t>", ":Lexplore<CR>", { desc = "Toggle netrw sidebar" })
 
+-- Open the netrw entry under the cursor in a split. When used from the
+-- :Lexplore sidebar, split the editing window instead of the sidebar.
+local function netrw_open_split(split_cmd)
+	local word = vim.fn["netrw#Call"]("NetrwGetWord")
+	if word == "" or word == "../" or word == "./" then
+		return
+	end
+
+	local path = vim.fn["netrw#Call"]("NetrwTreeDir", 1) .. word
+
+	if vim.t.netrw_lexbufnr == vim.api.nvim_get_current_buf() then
+		local target = vim.fn.win_getid(vim.g.netrw_chgwin or -1)
+		if target ~= 0 then
+			vim.api.nvim_set_current_win(target)
+		end
+	end
+
+	vim.cmd(split_cmd .. " " .. vim.fn.fnameescape(path))
+end
+
+-- netrw sets buffer-local maps that override globals, so set ours per buffer
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("UserNetrwKeymaps", { clear = true }),
+	pattern = "netrw",
+	callback = function(args)
+		local function bmap(lhs, rhs, desc, opts)
+			map("n", lhs, rhs, vim.tbl_extend("force", { buffer = args.buf, nowait = true, desc = desc }, opts or {}))
+		end
+
+		-- netrw binds <C-l> (refresh) and <C-h> (hide edit) unless their <Plug>
+		-- targets are already mapped, so move them to other keys first
+		bmap("<leader>r", "<Plug>NetrwRefresh", "netrw: refresh", { remap = true })
+		bmap("<leader>nh", "<Plug>NetrwHideEdit", "netrw: edit hide list", { remap = true })
+
+		-- Restore pane navigation
+		bmap("<C-h>", "<C-w>h", "Go to left pane")
+		bmap("<C-l>", "<C-w>l", "Go to right pane")
+
+		-- Splits (matches fzf.vim)
+		bmap("<C-v>", function() netrw_open_split("vsplit") end, "netrw: open in vertical split")
+		bmap("<C-x>", function() netrw_open_split("split") end, "netrw: open in horizontal split")
+	end,
+})
+
 -- Clear highlight
 map("n", "<leader>h", ":noh<Enter>")
 -- Toggle line wrap
