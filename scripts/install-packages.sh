@@ -133,6 +133,7 @@ if [ "${ID:-}" = "macos" ]; then
 
 	PKGS=(
 		curl
+		fd
 		fzf
 		git
         herdr
@@ -141,15 +142,17 @@ if [ "${ID:-}" = "macos" ]; then
 		openssh
 		tree-sitter-cli
 		pass
+		ripgrep
 		rsync
 		zsh
 	)
-	brew install -y "${PKGS[@]}"
+	brew install "${PKGS[@]}"
 
 elif [ "${ID:-}" = "arch" ]; then
     install_yay
 	PKGS=(
 		curl
+		fd
 		fzf
 		git
 		jq
@@ -157,6 +160,7 @@ elif [ "${ID:-}" = "arch" ]; then
 		openssh
 		tree-sitter-cli
 		pass
+		ripgrep
 		rsync
 		zsh
 	)
@@ -167,16 +171,22 @@ elif [ "${ID:-}" = "debian" ] || [ "${ID:-}" = "ubuntu" ]; then
 	PKGS=(
 		cron
 		curl
+		fd-find
 		gcc
 		git
 		jq
 		pass
+		ripgrep
 		rsync
 		software-properties-common
 		tree-sitter-cli
 		zsh
 	)
 	sudo apt update && sudo apt install -y "${PKGS[@]}"
+
+	# Debian ships fd as "fdfind" -> rename to  "fd" in .local/bin
+	mkdir -p "$HOME/.local/bin"
+	ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
 
 	# Add custom PPAs
 	sudo add-apt-repository ppa:neovim-ppa/unstable
@@ -186,25 +196,38 @@ elif [ "${ID:-}" = "debian" ] || [ "${ID:-}" = "ubuntu" ]; then
 	install_fzf
 	install_herdr
 
-elif [ "${ID:-}" = "ol" ]; then
+elif [ "${ID:-}" = "ol" ] || [ "${ID:-}" = "rhel" ]; then
+	# EPEL provides fd-find, fzf, pass, ripgrep, and tree-sitter-cli.
+	# VERSION_ID contains full verison (e.g. 9.4) -> repo names only use the major version.
+	EL_MAJOR="${VERSION_ID%%.*}"
+	if [ "${ID}" = "ol" ]; then
+		# The release package adds the EPEL repo already enabled.
+		sudo dnf install -y "oracle-epel-release-el${EL_MAJOR}"
+	else
+		# EPEL packages depend on CodeReady Builder (CRB) on RHEL.
+		sudo subscription-manager repos --enable "codeready-builder-for-rhel-${EL_MAJOR}-$(arch)-rpms"
+		sudo dnf install -y "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${EL_MAJOR}.noarch.rpm"
+	fi
+
 	PKGS=(
-		cargo
 		cronie
 		curl
+		fd-find
+		fzf
 		gcc
 		gcc-c++
 		git
 		jq
 		make
 		pass
+		ripgrep
 		rsync
-		rust
+		tree-sitter-cli
 		zsh
 	)
 	sudo dnf update -y && sudo dnf install -y "${PKGS[@]}"
 
-	install_fzf
+	# EPEL's neovim (0.8) is too old.
 	install_nvim
 	install_herdr
-	cargo install tree-sitter-cli
 fi
