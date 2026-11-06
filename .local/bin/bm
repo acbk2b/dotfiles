@@ -6,7 +6,7 @@ set -euo pipefail
 BM_DIR="${BM_DIR:=$HOME/notes/areas/bookmarks}"
 
 # Default to fzf for URL selection, optionally run as dmenu script with -d
-picker=(fzf)
+picker=(fzf --no-preview)
 if [[ "${1:-}" == "-d" ]]; then
 	picker=(rofi -dmenu)
 fi
