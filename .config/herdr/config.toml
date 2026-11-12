@@ -14,6 +14,7 @@ swap_pane_left = "prefix+shift+h"
 swap_pane_down = "prefix+shift+j"
 swap_pane_up = "prefix+shift+k"
 swap_pane_right = "prefix+shift+l"
+open_worktree = "prefix+shift+o"
 
 [ui]
 pane_gaps = false
