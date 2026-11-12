@@ -46,4 +46,33 @@ return {
       end,
     },
   },
+
+  -- Diffview: multi-file side-by-side diff review + file history
+  {
+    "sindrets/diffview.nvim",
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewRefresh",
+      "DiffviewFileHistory",
+      "DiffviewLog",
+    },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview: working tree" },
+      { "<leader>gD", ":DiffviewOpen ", desc = "Diffview: against rev..." },
+      { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "Diffview: close" },
+      { "<leader>gr", "<cmd>DiffviewRefresh<cr>", desc = "Diffview: refresh" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview: file history" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview: repo history" },
+      { "<leader>gh", ":DiffviewFileHistory<cr>", mode = "v", desc = "Diffview: range history" },
+    },
+    opts = {
+      enhanced_diff_hl = true, -- better add/delete highlighting
+      view = {
+        merge_tool = { layout = "diff3_mixed" },
+      },
+    },
+  },
 }

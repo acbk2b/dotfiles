@@ -15,5 +15,4 @@
 	path = ~/.gitconfig.work
 
 [alias]
-    # delta
     delta = -c core.pager=delta diff
