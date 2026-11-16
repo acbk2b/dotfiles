@@ -62,11 +62,8 @@ vf() {
 
 skills() {
     bunx skills add mattpocock/skills \
-          --skill domain-modeling \
           --skill grill-me \
-          --skill grill-with-docs \
           --skill grilling \
-          --skill improve-codebase-architecture \
           --skill teach \
           --agent codex \
           --global \
@@ -76,6 +73,11 @@ skills() {
           --skill how \
           --skill unslop \
           --skill show-me-your-work \
+          --agent codex \
+          --global \
+          -y
+    bunx skills add anthropics/skills \
+          --skill skill-creator \
           --agent codex \
           --global \
           -y
