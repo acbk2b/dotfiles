@@ -8,6 +8,15 @@
   - I prefer asking follow-up questions to reading long answers.
 - When I ask to explain something, do not automatically implement a fix
 
+## Tooling
+
+Prefer these CLIs when available (check with `command -v`); fall back gracefully otherwise.
+Prefer authenticated CLIs over scraping web pages or hand-rolled API calls.
+
+- GitHub: `gh`
+- GitLab: `glab`
+- Jira: `acli`
+
 ## Security
 
 - **Under no circumstances** read credentials, `.env` + vault files, etc
