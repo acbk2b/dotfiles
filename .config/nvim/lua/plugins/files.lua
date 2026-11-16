@@ -10,6 +10,7 @@ return {
                 markdown = { "prettier" },
                 python = { "black" },
                 rego = { "opa_fmt" },
+                swift = { "swift" },
                 terraform = { "terraform_fmt" },
                 tf = { "terraform_fmt" },
                 yaml = { "prettier" },
