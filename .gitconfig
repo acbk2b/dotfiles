@@ -16,3 +16,4 @@
 
 [alias]
     delta = -c core.pager=delta diff
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
